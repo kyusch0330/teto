@@ -38,12 +38,12 @@ export function registerUser(dataToSubmit) {
 export function authUser() {
   
   // 쿠키 외에 전송할 데이터 없음 (서버에서 토큰에서 사용자 아이디 추출가능)
-  const request = axios.get('/api/users/auth')
-    .then(response => response.data);
+  const response = axios.get('/api/users/auth')
+    .then(res => res.data);
 
   // user reducer로 보내서 저장할 데이터 반환
   return {
     type: AUTH_USER,
-    payload: request //사용자의 모든 정보가 담겨짐
+    payload: response //사용자의 모든 정보가 담겨짐
   }
 }

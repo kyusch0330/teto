@@ -73,7 +73,7 @@ app.post('/api/users/login', (req, res) => {
     if(!user) {
       return res.json({
         loginSuccess: false,
-        message: "제공된 이메일에 해당하는 유저가 없음"
+        message: "제공된 이메일에 해당하는 유저가 없습니다."
       })
     }
 
@@ -92,7 +92,7 @@ app.post('/api/users/login', (req, res) => {
         //지금은 쿠키에 저장한다. (cookie-parser를 이용)
         res.cookie('x_auth', user.token)
         .status(200)
-        .json({ loginSuccess: true, userId: user.id });
+        .json({ loginSuccess: true, userId:user._id });
       });
     });   
   });
@@ -102,7 +102,7 @@ app.post('/api/users/login', (req, res) => {
 //auth는 middleware, endpoint의 request를 받고 call back을 실행하기 전에 중간에서 수행하는 동작
 app.get('/api/users/auth', auth , (req, res) => {
 
-  //여기까지 왔으면 미들웨어를 통과해 왔다는 이야기, Authentication이 true라는 의미
+  //***여기까지 왔으면 미들웨어를 통과해 왔다는 이야기, Authentication이 true라는 의미
   res.status(200).json({
     //middleware auth.js에서 req에 user와 token을 전달해주어서 사용가능
     _id: req.user._id,
@@ -110,7 +110,6 @@ app.get('/api/users/auth', auth , (req, res) => {
     isAuth: true,
     email: req.user.email,
     name: req.user.name,
-    lastname: req.user.role,
     image: req.user.image
   });
   // 이렇게 정보를 주면 어떤 페이지서든 유저 정보를 활용 가능해져서 유용하다.

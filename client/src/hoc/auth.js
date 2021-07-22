@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { authUser } from '../_actions/user_action';
@@ -16,16 +16,22 @@ export default function (SpecificComponent, option ,adminRoute = null) {
     adminRoute : 어드민 유저만 들어갈 수 있는 페이지
   */
 
+
+
   function AuthenticationCheck(props) {
     //backend에 리퀘스트를 보내 유저의 현재 상태를 가져온다.
-
+    
+    const [userObj, setUserObj] = useState(null);
+    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
     useEffect(() => {
       ///api/users/auth 에 쿠키(토큰 포함)를 보내 DB의 토큰과 일치하는지 확인
       //axios.get('/api/users/auth')~ -> redux를 사용하지 않는 다면
+      console.log("auth Effect doing...")
       dispatch(authUser())
         .then((response) => {
+          setLoading(false);
           //사용자 상태별 페이지 분기처리
           
           if(!response.payload.isAuth) {
@@ -36,6 +42,7 @@ export default function (SpecificComponent, option ,adminRoute = null) {
             }
           } else {
             // 로그인 한 상태
+            setUserObj(response.payload); // 로그인한 user 정보 저장
             if(adminRoute && !response.payload.isAdmin) {
               //어드민만 들어올 수 있는데, 어드민이 아니라면
               props.history.push('/');
@@ -46,14 +53,11 @@ export default function (SpecificComponent, option ,adminRoute = null) {
               }
             }
           }
-
         });
-
     }, []);
 
-    return (
-      <SpecificComponent/>
-    );
+    if(loading) return null;
+    else return <SpecificComponent userObj={userObj}/> //Auth를 통해 전달받은 user 정보와 함께 반환(비로그인시 null)
   }
 
   return AuthenticationCheck

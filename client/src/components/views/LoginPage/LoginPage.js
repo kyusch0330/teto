@@ -30,9 +30,10 @@ function LoginPage(props) {
     dispatch(loginUser(body))
       .then(response => { //loginUser(body)의 반환값인 action 객체가 전달됨(???)
         if(response.payload.loginSuccess){
+          console.log(response);
           props.history.push('/');  //로그인 성공시 landing page로
         } else {
-          alert("로그인 실패");
+          alert("로그인 실패 : "+response.payload.message);
         }
       });
   };
