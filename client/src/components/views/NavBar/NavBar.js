@@ -6,9 +6,14 @@ function NavBar({isAuth,loading}) {
   return (
     <div>
      <Link to="/">Home</Link>
-     { !isAuth && !loading && (
+     {( !loading && !isAuth ) && (
       <><Link to="/register">Sign up</Link>
       <Link to="/login">Sign in</Link></>)
+     }
+     {
+       ( !loading && isAuth ) && (
+        <Link to ="/profile">Profile</Link>
+       )
      }
     </div>
   );

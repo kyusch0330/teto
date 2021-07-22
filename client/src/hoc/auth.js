@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { authUser } from '../_actions/user_action';
 
@@ -16,8 +15,6 @@ export default function (SpecificComponent, option ,adminRoute = null) {
     adminRoute : 어드민 유저만 들어갈 수 있는 페이지
   */
 
-
-
   function AuthenticationCheck(props) {
     //backend에 리퀘스트를 보내 유저의 현재 상태를 가져온다.
     
@@ -28,7 +25,6 @@ export default function (SpecificComponent, option ,adminRoute = null) {
     useEffect(() => {
       ///api/users/auth 에 쿠키(토큰 포함)를 보내 DB의 토큰과 일치하는지 확인
       //axios.get('/api/users/auth')~ -> redux를 사용하지 않는 다면
-      console.log("auth Effect doing...")
       dispatch(authUser())
         .then((response) => {
           setLoading(false);

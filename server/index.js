@@ -132,6 +132,24 @@ app.get('/api/users/logout', auth , (req, res) => {
     });
 });
 
+
+/* update profile router */
+app.put('/api/users/update_profile', auth, (req, res) => {
+  User.findOneAndUpdate(
+    {_id:req.user._id},
+    {
+      //수정할 profile 항목들 (req.body에 수정데이터 존재)
+      name: req.body.name
+    },
+    (err, user) => {
+      if(err) return res.json({success:false, err});
+      return res.status(200).send({
+        success:true
+      });
+    });
+});
+
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

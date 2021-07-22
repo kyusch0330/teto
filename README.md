@@ -1,10 +1,21 @@
-# Server-Client Boilerplate  
-
+# TeTo
+  
+# client  
+react  
+react-router  
+react-redux  
+redux-thunk  
+axios  
+SCSS  
+  
 # Server  
 express.js  
-mongoDB, mongoose
+nodemon  
+mongoose  
+bcrypt  
+jsonwebtoken  
+cookie-parser  
 
-# client  
-React  
-Redux  
-React Router
+# DB  
+mongoDB  
+

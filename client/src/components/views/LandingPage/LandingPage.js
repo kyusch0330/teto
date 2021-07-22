@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 //history는 react-router-dom을 이용해서 사용하는 것
 //HOC를 거쳐도 history.push를 사용할 수 있도록 import
