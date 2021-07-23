@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 function Profile({ userObj }) {
   const [name, setName] = useState(userObj.name);
@@ -37,7 +38,7 @@ function Profile({ userObj }) {
   );
 }
 
-export default Profile;
+export default withRouter(Profile);
 // const mapStateToProps = (state, ownProps) => {
 //   return { userObj: state.user.userData };
 // };

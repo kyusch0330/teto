@@ -4,15 +4,41 @@ function Question({ types, onSaveQuestion }) {
   console.log("Question rendering...");
   const [text, setText] = useState("");
   const [description, setDescription] = useState("");
-  const [checkLimit, setCheckLimit] = useState({ min: 1, max: 1 });
+  const [checkNum, setCheckNum] = useState(1);
   const [options, setOptions] = useState([
     { optionText: "", for: types[0].name, weight: 1 },
   ]);
+  const [error, setError] = useState("");
+
   const handleTextChange = (e) => {
-    setText(e.target.value);
+    const nextText = e.target.value;
+    if (nextText.length > 100) {
+      setError("Text must be less than 100 letters.");
+    } else {
+      setError("");
+      setText(nextText);
+    }
   };
   const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+    const nextDescription = e.target.value;
+    if (nextDescription.length > 50) {
+      setError("Description must be less than 50 letters.");
+    } else {
+      setError("");
+      setDescription(nextDescription);
+    }
+  };
+
+  const handleCheckNumChange = (e) => {
+    const nextCheckNum = Number(e.target.value);
+    if (nextCheckNum <= 0) {
+      setError("The number to check must be greater than zero.");
+    } else if (nextCheckNum > options.length) {
+      setError("The number to check must be less than the number of options.");
+    } else {
+      setError("");
+      setCheckNum(nextCheckNum);
+    }
   };
 
   const handleAddOptionClick = (e) => {
@@ -26,17 +52,24 @@ function Question({ types, onSaveQuestion }) {
   };
 
   const handleOptionTextChange = (index) => (e) => {
-    setOptions(
-      options
-        .slice(0, index)
-        .concat({
-          optionText: e.target.value,
-          for: options[index].for,
-          weight: options[index].weight,
-        })
-        .concat(options.slice(index + 1, options.length))
-    );
+    const nextOptionText = e.target.value;
+    if (nextOptionText.length > 100) {
+      setError("Option text must be less than 100 letters.");
+    } else {
+      setError("");
+      setOptions(
+        options
+          .slice(0, index)
+          .concat({
+            optionText: e.target.value,
+            for: options[index].for,
+            weight: options[index].weight,
+          })
+          .concat(options.slice(index + 1, options.length))
+      );
+    }
   };
+
   const handleOptionWeightChange = (index) => (e) => {
     setOptions(
       options
@@ -54,6 +87,7 @@ function Question({ types, onSaveQuestion }) {
     onSaveQuestion({
       text,
       description,
+      checkNum,
       options,
     });
   };
@@ -71,7 +105,10 @@ function Question({ types, onSaveQuestion }) {
           onChange={handleDescriptionChange}
         />
       </label>
-
+      <label>
+        Number to check
+        <input type="number" value={checkNum} onChange={handleCheckNumChange} />
+      </label>
       <ol>
         {options.map((option, index) => (
           <li>
@@ -99,6 +136,7 @@ function Question({ types, onSaveQuestion }) {
       <button type="button" onClick={handleAddOptionClick}>
         Add option
       </button>
+      <h5>{error}</h5>
     </li>
   );
 }

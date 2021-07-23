@@ -53,6 +53,7 @@ function CreateSurvey() {
         .concat({
           text: newQuestion.text,
           description: newQuestion.description,
+          checkNum: newQuestion.checkNum,
           options: newQuestion.options,
         })
         .concat(questions.slice(index + 1, questions.length))

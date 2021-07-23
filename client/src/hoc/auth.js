@@ -25,7 +25,6 @@ export default function (SpecificComponent, option, adminRoute = null) {
       ///api/users/auth 에 쿠키(토큰 포함)를 보내 DB의 토큰과 일치하는지 확인
       //axios.get('/api/users/auth')~ -> redux를 사용하지 않는 다면
       dispatch(authUser()).then((response) => {
-        setLoading(false);
         //사용자 상태별 페이지 분기처리
 
         if (!response.payload.isAuth) {
@@ -47,6 +46,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
             }
           }
         }
+        setLoading(false);
       });
     }, []);
 

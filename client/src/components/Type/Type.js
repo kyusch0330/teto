@@ -4,13 +4,26 @@ function Type({ onSaveType }) {
   console.log("type rendering...");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    const nextName = e.target.value;
+    if (nextName.length > 20) {
+      setError("Name must be no more than 20 characters.");
+    } else {
+      setError("");
+      setName(nextName);
+    }
   };
 
   const handleDescriptionChange = (e) => {
-    setDescription(e.target.value);
+    const nextDescription = e.target.value;
+    if (nextDescription.length > 100) {
+      setError("Description must be no more than 100 characters.");
+    } else {
+      setError("");
+      setDescription(nextDescription);
+    }
   };
 
   const handleSaveType = (e) => {
@@ -33,6 +46,7 @@ function Type({ onSaveType }) {
           onChange={handleDescriptionChange}
         />
       </label>
+      <h5>{error}</h5>
     </li>
   );
 }
