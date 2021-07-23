@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import useInput from "../../../Hooks/useInput";
+import React, { useState } from "react";
 import Question from "../../Question/Question";
 import Type from "../../Type/Type";
 
@@ -15,19 +13,15 @@ function CreateSurvey() {
 
   //각 Type에 전달
   const handleSaveType = (index) => (newType) => {
-    setTypes((types) => {
-      const newTypes = types.map((type) => {
-        return {
-          name: type.name,
-          description: type.description,
-        };
-      });
-      newTypes[index] = {
-        name: newType.name,
-        description: newType.description,
-      };
-      return newTypes;
-    });
+    setTypes(
+      types
+        .slice(0, index)
+        .concat({
+          name: newType.name,
+          description: newType.description,
+        })
+        .concat(types.slice(index + 1, questions.length))
+    );
   };
 
   const handleAddTypeClick = () => {
@@ -53,19 +47,16 @@ function CreateSurvey() {
 
   //각 Question에 전달
   const handleSaveQuestion = (index) => (newQuestion) => {
-    setQuestions((questions) => {
-      const newQuestions = questions.map((question) => {
-        return {
-          text: question.text,
-          description: question.description,
-        };
-      });
-      newQuestions[index] = {
-        text: newQuestion.text,
-        description: newQuestion.description,
-      };
-      return newQuestions;
-    });
+    setQuestions(
+      questions
+        .slice(0, index)
+        .concat({
+          text: newQuestion.text,
+          description: newQuestion.description,
+          options: newQuestion.options,
+        })
+        .concat(questions.slice(index + 1, questions.length))
+    );
   };
 
   const handleAddQuestionClick = (e) => {
@@ -74,37 +65,49 @@ function CreateSurvey() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(types);
-    console.log(questions);
+    const submitObj = {
+      types,
+      questions,
+    };
+    console.log(submitObj);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      CreateSurvey
-      {types.map((type, index) => {
-        return <Type key={index} onSaveType={handleSaveType(index)} />;
-      })}
+      <h2>CreateSurvey</h2>
+
+      <h3>types</h3>
+      <ol>
+        {types.map((type, index) => {
+          return <Type key={index} onSaveType={handleSaveType(index)} />;
+        })}
+      </ol>
       <button type="button" onClick={handleAddTypeClick}>
         Add Type
       </button>
       <button type="button" onClick={handleFixTypes}>
         Save Types
       </button>
-      <ol>
-        {questions.map((question, index) => {
-          return (
-            <Question
-              key={index}
-              onSaveQuestion={handleSaveQuestion(index)}
-              types={fixedTypes}
-            />
-          );
-        })}
-      </ol>
-      <button type="button" onClick={handleAddQuestionClick}>
-        Add Question
-      </button>
-      <button>Submit</button>
+      {fixedTypes.length > 0 && (
+        <div>
+          <h3>Questions</h3>
+          <ol>
+            {questions.map((question, index) => {
+              return (
+                <Question
+                  key={index}
+                  onSaveQuestion={handleSaveQuestion(index)}
+                  types={fixedTypes}
+                />
+              );
+            })}
+          </ol>
+          <button type="button" onClick={handleAddQuestionClick}>
+            Add Question
+          </button>
+          <button>Submit</button>
+        </div>
+      )}
     </form>
   );
 }

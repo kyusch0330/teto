@@ -20,26 +20,20 @@ function Type({ onSaveType }) {
     });
   };
   return (
-    <div>
+    <li onBlur={handleSaveType}>
       <label>
         type name
-        <input
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-          onBlur={handleSaveType}
-        />
+        <input type="text" value={name} onChange={handleNameChange} />
       </label>
       <label>
         type description
-        <input
-          type="text"
+        <textarea
+          rows="4"
           value={description}
           onChange={handleDescriptionChange}
-          onBlur={handleSaveType}
         />
       </label>
-    </div>
+    </li>
   );
 }
 
