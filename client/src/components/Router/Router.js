@@ -9,6 +9,7 @@ import Profile from "../views/Profile/Profile";
 import Survey from "../views/Survey/Survey";
 import Bingo from "../views/Bingo/Bingo";
 import About from "../views/About/About";
+import CreateSurvey from "../views/CreateSurvey/CreateSurvey";
 
 function AppRouter() {
   return (
@@ -20,6 +21,11 @@ function AppRouter() {
         <Route exact path="/register" component={Auth(RegisterPage, false)} />
         <Route exact path="/profile" component={Auth(Profile, true)} />
         <Route exact path="/survey" component={Survey} />
+        <Route
+          exact
+          path="/survey/create"
+          component={Auth(CreateSurvey, true)}
+        />
         <Route exact path="/bingo" component={Bingo} />
         <Route exact path="/about" component={About} />
       </Switch>

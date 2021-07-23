@@ -37,8 +37,9 @@ function Profile({ userObj }) {
   );
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return { userObj: state.user.userData };
-};
+export default Profile;
+// const mapStateToProps = (state, ownProps) => {
+//   return { userObj: state.user.userData };
+// };
 
-export default connect(mapStateToProps)(Profile);
+// export default connect(mapStateToProps)(Profile);

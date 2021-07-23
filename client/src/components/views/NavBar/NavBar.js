@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function NavBar({ isAuth, loading }) {
   return (
-    <div>
+    <nav>
       <Link to="/">Home</Link>
       {!loading && !isAuth && (
         <>
@@ -16,7 +16,7 @@ function NavBar({ isAuth, loading }) {
       <Link to="/survey">Survey</Link>
       <Link to="/bingo">Bingo</Link>
       <Link to="/about">About</Link>
-    </div>
+    </nav>
   );
 }
 
