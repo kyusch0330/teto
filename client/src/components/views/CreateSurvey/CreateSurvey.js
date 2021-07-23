@@ -1,8 +1,15 @@
+import axios from "axios";
 import React, { useState } from "react";
 import Question from "../../Question/Question";
 import Type from "../../Type/Type";
 
 function CreateSurvey() {
+  const [title, setTitle] = useState("");
+  const handleTitleChange = (e) => {
+    const nextTitle = e.target.value;
+    // validation 추가
+    setTitle(nextTitle);
+  };
   /* types */
   const [types, setTypes] = useState([
     {
@@ -66,16 +73,23 @@ function CreateSurvey() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const submitObj = {
+    const dataToSubmit = {
+      title,
       types,
       questions,
     };
-    console.log(submitObj);
+    console.log(dataToSubmit);
+    const response = axios
+      .post("/api/surveys/upload", dataToSubmit)
+      .then((response) => console.log(response.data));
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>CreateSurvey</h2>
+      <label>
+        Title <input type="text" value={title} onChange={handleTitleChange} />
+      </label>
 
       <h3>types</h3>
       <ol>
