@@ -6,7 +6,7 @@ function Question({ types, onSaveQuestion }) {
   const [description, setDescription] = useState("");
   const [checkNum, setCheckNum] = useState(1);
   const [options, setOptions] = useState([
-    { optionText: "", for: types[0].name, weight: 1 },
+    { optionText: "", for: 0, weight: 1 },
   ]);
   const [error, setError] = useState("");
 
@@ -19,6 +19,7 @@ function Question({ types, onSaveQuestion }) {
       setText(nextText);
     }
   };
+
   const handleDescriptionChange = (e) => {
     const nextDescription = e.target.value;
     if (nextDescription.length > 50) {
@@ -41,11 +42,12 @@ function Question({ types, onSaveQuestion }) {
     }
   };
 
+  /* option */
   const handleAddOptionClick = (e) => {
     setOptions(
       options.concat({
         optionText: "",
-        for: types[0].name,
+        for: 0,
         weight: 1,
       })
     );
@@ -61,23 +63,37 @@ function Question({ types, onSaveQuestion }) {
         options
           .slice(0, index)
           .concat({
-            optionText: e.target.value,
-            for: options[index].for,
-            weight: options[index].weight,
+            ...options[index],
+            optionText: nextOptionText,
           })
           .concat(options.slice(index + 1, options.length))
       );
     }
   };
 
-  const handleOptionWeightChange = (index) => (e) => {
+  const handleForTypeChange = (index) => (e) => {
+    const nextForType = Number(e.target.value);
+    console.log("ForType Change...");
+    console.log(types[nextForType]);
     setOptions(
       options
         .slice(0, index)
         .concat({
-          optionText: options[index].optionText,
-          for: options[index].for,
-          weight: Number(e.target.value),
+          ...options[index],
+          for: nextForType,
+        })
+        .concat(options.slice(index + 1, options.length))
+    );
+  };
+
+  const handleOptionWeightChange = (index) => (e) => {
+    const nextOptionWeight = Number(e.target.value);
+    setOptions(
+      options
+        .slice(0, index)
+        .concat({
+          ...options[index],
+          weight: nextOptionWeight,
         })
         .concat(options.slice(index + 1, options.length))
     );
@@ -99,11 +115,7 @@ function Question({ types, onSaveQuestion }) {
       </label>
       <label>
         description
-        <textarea
-          value={description}
-          rows="3"
-          onChange={handleDescriptionChange}
-        />
+        <textarea value={description} onChange={handleDescriptionChange} />
       </label>
       <label>
         Number to check
@@ -120,9 +132,13 @@ function Question({ types, onSaveQuestion }) {
                 onChange={handleOptionTextChange(index)}
               />
             </label>
-            <select name="forType">
-              {types.map((type) => {
-                return <option value={type.name}>{type.name}</option>;
+            <select
+              name="forType"
+              value={options[index].for}
+              onChange={handleForTypeChange(index)}
+            >
+              {types.map((type, index) => {
+                return <option value={index}>{type.name}</option>;
               })}
             </select>
             <input

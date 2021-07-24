@@ -4,12 +4,34 @@ import Question from "../../Question/Question";
 import Type from "../../Type/Type";
 
 function CreateSurvey() {
+  const [error, setError] = useState("");
+
+  /* title */
   const [title, setTitle] = useState("");
+
   const handleTitleChange = (e) => {
     const nextTitle = e.target.value;
-    // validation 추가
-    setTitle(nextTitle);
+    if (nextTitle.length > 100) {
+      setError("too long title");
+    } else {
+      setError("");
+      setTitle(nextTitle);
+    }
   };
+
+  /* description */
+  const [description, setDescription] = useState("");
+
+  const handleDescriptionChange = (e) => {
+    const nextDescription = e.target.value;
+    if (nextDescription.length > 1000) {
+      setError("too long description");
+    } else {
+      setError("");
+      setDescription(e.target.value);
+    }
+  };
+
   /* types */
   const [types, setTypes] = useState([
     {
@@ -23,11 +45,8 @@ function CreateSurvey() {
     setTypes(
       types
         .slice(0, index)
-        .concat({
-          name: newType.name,
-          description: newType.description,
-        })
-        .concat(types.slice(index + 1, questions.length))
+        .concat(newType)
+        .concat(types.slice(index + 1, types.length))
     );
   };
 
@@ -38,13 +57,20 @@ function CreateSurvey() {
   const [fixedTypes, setFixedTypes] = useState([]);
 
   const handleFixTypes = () => {
-    const typeToSave = types.map((type) => {
-      return {
-        name: type.name,
-        description: type.description,
-      };
+    let willFix = true;
+    let errorType = 0;
+    const typeToSave = types.map((type, index) => {
+      if (!type.name) {
+        willFix = false;
+        errorType = index;
+      }
+      return { ...type };
     });
-    setFixedTypes(typeToSave);
+    if (!willFix) {
+      setError(`Type #${errorType} is error`);
+    } else {
+      setFixedTypes(typeToSave);
+    }
   };
 
   /* questions */
@@ -54,15 +80,11 @@ function CreateSurvey() {
 
   //각 Question에 전달
   const handleSaveQuestion = (index) => (newQuestion) => {
+    console.log(newQuestion);
     setQuestions(
       questions
         .slice(0, index)
-        .concat({
-          text: newQuestion.text,
-          description: newQuestion.description,
-          checkNum: newQuestion.checkNum,
-          options: newQuestion.options,
-        })
+        .concat(newQuestion)
         .concat(questions.slice(index + 1, questions.length))
     );
   };
@@ -88,10 +110,24 @@ function CreateSurvey() {
     <form onSubmit={handleSubmit}>
       <h2>CreateSurvey</h2>
       <label>
-        Title <input type="text" value={title} onChange={handleTitleChange} />
+        Title{" "}
+        <input
+          type="text"
+          value={title}
+          onChange={handleTitleChange}
+          placeholder={"write title"}
+        />
       </label>
-
-      <h3>types</h3>
+      <label>
+        Description{" "}
+        <textarea
+          value={description}
+          onChange={handleDescriptionChange}
+          placeholder={"write description"}
+        ></textarea>
+      </label>
+      <h5>{error}</h5>
+      <h3>Types</h3>
       <ol>
         {types.map((type, index) => {
           return <Type key={index} onSaveType={handleSaveType(index)} />;

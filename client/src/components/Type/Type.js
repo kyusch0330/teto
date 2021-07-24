@@ -40,11 +40,7 @@ function Type({ onSaveType }) {
       </label>
       <label>
         type description
-        <textarea
-          rows="4"
-          value={description}
-          onChange={handleDescriptionChange}
-        />
+        <textarea value={description} onChange={handleDescriptionChange} />
       </label>
       <h5>{error}</h5>
     </li>
