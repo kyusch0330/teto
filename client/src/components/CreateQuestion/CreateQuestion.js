@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CreateOption from "../CreateOption/CreateOption";
 
-function CreateQuestion({ types, onSaveQuestion }) {
+function CreateQuestion({ types, onSaveQuestion, onDeleteQuestion }) {
   console.log("Question rendering...");
   const [text, setText] = useState("");
   const [description, setDescription] = useState("");
@@ -45,8 +45,10 @@ function CreateQuestion({ types, onSaveQuestion }) {
 
   /* option */
   const handleAddOptionClick = (e) => {
+    if (options.length >= 10) return;
     setOptions(
       options.concat({
+        id: Date.now(),
         optionText: "",
         forType: 0,
         weight: 1,
@@ -56,12 +58,21 @@ function CreateQuestion({ types, onSaveQuestion }) {
 
   // 각 CreateOption에 전달
   const handleSaveOption = (index) => (newOption) => {
-    console.log(newOption);
     setOptions(
       options
         .slice(0, index)
-        .concat(newOption)
+        .concat({
+          id: options[index].id,
+          ...newOption,
+        })
         .concat(options.slice(index + 1, options.length))
+    );
+  };
+
+  const handleDeleteOption = (index) => () => {
+    if (options.length <= 1) return;
+    setOptions(
+      options.slice(0, index).concat(options.slice(index + 1, options.length))
     );
   };
 
@@ -76,7 +87,7 @@ function CreateQuestion({ types, onSaveQuestion }) {
   };
 
   return (
-    <li onBlur={handleSaveQuestion}>
+    <div onBlur={handleSaveQuestion}>
       <label>
         question
         <input type="text" value={text} onChange={handleTextChange} />
@@ -89,13 +100,18 @@ function CreateQuestion({ types, onSaveQuestion }) {
         Number to check
         <input type="number" value={checkNum} onChange={handleCheckNumChange} />
       </label>
+      <button type="button" onClick={onDeleteQuestion}>
+        delete
+      </button>
       <ol>
         {options.map((option, index) => (
           <li>
             <CreateOption
+              key={option.id}
               option={option}
               types={types}
               onSaveOption={handleSaveOption(index)}
+              onDeleteOption={handleDeleteOption(index)}
               sendError={setError}
             />
           </li>
@@ -105,7 +121,7 @@ function CreateQuestion({ types, onSaveQuestion }) {
         Add option
       </button>
       <h5>{error}</h5>
-    </li>
+    </div>
   );
 }
 export default CreateQuestion;

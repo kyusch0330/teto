@@ -1,6 +1,12 @@
 import React from "react";
 
-function CreateOption({ option, onSaveOption, types, sendError }) {
+function CreateOption({
+  option,
+  onSaveOption,
+  onDeleteOption,
+  types,
+  sendError,
+}) {
   const handleOptionTextChange = (e) => {
     const nextOptionText = e.target.value;
     if (nextOptionText.length > 100) {
@@ -57,6 +63,9 @@ function CreateOption({ option, onSaveOption, types, sendError }) {
         value={option.weight}
         onChange={handleWeightChange}
       />
+      <button type="button" onClick={onDeleteOption}>
+        delete
+      </button>
     </div>
   );
 }

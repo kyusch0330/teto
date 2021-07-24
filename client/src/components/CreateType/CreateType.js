@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function CreateType({ onSaveType }) {
+function CreateType({ onSaveType, onDeleteType }) {
   console.log("type rendering...");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -32,8 +32,9 @@ function CreateType({ onSaveType }) {
       description,
     });
   };
+
   return (
-    <li onBlur={handleSaveType}>
+    <div onBlur={handleSaveType}>
       <label>
         type name
         <input type="text" value={name} onChange={handleNameChange} />
@@ -42,8 +43,11 @@ function CreateType({ onSaveType }) {
         type description
         <textarea value={description} onChange={handleDescriptionChange} />
       </label>
+      <button type="button" onClick={onDeleteType}>
+        delete
+      </button>
       <h5>{error}</h5>
-    </li>
+    </div>
   );
 }
 
