@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Type({ onSaveType }) {
+function CreateType({ onSaveType }) {
   console.log("type rendering...");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -47,4 +47,4 @@ function Type({ onSaveType }) {
   );
 }
 
-export default Type;
+export default CreateType;

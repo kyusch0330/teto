@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import Question from "../../Question/Question";
-import Type from "../../Type/Type";
+import CreateQuestion from "../../CreateQuestion/CreateQuestion";
+import CreateType from "../../CreateType/CreateType";
 
 function CreateSurvey() {
   const [error, setError] = useState("");
@@ -40,7 +40,7 @@ function CreateSurvey() {
     },
   ]);
 
-  //각 Type에 전달
+  //각 CreateType에 전달
   const handleSaveType = (index) => (newType) => {
     setTypes(
       types
@@ -78,7 +78,7 @@ function CreateSurvey() {
     { text: "", description: "", options: {} },
   ]);
 
-  //각 Question에 전달
+  //각 CreateQuestion에 전달
   const handleSaveQuestion = (index) => (newQuestion) => {
     console.log(newQuestion);
     setQuestions(
@@ -130,7 +130,7 @@ function CreateSurvey() {
       <h3>Types</h3>
       <ol>
         {types.map((type, index) => {
-          return <Type key={index} onSaveType={handleSaveType(index)} />;
+          return <CreateType key={index} onSaveType={handleSaveType(index)} />;
         })}
       </ol>
       <button type="button" onClick={handleAddTypeClick}>
@@ -145,7 +145,7 @@ function CreateSurvey() {
           <ol>
             {questions.map((question, index) => {
               return (
-                <Question
+                <CreateQuestion
                   key={index}
                   onSaveQuestion={handleSaveQuestion(index)}
                   types={fixedTypes}

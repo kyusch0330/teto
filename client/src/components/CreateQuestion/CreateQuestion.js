@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import CreateOption from "../CreateOption/CreateOption";
 
-function Question({ types, onSaveQuestion }) {
+function CreateQuestion({ types, onSaveQuestion }) {
   console.log("Question rendering...");
   const [text, setText] = useState("");
   const [description, setDescription] = useState("");
   const [checkNum, setCheckNum] = useState(1);
   const [options, setOptions] = useState([
-    { optionText: "", for: 0, weight: 1 },
+    { optionText: "", forType: 0, weight: 1 },
   ]);
   const [error, setError] = useState("");
 
@@ -47,66 +48,33 @@ function Question({ types, onSaveQuestion }) {
     setOptions(
       options.concat({
         optionText: "",
-        for: 0,
+        forType: 0,
         weight: 1,
       })
     );
   };
 
-  const handleOptionTextChange = (index) => (e) => {
-    const nextOptionText = e.target.value;
-    if (nextOptionText.length > 100) {
-      setError("Option text must be less than 100 letters.");
-    } else {
-      setError("");
-      setOptions(
-        options
-          .slice(0, index)
-          .concat({
-            ...options[index],
-            optionText: nextOptionText,
-          })
-          .concat(options.slice(index + 1, options.length))
-      );
-    }
-  };
-
-  const handleForTypeChange = (index) => (e) => {
-    const nextForType = Number(e.target.value);
-    console.log("ForType Change...");
-    console.log(types[nextForType]);
+  // 각 CreateOption에 전달
+  const handleSaveOption = (index) => (newOption) => {
+    console.log(newOption);
     setOptions(
       options
         .slice(0, index)
-        .concat({
-          ...options[index],
-          for: nextForType,
-        })
-        .concat(options.slice(index + 1, options.length))
-    );
-  };
-
-  const handleOptionWeightChange = (index) => (e) => {
-    const nextOptionWeight = Number(e.target.value);
-    setOptions(
-      options
-        .slice(0, index)
-        .concat({
-          ...options[index],
-          weight: nextOptionWeight,
-        })
+        .concat(newOption)
         .concat(options.slice(index + 1, options.length))
     );
   };
 
   const handleSaveQuestion = () => {
-    onSaveQuestion({
+    const newQuestion = {
       text,
       description,
       checkNum,
       options,
-    });
+    };
+    onSaveQuestion(newQuestion);
   };
+
   return (
     <li onBlur={handleSaveQuestion}>
       <label>
@@ -124,27 +92,11 @@ function Question({ types, onSaveQuestion }) {
       <ol>
         {options.map((option, index) => (
           <li>
-            <label>
-              optionText
-              <input
-                type="text"
-                value={options[index].optionText}
-                onChange={handleOptionTextChange(index)}
-              />
-            </label>
-            <select
-              name="forType"
-              value={options[index].for}
-              onChange={handleForTypeChange(index)}
-            >
-              {types.map((type, index) => {
-                return <option value={index}>{type.name}</option>;
-              })}
-            </select>
-            <input
-              type="number"
-              value={options[index].weight}
-              onChange={handleOptionWeightChange(index)}
+            <CreateOption
+              option={option}
+              types={types}
+              onSaveOption={handleSaveOption(index)}
+              sendError={setError}
             />
           </li>
         ))}
@@ -156,4 +108,4 @@ function Question({ types, onSaveQuestion }) {
     </li>
   );
 }
-export default Question;
+export default CreateQuestion;
