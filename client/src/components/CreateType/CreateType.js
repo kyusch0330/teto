@@ -1,32 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import useCreateSingleType from "../../Hooks/useCreateSingleType";
 
 function CreateType({ onSaveType, onDeleteType }) {
-  console.log("type rendering...");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [error, setError] = useState("");
+  const {
+    name,
+    description,
+    handleNameChange,
+    handleDescriptionChange,
+    error,
+  } = useCreateSingleType();
 
-  const handleNameChange = (e) => {
-    const nextName = e.target.value;
-    if (nextName.length > 20) {
-      setError("Name must be no more than 20 characters.");
-    } else {
-      setError("");
-      setName(nextName);
-    }
-  };
-
-  const handleDescriptionChange = (e) => {
-    const nextDescription = e.target.value;
-    if (nextDescription.length > 100) {
-      setError("Description must be no more than 100 characters.");
-    } else {
-      setError("");
-      setDescription(nextDescription);
-    }
-  };
-
-  const handleSaveType = (e) => {
+  const handleSaveType = () => {
     onSaveType({
       name,
       description,

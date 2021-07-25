@@ -7,6 +7,10 @@ function CreateOption({
   types,
   sendError,
 }) {
+  const handleSaveOption = (newOption) => {
+    onSaveOption(newOption);
+  };
+
   const handleOptionTextChange = (e) => {
     const nextOptionText = e.target.value;
     if (nextOptionText.length > 100) {
@@ -35,10 +39,6 @@ function CreateOption({
     });
   };
 
-  const handleSaveOption = (newOption) => {
-    onSaveOption(newOption);
-  };
-
   return (
     <div>
       <label>
@@ -55,7 +55,11 @@ function CreateOption({
         onChange={handleForTypeChange}
       >
         {types.map((type, index) => {
-          return <option value={index}>{type.name}</option>;
+          return (
+            <option key={type.id} value={type.id}>
+              {type.name}
+            </option>
+          );
         })}
       </select>
       <input

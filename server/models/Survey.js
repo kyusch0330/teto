@@ -7,6 +7,9 @@ const surveySchema = mongoose.Schema({
   userId: {
     type: String,
   },
+  createdAt: {
+    type: String,
+  },
   // uploadTime: {
   //   year: {
 

@@ -1,129 +1,28 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import CreateQuestion from "../../CreateQuestion/CreateQuestion";
-import CreateType from "../../CreateType/CreateType";
-import usePreventLeave from "../../../Hooks/usePreventLeave";
+import React, { useState } from "react";
 import { Prompt, useHistory } from "react-router-dom";
+import axios from "axios";
+import CreateType from "../../CreateType/CreateType";
+import CreateQuestion from "../../CreateQuestion/CreateQuestion";
+import useCreateTypes from "../../../Hooks/useCreateTypes";
+import useCreateSurveyHeader from "../../../Hooks/useCreateSurveyHeader";
+import useCreateSurveyQuestions from "../../../Hooks/useCreateSurveyQuestions";
+import usePreventCreatePageLeave from "../../../Hooks/usePreventCreatePageLeave";
 
 function CreateSurvey({ userObj }) {
   const [error, setError] = useState("");
-  const [typeError, setTypeError] = useState("");
 
-  /* title */
-  const [title, setTitle] = useState("");
+  const {
+    title,
+    description,
+    handleTitleChange,
+    handleDescriptionChange,
+    headerError,
+  } = useCreateSurveyHeader();
 
-  const handleTitleChange = (e) => {
-    const nextTitle = e.target.value;
-    if (nextTitle.length > 100) {
-      setError("too long title");
-    } else {
-      setError("");
-      setTitle(nextTitle);
-    }
-  };
+  const { types, typeMethods, fixedTypes, handleFixTypes, fixTypesError } =
+    useCreateTypes();
 
-  /* description */
-  const [description, setDescription] = useState("");
-
-  const handleDescriptionChange = (e) => {
-    const nextDescription = e.target.value;
-    if (nextDescription.length > 1000) {
-      setError("too long description");
-    } else {
-      setError("");
-      setDescription(e.target.value);
-    }
-  };
-
-  /* types */
-  const [types, setTypes] = useState([
-    {
-      name: "",
-      description: "",
-    },
-  ]);
-
-  //각 CreateType에 전달
-  const handleSaveType = (index) => (newType) => {
-    setTypes(
-      types
-        .slice(0, index)
-        .concat({
-          id: types[index].id,
-          ...newType,
-        })
-        .concat(types.slice(index + 1, types.length))
-    );
-  };
-
-  const handleDeleteType = (index) => () => {
-    console.log(
-      types.slice(0, index).concat(types.slice(index + 1, types.length))
-    );
-    setTypes(
-      types.slice(0, index).concat(types.slice(index + 1, types.length))
-    );
-  };
-
-  const handleAddTypeClick = () => {
-    setTypes(types.concat({ id: Date.now(), name: "", description: "" }));
-  };
-
-  const [fixedTypes, setFixedTypes] = useState([]);
-
-  const handleFixTypes = () => {
-    let willFix = true;
-    let errorType = 0;
-    const typeToSave = types.map((type, index) => {
-      if (!type.name) {
-        willFix = false;
-        errorType = index;
-      }
-      return { ...type };
-    });
-    if (!willFix) {
-      setTypeError(`Type #${errorType} is error`);
-    } else {
-      setFixedTypes(typeToSave);
-    }
-  };
-
-  /* questions */
-  const [questions, setQuestions] = useState([
-    { text: "", description: "", options: {} },
-  ]);
-
-  //각 CreateQuestion에 전달
-  const handleSaveQuestion = (index) => (newQuestion) => {
-    setQuestions(
-      questions
-        .slice(0, index)
-        .concat({
-          id: questions[index].id,
-          ...newQuestion,
-        })
-        .concat(questions.slice(index + 1, questions.length))
-    );
-  };
-
-  const handleDeleteQuestion = (index) => () => {
-    setQuestions(
-      questions
-        .slice(0, index)
-        .concat(questions.slice(index + 1, questions.length))
-    );
-  };
-
-  const handleAddQuestionClick = (e) => {
-    setQuestions(
-      questions.concat({
-        id: Date.now(),
-        text: "",
-        description: "",
-        options: {},
-      })
-    );
-  };
+  const { questions, questionMethods } = useCreateSurveyQuestions();
 
   /* submit*/
   const submitValidator = () => {
@@ -157,12 +56,13 @@ function CreateSurvey({ userObj }) {
     } else {
       setError("");
     }
-
+    // 게시판으로 나갈 수 있게
     disablePrevent();
     const dataToSubmit = {
       userId: userObj._id,
       createdAt: Date.now(),
       title,
+      description,
       types,
       questions,
     };
@@ -171,20 +71,15 @@ function CreateSurvey({ userObj }) {
       .post("/api/surveys/upload", dataToSubmit)
       .then((response) => console.log(response.data))
       .then(() => history.push("/survey"))
-      .catch((err) => setError("upload fail"));
+      .catch((err) => setError("Upload Fail" + err));
   };
 
-  const { blocked, enablePrevent, disablePrevent } = usePreventLeave();
-  useEffect(() => {
-    if (title !== "" || description !== "" || types[0].name !== "") {
-      enablePrevent();
-    } else {
-      disablePrevent();
-    }
-    return function cleanUp() {
-      disablePrevent();
-    };
-  }, [title, description, types]);
+  // 작성 중인 페이지 실수로 벗어나는 것 방지
+  const { blocked, disablePrevent } = usePreventCreatePageLeave([
+    title,
+    description,
+    types[0].name,
+  ]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -211,22 +106,24 @@ function CreateSurvey({ userObj }) {
           placeholder={"write description"}
         ></textarea>
       </label>
+      <h5>{headerError}</h5>
       <h3>Types</h3>
       <ol>
         {types.map((type, index) => {
           return (
-            <CreateType
-              key={type.id}
-              onSaveType={handleSaveType(index)}
-              onDeleteType={handleDeleteType(index)}
-            />
+            <li key={type.id}>
+              <CreateType
+                onSaveType={typeMethods.handleSaveType(index)}
+                onDeleteType={typeMethods.handleDeleteType(index)}
+              />
+            </li>
           );
         })}
       </ol>
-      <button type="button" onClick={handleAddTypeClick}>
+      <button type="button" onClick={typeMethods.handleAddTypeClick}>
         Add Type
       </button>
-      <h5>{typeError}</h5>
+      <h5>{fixTypesError}</h5>
       <button type="button" onClick={handleFixTypes}>
         Save Types
       </button>
@@ -236,16 +133,22 @@ function CreateSurvey({ userObj }) {
           <ol>
             {questions.map((question, index) => {
               return (
-                <CreateQuestion
-                  key={question.id}
-                  onSaveQuestion={handleSaveQuestion(index)}
-                  onDeleteQuestion={handleDeleteQuestion(index)}
-                  types={fixedTypes}
-                />
+                <li key={question.id}>
+                  <CreateQuestion
+                    onSaveQuestion={questionMethods.handleSaveQuestion(index)}
+                    onDeleteQuestion={questionMethods.handleDeleteQuestion(
+                      index
+                    )}
+                    types={fixedTypes}
+                  />
+                </li>
               );
             })}
           </ol>
-          <button type="button" onClick={handleAddQuestionClick}>
+          <button
+            type="button"
+            onClick={questionMethods.handleAddQuestionClick}
+          >
             Add Question
           </button>
           <h5>{error}</h5>
