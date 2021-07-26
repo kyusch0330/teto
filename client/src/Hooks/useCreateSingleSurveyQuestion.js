@@ -33,12 +33,7 @@ const useCreateSingleSurveyQuestion = (types) => {
   };
 
   /* options */
-  const {
-    options,
-    handleAddOptionClick,
-    handleSaveOption,
-    handleDeleteOption,
-  } = useCreateOptions(types);
+  const { options, optionMethods } = useCreateOptions(types);
 
   return {
     text,
@@ -48,11 +43,7 @@ const useCreateSingleSurveyQuestion = (types) => {
     checkNum,
     handleCheckNumChange,
     options,
-    optionMethods: {
-      handleAddOptionClick,
-      handleSaveOption,
-      handleDeleteOption,
-    },
+    optionMethods,
     error,
     setError,
   };

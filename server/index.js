@@ -180,6 +180,16 @@ app.post("/api/surveys/upload", (req, res) => {
   });
 });
 
+app.get("/api/surveys", (req, res) => {
+  Survey.find((err, docs) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).json({
+      success: true,
+      surveys: docs,
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

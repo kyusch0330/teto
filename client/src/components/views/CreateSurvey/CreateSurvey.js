@@ -67,11 +67,11 @@ function CreateSurvey({ userObj }) {
       questions,
     };
     console.log(dataToSubmit);
-    const response = axios
-      .post("/api/surveys/upload", dataToSubmit)
-      .then((response) => console.log(response.data))
-      .then(() => history.push("/survey"))
-      .catch((err) => setError("Upload Fail" + err));
+    // const response = axios
+    //   .post("/api/surveys/upload", dataToSubmit)
+    //   .then((response) => console.log(response.data))
+    //   .then(() => history.push("/survey"))
+    //   .catch((err) => setError("Upload Fail" + err));
   };
 
   // 작성 중인 페이지 실수로 벗어나는 것 방지
@@ -113,14 +113,14 @@ function CreateSurvey({ userObj }) {
           return (
             <li key={type.id}>
               <CreateType
-                onSaveType={typeMethods.handleSaveType(index)}
-                onDeleteType={typeMethods.handleDeleteType(index)}
+                onSaveType={typeMethods.handleSaveObj(index)}
+                onDeleteType={typeMethods.handleDeleteObj(index)}
               />
             </li>
           );
         })}
       </ol>
-      <button type="button" onClick={typeMethods.handleAddTypeClick}>
+      <button type="button" onClick={typeMethods.handleAddObjClick}>
         Add Type
       </button>
       <h5>{fixTypesError}</h5>
@@ -135,20 +135,15 @@ function CreateSurvey({ userObj }) {
               return (
                 <li key={question.id}>
                   <CreateQuestion
-                    onSaveQuestion={questionMethods.handleSaveQuestion(index)}
-                    onDeleteQuestion={questionMethods.handleDeleteQuestion(
-                      index
-                    )}
+                    onSaveQuestion={questionMethods.handleSaveObj(index)}
+                    onDeleteQuestion={questionMethods.handleDeleteObj(index)}
                     types={fixedTypes}
                   />
                 </li>
               );
             })}
           </ol>
-          <button
-            type="button"
-            onClick={questionMethods.handleAddQuestionClick}
-          >
+          <button type="button" onClick={questionMethods.handleAddObjClick}>
             Add Question
           </button>
           <h5>{error}</h5>

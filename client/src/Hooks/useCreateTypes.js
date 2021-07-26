@@ -1,41 +1,14 @@
 import { useState } from "react";
+import useArrayState from "./useArrayState";
 
 const useCreateTypes = () => {
   const [fixTypesError, setFixTypesError] = useState("");
-  /* types */
-  const [types, setTypes] = useState([
-    {
-      id: Date.now(),
-      name: "",
-      description: "",
-    },
-  ]);
 
-  //각 CreateType에 전달
-  const handleSaveType = (index) => (newType) => {
-    setTypes(
-      types
-        .slice(0, index)
-        .concat({
-          id: types[index].id,
-          ...newType,
-        })
-        .concat(types.slice(index + 1, types.length))
-    );
-  };
-
-  const handleDeleteType = (index) => () => {
-    console.log(
-      types.slice(0, index).concat(types.slice(index + 1, types.length))
-    );
-    setTypes(
-      types.slice(0, index).concat(types.slice(index + 1, types.length))
-    );
-  };
-
-  const handleAddTypeClick = () => {
-    setTypes(types.concat({ id: Date.now(), name: "", description: "" }));
-  };
+  const [types, typeMethods] = useArrayState(() => ({
+    id: Date.now(),
+    name: "",
+    description: "",
+  }));
 
   /* fixedTypes */
   const [fixedTypes, setFixedTypes] = useState([]);
@@ -59,11 +32,7 @@ const useCreateTypes = () => {
 
   return {
     types,
-    typeMethods: {
-      handleSaveType,
-      handleDeleteType,
-      handleAddTypeClick,
-    },
+    typeMethods,
     fixedTypes,
     handleFixTypes,
     fixTypesError,

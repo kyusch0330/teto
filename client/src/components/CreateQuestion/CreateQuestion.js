@@ -49,14 +49,14 @@ function CreateQuestion({ types, onSaveQuestion, onDeleteQuestion }) {
             <CreateOption
               option={option}
               types={types}
-              onSaveOption={optionMethods.handleSaveOption(index)}
-              onDeleteOption={optionMethods.handleDeleteOption(index)}
+              onSaveOption={optionMethods.handleSaveObj(index)}
+              onDeleteOption={optionMethods.handleDeleteObj(index)}
               sendError={setError}
             />
           </li>
         ))}
       </ol>
-      <button type="button" onClick={optionMethods.handleAddOptionClick}>
+      <button type="button" onClick={optionMethods.handleAddObjClick}>
         Add option
       </button>
       <h5>{error}</h5>
