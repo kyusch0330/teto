@@ -27,15 +27,16 @@ const surveySchema = mongoose.Schema({
 });
 
 //mongoose의 메소드, index.js에서 save전에 수행할 내용 정의
-// surveySchema.pre("save", function (next) {
-//   let survey = this; //저장될 survey 정보를 가져온다.
+surveySchema.pre("save", function (next) {
+  let survey = this; //저장될 survey 정보를 가져온다.
 
-//   // save 이전 처리할 사항 작성
-//   if (survey.isModified("title")) {
-//   } else {
-//     next();
-//   }
-// });
+  // save 이전 처리할 사항 작성
+  // survey.
+  // if (survey.isModified("title")) {
+  // } else {
+  //   next();
+  // }
+});
 
 //스키마를 모델로 감싸준다.
 const Survey = mongoose.model("Survey", surveySchema);
