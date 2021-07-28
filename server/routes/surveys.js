@@ -35,7 +35,10 @@ router.get("/", (req, res) => {
       success: true,
       surveys: docs,
     });
-  });
+  })
+    .sort({ createdAt: -1 })
+    .limit(5)
+    .skip((req.query.loadCount - 1) * 5);
 });
 
 // Get Specific Survey

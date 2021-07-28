@@ -5,11 +5,12 @@ import getTime from "../../../utils/getTime";
 
 function SurveyPage() {
   const [surveyList, setSurveyList] = useState([]);
+  const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
     const request = axios
-      .get("/api/surveys")
-      .then((res) => setSurveyList(res.data.surveys));
-  }, []);
+      .get("/api/surveys", { params: { loadCount: loadCount } })
+      .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+  }, [loadCount]);
   console.log(surveyList);
 
   return (
@@ -22,13 +23,18 @@ function SurveyPage() {
           surveyList.map((survey) => {
             const d = new Date(Number(survey.createdAt));
             return (
-              <Link key={survey.id} to={`/survey/${survey._id}`}>
-                <h5>제목: {survey.title}</h5>
-                <h6>{getTime(survey.createdAt)}</h6>
-              </Link>
+              <>
+                <Link key={survey.id} to={`/survey/${survey._id}`}>
+                  <span>제목: {survey.title} </span>
+                  <span> {getTime(survey.createdAt)}</span>
+                </Link>
+                <br />
+                <br />
+              </>
             );
           })}
       </ul>
+      <button onClick={() => setLoadCount(loadCount + 1)}>load more...</button>
     </div>
   );
 }
