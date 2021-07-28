@@ -3,9 +3,9 @@ import { Prompt, useHistory } from "react-router-dom";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import CreateTypes from "../../CreateTypes/CreateTypes";
-import CreateQuestions from "../../CreateQuestions/CreateQuestions";
-import usePreventCreatePageLeave from "../../../Hooks/usePreventCreatePageLeave";
+import CreateTypes from "./Sections/CreateTypes/CreateTypes";
+import CreateQuestions from "./Sections/CreateQuestions/CreateQuestions";
+import usePreventCreatePageLeave from "../../../hooks/usePreventCreatePageLeave";
 
 const CreateSurvey = ({ userObj }) => {
   const [types, setTypes] = useState([]);

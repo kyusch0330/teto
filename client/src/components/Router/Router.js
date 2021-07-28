@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import Auth from "../../hoc/auth";
 import LandingPage from "../views/LandingPage/LandingPage";
 import LoginPage from "../views/LoginPage/LoginPage";
@@ -32,6 +37,7 @@ function AppRouter() {
         <Route exact path="/result" component={ResultPage} />
         <Route exact path="/bingo" component={Bingo} />
         <Route exact path="/about" component={About} />
+        <Redirect from="*" to="/" />
       </Switch>
     </Router>
   );

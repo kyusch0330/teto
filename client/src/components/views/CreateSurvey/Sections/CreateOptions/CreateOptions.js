@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorMessage, Field, FieldArray } from "formik";
-import { initOption } from "../../utils/initObjs";
+import { initOption } from "../../../../../utils/initObjs";
 
 function CreateOptions({ qIndex, options, types }) {
   return (

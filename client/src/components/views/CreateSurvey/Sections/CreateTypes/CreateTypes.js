@@ -1,7 +1,7 @@
 import React from "react";
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { initType } from "../../utils/initObjs";
+import { initType } from "../../../../../utils/initObjs";
 
 function CreateTypes({ onFixTypes }) {
   return (

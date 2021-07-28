@@ -3,22 +3,29 @@ import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
-import useLike from "../../../Hooks/useLike";
+import useLike from "../../../hooks/useLike";
 import getTime from "../../../utils/getTime";
 import { getResult } from "./getResult";
+import Question from "./Sections/Question";
 
 function Survey({ match, userObj }) {
   const { params } = match;
   const [survey, setSurvey] = useState(null);
-  const [likes, handleLikeClick] = useLike(userObj, Boolean(survey), params.id);
+  const [likes, handleLikeClick] = useLike(userObj, params.id);
 
   const history = useHistory();
   // 해당 survey 가져오기
   useEffect(() => {
     const response = axios
       .post("/api/surveys/specific", { id: params.id })
-      .then((res) => setSurvey(res.data.survey))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        if (!res.data.success) {
+          alert(res.data.message);
+          history.push("/survey");
+        }
+        setSurvey(res.data.survey);
+        console.log(res.data);
+      });
   }, []);
   // survey 삭제 (작성자, 어드민만)
   const handleDeleteSurvey = () => {
@@ -60,7 +67,7 @@ function Survey({ match, userObj }) {
               console.log("- RESULT -");
               const result = getResult(survey.types, values.checks);
               console.log(result);
-              history.push("/result", result);
+              history.push("/result", { result, userObj, testId: params.id });
             }}
           >
             {({ values }) => (
@@ -70,24 +77,7 @@ function Survey({ match, userObj }) {
                   <>
                     {survey.questions.map((question, qIndex) => (
                       <div key={question.id}>
-                        <h5>
-                          Q{qIndex + 1} {question.text}
-                        </h5>
-                        <h6>{question.description}</h6>
-                        <div role="group" aria-labelledby="my-radio-group">
-                          {survey.questions[qIndex].options.map(
-                            (option, oIndex) => (
-                              <label>
-                                <Field
-                                  type="radio"
-                                  name={`checks[${qIndex}]`}
-                                  value={`${option.id}/${option.forType}/${option.weight}`}
-                                />
-                                {option.text}
-                              </label>
-                            )
-                          )}
-                        </div>
+                        <Question question={question} qIndex={qIndex} />
                       </div>
                     ))}
                   </>

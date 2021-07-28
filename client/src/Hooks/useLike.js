@@ -1,20 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useLike = (userObj, isTestLoaded, testId) => {
+const useLike = (userObj, testId) => {
   const [likedBefore, setLikedBefore] = useState(null);
   const [likes, setLikes] = useState("");
   useEffect(() => {
-    if (!isTestLoaded) return;
     console.log("USE EFFECT");
     // 해당 글 좋아요 개수 가져오기
-    if (isTestLoaded) {
-      axios
-        .get("/api/likes/count", { params: { testId: testId } })
-        .then((res) => setLikes(res.data.likes));
-    }
+    axios
+      .get("/api/likes/count", { params: { testId: testId } })
+      .then((res) => setLikes(res.data.likes))
+      .catch((err) => console.log(err));
+
     // 사용자 좋아요 여부 가져오기
-    if (isTestLoaded && userObj) {
+    if (userObj) {
       axios
         .get("/api/likes/likedbefore", {
           params: {
@@ -26,7 +25,7 @@ const useLike = (userObj, isTestLoaded, testId) => {
         .then((res) => setLikedBefore(res.data.likedBefore))
         .catch((err) => console.log(err));
     }
-  }, [isTestLoaded]); //like를 dependency에 추가하면 좋아요 누를 시 현재 좋아요 개수 갱신 가능
+  }, []); //like를 dependency에 추가하면 좋아요 누를 시 현재 좋아요 개수 갱신 가능
 
   // 좋아요 저장
   const handleLikeClick = () => {
@@ -51,8 +50,8 @@ const useLike = (userObj, isTestLoaded, testId) => {
         })
         .then((res) => console.log(res.data))
         .then(() => {
-          setLikedBefore(true);
           setLikes(likes + 1);
+          setLikedBefore(true);
         })
         .catch((err) => console.log(err));
     }

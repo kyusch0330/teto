@@ -18,7 +18,7 @@ function SurveyPage() {
       <br />
       Survey List
       <ul>
-        {surveyList.length &&
+        {surveyList.length > 0 &&
           surveyList.map((survey) => {
             const d = new Date(Number(survey.createdAt));
             return (

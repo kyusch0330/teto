@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorMessage, Field, FieldArray } from "formik";
-import { initQuestion } from "../../utils/initObjs";
+import { initQuestion } from "../../../../../utils/initObjs";
 import CreateOptions from "../CreateOptions/CreateOptions";
 
 function CreateQuestions({ questions, types }) {
