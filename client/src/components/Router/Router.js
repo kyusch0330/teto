@@ -6,10 +6,11 @@ import LoginPage from "../views/LoginPage/LoginPage";
 import RegisterPage from "../views/RegisterPage/RegisterPage";
 import NavBar from "../views/NavBar/NavBar";
 import Profile from "../views/Profile/Profile";
-import Survey from "../views/Survey/Survey";
+import SurveyPage from "../views/SurveyPage/SurveyPage";
 import Bingo from "../views/Bingo/Bingo";
 import About from "../views/About/About";
 import CreateSurvey from "../views/CreateSurvey/CreateSurvey";
+import Survey from "../views/Survey/Survey";
 
 function AppRouter() {
   return (
@@ -20,12 +21,13 @@ function AppRouter() {
         <Route exact path="/login" component={Auth(LoginPage, false)} />
         <Route exact path="/register" component={Auth(RegisterPage, false)} />
         <Route exact path="/profile" component={Auth(Profile, true)} />
-        <Route exact path="/survey" component={Survey} />
+        <Route exact path="/survey" component={SurveyPage} />
         <Route
           exact
           path="/survey/create"
           component={Auth(CreateSurvey, true)}
         />
+        <Route exact path="/survey/:id" component={Survey} />
         <Route exact path="/bingo" component={Bingo} />
         <Route exact path="/about" component={About} />
       </Switch>

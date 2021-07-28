@@ -1,35 +1,55 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
-function Survey() {
-  const [surveyList, setSurveyList] = useState([]);
+function Survey({ match }) {
+  const { params } = match;
+  const [survey, setSurvey] = useState(null);
+
   useEffect(() => {
-    const request = axios
-      .get("/api/surveys")
-      .then((res) => setSurveyList(res.data.surveys));
+    const response = axios
+      .post("/api/surveys/specific", { id: params.id })
+      .then((res) => setSurvey(res.data.survey))
+      .catch((err) => console.log(err));
   }, []);
-  console.log(surveyList);
-
   return (
     <div>
-      Survey
-      <Link to="/survey/create">Create Survey</Link>
-      <ul>
-        {surveyList.length &&
-          surveyList.map((survey) => {
-            const d = new Date(Number(survey.createdAt));
-            return (
-              <li key={survey.id}>
-                <h3>제목: {survey.title}</h3>
-                <h5>{`${d.getFullYear()}년 
-                ${d.getMonth() + 1}월 
-                ${d.getDate()}일 
-                ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`}</h5>
-              </li>
-            );
-          })}
-      </ul>
+      {params.id}
+      {!survey ? null : (
+        <div>
+          <h3>{survey.title}</h3>
+          <span>{new Date(Number(survey.createdAt)).toString()}</span>
+          <p>{survey.description}</p>
+          <br />
+          <form>
+            {survey.questions.map((question) => {
+              return (
+                <div>
+                  <h5>{question.text}</h5>
+                  <p>{question.description}</p>
+                  {question.options.map((option) => {
+                    console.log(option);
+                    return (
+                      <>
+                        <input
+                          type="radio"
+                          name={question.id}
+                          value={JSON.stringify({
+                            forType: option.forType,
+                            weight: option.weight,
+                          })}
+                          onChange={(e) => console.log(e.target.value)}
+                        />
+                        {option.text}
+                      </>
+                    );
+                  })}
+                </div>
+              );
+            })}
+            <button>Test Done</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
