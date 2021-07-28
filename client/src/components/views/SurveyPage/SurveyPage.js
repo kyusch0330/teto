@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import getTime from "../../../utils/getTime";
 
 function SurveyPage() {
   const [surveyList, setSurveyList] = useState([]);
@@ -22,11 +23,8 @@ function SurveyPage() {
             const d = new Date(Number(survey.createdAt));
             return (
               <Link key={survey.id} to={`/survey/${survey._id}`}>
-                <h3>제목: {survey.title}</h3>
-                <h5>{`${d.getFullYear()}년 
-                ${d.getMonth() + 1}월 
-                ${d.getDate()}일 
-                ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`}</h5>
+                <h5>제목: {survey.title}</h5>
+                <h6>{getTime(survey.createdAt)}</h6>
               </Link>
             );
           })}

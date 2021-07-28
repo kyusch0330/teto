@@ -13,11 +13,6 @@ const surveySchema = mongoose.Schema({
   createdAt: {
     type: String,
   },
-  // uploadTime: {
-  //   year: {
-
-  //   }
-  // },
   types: {
     type: Array,
   },
@@ -26,7 +21,7 @@ const surveySchema = mongoose.Schema({
   },
 });
 
-//mongoose의 메소드, index.js에서 save전에 수행할 내용 정의
+//mongoose의 메소드, save전에 수행할 내용 정의
 surveySchema.pre("save", function (next) {
   let survey = this; //저장될 survey 정보를 가져온다.
 
@@ -36,6 +31,7 @@ surveySchema.pre("save", function (next) {
   // } else {
   //   next();
   // }
+  next();
 });
 
 //스키마를 모델로 감싸준다.

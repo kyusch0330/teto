@@ -17,6 +17,7 @@ app.use(cookieParser());
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/surveys", require("./routes/surveys"));
+app.use("/api/likes", require("./routes/likes"));
 
 const mongoose = require("mongoose");
 

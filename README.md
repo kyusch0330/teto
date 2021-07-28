@@ -1,21 +1,24 @@
 # TeTo
-  
-# client  
+
+# client
+
 react  
 react-router  
 react-redux  
 redux-thunk  
 axios  
 SCSS  
-  
-# Server  
+Formik, Yup
+
+# Server
+
 express.js  
 nodemon  
 mongoose  
 bcrypt  
 jsonwebtoken  
-cookie-parser  
+cookie-parser
 
-# DB  
-mongoDB  
+# DB
 
+mongoDB

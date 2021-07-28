@@ -52,7 +52,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
 
     if (loading) return null;
     //<LoadingPage/>
-    else return <SpecificComponent userObj={userObj} />; //Auth를 통해 전달받은 user 정보와 함께 반환(비로그인시 null)
+    else return <SpecificComponent userObj={userObj} {...props} />; //Auth를 통해 전달받은 user 정보와 함께 반환(비로그인시 null)
   }
 
   return AuthenticationCheck;

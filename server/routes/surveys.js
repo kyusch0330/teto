@@ -52,4 +52,18 @@ router.post("/specific", (req, res) => {
   });
 });
 
+// Delete Survey
+router.delete("/delete", (req, res) => {
+  Survey.deleteOne({ _id: req.body.id }, (err) => {
+    if (err) {
+      return res.json({
+        deleteSuccess: false,
+        message: "문서 삭제에 실패했습니다.",
+      });
+    } else {
+      res.status(200).json({ deleteSuccess: true });
+    }
+  });
+});
+
 module.exports = router;

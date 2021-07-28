@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Auth from "../../hoc/auth";
 import LandingPage from "../views/LandingPage/LandingPage";
 import LoginPage from "../views/LoginPage/LoginPage";
@@ -11,10 +11,11 @@ import Bingo from "../views/Bingo/Bingo";
 import About from "../views/About/About";
 import CreateSurvey from "../views/CreateSurvey/CreateSurvey";
 import Survey from "../views/Survey/Survey";
+import ResultPage from "../views/ResultPage/ResultPage";
 
 function AppRouter() {
   return (
-    <HashRouter>
+    <Router>
       <NavBar />
       <Switch>
         <Route exact path="/" component={Auth(LandingPage, null)} />
@@ -27,11 +28,12 @@ function AppRouter() {
           path="/survey/create"
           component={Auth(CreateSurvey, true)}
         />
-        <Route exact path="/survey/:id" component={Survey} />
+        <Route exact path="/survey/:id" component={Auth(Survey, null)} />
+        <Route exact path="/result" component={ResultPage} />
         <Route exact path="/bingo" component={Bingo} />
         <Route exact path="/about" component={About} />
       </Switch>
-    </HashRouter>
+    </Router>
   );
 }
 
