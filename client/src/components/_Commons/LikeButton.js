@@ -1,17 +1,10 @@
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
-
-const useLike = (userObj, testId) => {
+const LikeButton = ({ initialLike, userObj, testId }) => {
+  console.log(userObj, testId);
   const [likedBefore, setLikedBefore] = useState(null);
-  const [likes, setLikes] = useState("");
+  const [likes, setLikes] = useState(initialLike);
   useEffect(() => {
-    console.log("USE EFFECT");
-    // 해당 글 좋아요 개수 가져오기
-    axios
-      .get("/api/likes/count", { params: { testId: testId } })
-      .then((res) => setLikes(res.data.likes))
-      .catch((err) => console.log(err));
-
     // 사용자 좋아요 여부 가져오기
     if (userObj) {
       axios
@@ -29,6 +22,7 @@ const useLike = (userObj, testId) => {
 
   // 좋아요 저장
   const handleLikeClick = () => {
+    setLikedBefore(true);
     if (!userObj) {
       // 로그인하지 않은 유저
       alert("you should sign in first.");
@@ -39,24 +33,40 @@ const useLike = (userObj, testId) => {
       return;
     } else if (likedBefore) {
       // 이미 좋아요 등록
-      alert("you already liked before.");
       //좋아요 삭제가 필요하면 여기에
+      alert("you already liked before.");
       return;
     } else {
-      const response = axios
+      //해당 게시글 해당 유저 좋아요 등록
+      axios
         .post("/api/likes/register", {
-          testId: testId,
+          testId,
           userId: userObj._id,
         })
         .then((res) => console.log(res.data))
         .then(() => {
           setLikes(likes + 1);
-          setLikedBefore(true);
         })
+        .catch((err) => {
+          console.log(err);
+          setLikedBefore(true);
+        });
+      // 해당 게시글에 좋아요 수 업데이트
+      axios
+        .put("/api/surveys/update_like", {
+          testId,
+        })
+        .then((res) => console.log(res.data))
         .catch((err) => console.log(err));
     }
   };
-  return [likes, handleLikeClick];
+  return (
+    <div>
+      <button type="button" onClick={handleLikeClick}>
+        Like {likes}
+      </button>
+    </div>
+  );
 };
 
-export default useLike;
+export default LikeButton;

@@ -19,6 +19,10 @@ const surveySchema = mongoose.Schema({
   questions: {
     type: Array,
   },
+  likes: {
+    type: Number,
+    default: 0,
+  },
 });
 
 //mongoose의 메소드, save전에 수행할 내용 정의

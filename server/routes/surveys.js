@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { Survey } = require("../models/Survey");
-
 /* Survey */
 // Save Survey
 router.post("/upload", (req, res) => {
@@ -27,8 +26,27 @@ router.post("/upload", (req, res) => {
   });
 });
 
-// Get Surveys
-router.get("/", (req, res) => {
+// Update Likes
+router.put("/update_like", (req, res) => {
+  console.log("update likes!");
+  Survey.findOneAndUpdate(
+    { _id: req.body.testId },
+    { $inc: { likes: 1 } }
+  ).exec();
+  // # 콜백이 있으면 두번 실행된다.
+  //   (err, res) => {
+  //     (err, user) => {
+  //       if (err) return res.json({ uploadLikeSuccess: false, err });
+  //       return res.status(200).send({
+  //         uploadLikeSuccess: true,
+  //       });
+  //     };
+  //   }
+  // ).catch((err) => console.log(err));
+});
+
+// Get Surveys(최신순)
+router.get("/latest", (req, res) => {
   Survey.find((err, docs) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).json({
@@ -37,6 +55,20 @@ router.get("/", (req, res) => {
     });
   })
     .sort({ createdAt: -1 })
+    .limit(5)
+    .skip((req.query.loadCount - 1) * 5);
+});
+
+// Get Surveys(인기순)
+router.get("/popular", (req, res) => {
+  Survey.find((err, docs) => {
+    if (err) return res.json({ success: false, err });
+    return res.status(200).json({
+      success: true,
+      surveys: docs,
+    });
+  })
+    .sort({ likes: -1 })
     .limit(5)
     .skip((req.query.loadCount - 1) * 5);
 });

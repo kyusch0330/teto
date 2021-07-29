@@ -3,13 +3,23 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 
-function Profile({ userObj }) {
+function Profile({ userObj, history }) {
   const [name, setName] = useState(userObj.name);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
-  console.log(userObj);
+
+  //로그아웃 서버에 요청(토큰을 지움)
+  const handleLogoutClick = () => {
+    axios.get("/api/users/logout").then((response) => {
+      if (response.data.success) {
+        history.push("/login");
+      } else {
+        alert("로그아웃 실패");
+      }
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -34,6 +44,7 @@ function Profile({ userObj }) {
         <input type="submit" value="update" />
         {/* 비밀번호 변경, 프로필 사진 변경... */}
       </form>
+      <button onClick={handleLogoutClick}>로그아웃</button>
     </div>
   );
 }

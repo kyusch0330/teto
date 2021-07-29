@@ -3,15 +3,14 @@ import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
-import useLike from "../../../hooks/useLike";
 import getTime from "../../../utils/getTime";
+import LikeButton from "../../_Commons/LikeButton";
 import { getResult } from "./getResult";
 import Question from "./Sections/Question";
 
 function Survey({ match, userObj }) {
   const { params } = match;
   const [survey, setSurvey] = useState(null);
-  const [likes, handleLikeClick] = useLike(userObj, params.id);
 
   const history = useHistory();
   // 해당 survey 가져오기
@@ -47,8 +46,11 @@ function Survey({ match, userObj }) {
           {userObj && (survey.userId === userObj._id || userObj.isAdmin) && (
             <button onClick={handleDeleteSurvey}>Delete Test</button>
           )}
-          <h3>Like {likes}</h3>
-          <button onClick={handleLikeClick}>Like</button>
+          <LikeButton
+            initialLike={survey.likes}
+            userObj={userObj}
+            testId={params.id}
+          />
           <h3>{survey.title}</h3>
           <span>{getTime(survey.createdAt)}</span>
           <p>{survey.description}</p>
@@ -67,7 +69,12 @@ function Survey({ match, userObj }) {
               console.log("- RESULT -");
               const result = getResult(survey.types, values.checks);
               console.log(result);
-              history.push("/result", { result, userObj, testId: params.id });
+              history.push("/result", {
+                result,
+                userObj,
+                testId: params.id,
+                likes: survey.likes,
+              });
             }}
           >
             {({ values }) => (

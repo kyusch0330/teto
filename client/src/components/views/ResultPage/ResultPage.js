@@ -1,31 +1,32 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import useLike from "../../../hooks/useLike";
+import LikeButton from "../../_Commons/LikeButton";
 
 function ResultPage({ location }) {
   const history = useHistory();
-  const state = location.state
-    ? location.state
-    : {
-        result: { name: null, description: null },
-        userObj: null,
-        testId: null,
-      };
-  if (!state.testId) {
+  if (!location.state) {
     alert("잘못된 경로입니다.");
     history.push("/");
+    location = {
+      state: { result: null, userObj: null, testId: null, likes: null },
+    };
   }
-  const resultType = state.result;
-  const [likes, handleLikeClick] = useLike(state.userObj, state.testId);
+  const {
+    state: { result, userObj, testId, likes },
+  } = location;
+
   return (
     <div>
-      Result
-      <h2>{resultType.name}</h2>
-      <p>{resultType.description}</p>
-      <h3>Like {likes}</h3>
-      <button onClick={handleLikeClick}>Like</button>
-      <br />
-      <Link to="/survey">다른 테스트하러 가기</Link>
+      {result && (
+        <>
+          Result
+          <h2>{result.name}</h2>
+          <p>{result.description}</p>
+          <LikeButton likes={likes} userObj={userObj} testId={testId} />
+          <br />
+          <Link to="/survey">다른 테스트하러 가기</Link>
+        </>
+      )}
     </div>
   );
 }

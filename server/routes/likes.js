@@ -27,15 +27,15 @@ router.post("/register", (req, res) => {
 });
 
 // Get Likes Number
-router.get("/count", (req, res) => {
-  Like.count({ testId: req.query.testId }, (err, likeCount) => {
-    if (err) return res.json({ success: false, err });
-    return res.status(200).json({
-      success: true,
-      likes: likeCount,
-    });
-  });
-});
+// router.get("/count", (req, res) => {
+//   Like.countDocuments({ testId: req.query.testId }, (err, likeCount) => {
+//     if (err) return res.json({ success: false, err });
+//     return res.status(200).json({
+//       success: true,
+//       likes: likeCount,
+//     });
+//   });
+// });
 
 // Get Liked Before
 router.get("/likedbefore", (req, res) => {
