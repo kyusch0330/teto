@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-const LikeButton = ({ initialLike, userObj, testId }) => {
-  console.log(userObj, testId);
+const LikeButton = ({ initialLikes, userObj, testId }) => {
   const [likedBefore, setLikedBefore] = useState(null);
-  const [likes, setLikes] = useState(initialLike);
+  const [likes, setLikes] = useState(initialLikes);
   useEffect(() => {
     // 사용자 좋아요 여부 가져오기
     if (userObj) {

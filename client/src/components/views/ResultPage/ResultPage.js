@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import LikeButton from "../../_Commons/LikeButton";
+import LikeButton from "../../Commons/LikeButton";
 
 function ResultPage({ location }) {
   const history = useHistory();
@@ -14,7 +14,7 @@ function ResultPage({ location }) {
   const {
     state: { result, userObj, testId, likes },
   } = location;
-
+  console.log(likes);
   return (
     <div>
       {result && (
@@ -22,7 +22,7 @@ function ResultPage({ location }) {
           Result
           <h2>{result.name}</h2>
           <p>{result.description}</p>
-          <LikeButton likes={likes} userObj={userObj} testId={testId} />
+          <LikeButton initialLikes={likes} userObj={userObj} testId={testId} />
           <br />
           <Link to="/survey">다른 테스트하러 가기</Link>
         </>

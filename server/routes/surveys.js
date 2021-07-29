@@ -28,7 +28,6 @@ router.post("/upload", (req, res) => {
 
 // Update Likes
 router.put("/update_like", (req, res) => {
-  console.log("update likes!");
   Survey.findOneAndUpdate(
     { _id: req.body.testId },
     { $inc: { likes: 1 } }
