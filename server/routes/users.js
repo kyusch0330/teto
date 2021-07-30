@@ -120,4 +120,50 @@ router.put("/update_profile", auth, (req, res) => {
   );
 });
 
+/* check soicalId */
+router.get("/check_social_id", (req, res) => {
+  User.findOne({ socialId: req.query.socialId }, (err, user) => {
+    if (err) res.json({ checkSocialIdSuccess: false, err });
+    if (user) {
+      return res.status(200).json({
+        checkSocialIdSuccess: true,
+      });
+    } else {
+      return res.json({
+        checkSocialIdSuccess: false,
+      });
+    }
+  });
+});
+
+/* social login router */
+router.post("/social_login", (req, res) => {
+  User.findOne({ socialId: req.body.socialId }, (err, user) => {
+    if (!user) {
+      return res.json({
+        loginSuccess: false,
+        message: "제공된 social ID에 해당하는 유저가 없습니다.",
+      });
+    }
+    //social ID가 DB에 있다면, 비밀번호가 맞는지 확인
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (!isMatch)
+        // 비밀번호 불일치 시
+        return res.json({
+          loginSuccess: false,
+          message: "비밀번호가 틀렸습니다.",
+        });
+      //비밀번호까지 맞다면 토큰을 생성
+      user.generateToken((err, user) => {
+        if (err) return res.status(400).send(err);
+        //토큰을 쿠키에 저장한다.
+        res
+          .cookie("x_auth", user.token)
+          .status(200)
+          .json({ loginSuccess: true, userId: user._id });
+      });
+    });
+  });
+});
+
 module.exports = router;

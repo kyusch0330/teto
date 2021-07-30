@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../_actions/user_action";
+import {
+  loginUser,
+  registerUser,
+  socialLoginUser,
+} from "../../../_actions/user_action";
 //HOC 사용후 history.push가 안되는 오류방지
 import { withRouter } from "react-router-dom";
+import { GoogleLogin } from "react-google-login";
+import axios from "axios";
+const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 function LoginPage(props) {
   const dispatch = useDispatch();
@@ -39,6 +46,43 @@ function LoginPage(props) {
     });
   };
 
+  const handleGoogleSuccess = (res) => {
+    console.log(res);
+    const socialId = "G" + res.googleId;
+    let body = {
+      name: res.Ts.Me,
+      email: res.Ts.Et,
+      password: res.tokenId,
+      socialId: socialId,
+    };
+    //해당 Social ID가 DB에 존재하는지 확인
+    axios
+      .get("api/users/check_social_id", {
+        params: { socialId: socialId },
+      })
+      .then((res) => {
+        if (!res.data.checkSocialIdSuccess) {
+          //존재하지 않으면 회원가입
+          dispatch(registerUser(body)).then((response) => {
+            if (response.payload.success) {
+              console.log(response.payload);
+            } else console.log("social register error");
+          });
+        }
+      })
+      .then(() => {
+        dispatch(socialLoginUser(body)).then((response) => {
+          if (response.payload.loginSuccess) {
+            console.log(response);
+            props.history.push("/"); //로그인 성공시 landing page로
+          } else {
+            setLoginError(response.payload.message);
+          }
+        });
+      });
+  };
+  const handleGoogleFailure = (err) => console.log(err);
+
   return (
     <div
       style={{
@@ -70,6 +114,13 @@ function LoginPage(props) {
         <br />
         <h5>{loginError}</h5>
         <button>Login</button>
+        <GoogleLogin
+          clientId={GOOGLE_API_KEY}
+          buttonText="Login with Google"
+          onSuccess={handleGoogleSuccess}
+          onFailure={handleGoogleFailure}
+          cookiePolicy="single_host_origin"
+        />
       </form>
     </div>
   );

@@ -1,6 +1,11 @@
 import axios from "axios";
 //action 타입들을 가져온다.
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "./types";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  SOCIAL_LOGIN_USER,
+} from "./types";
 
 //login 시 dispatch에 들어갈 action을 반환하는 함수
 export function loginUser(dataToSubmit) {
@@ -12,6 +17,20 @@ export function loginUser(dataToSubmit) {
   // user reducer로 보내서 저장할 데이터 반환
   return {
     type: LOGIN_USER,
+    payload: response, //서버에서 받은 응답를 담는다.
+  };
+}
+
+//social login 시 dispatch에 들어갈 action을 반환하는 함수
+export function socialLoginUser(dataToSubmit) {
+  // 로그인 정보를 서버로 전송하여 돌아온 응답을 저장
+  const response = axios
+    .post("/api/users/social_login", dataToSubmit)
+    .then((response) => response.data);
+
+  // user reducer로 보내서 저장할 데이터 반환
+  return {
+    type: SOCIAL_LOGIN_USER,
     payload: response, //서버에서 받은 응답를 담는다.
   };
 }

@@ -20,9 +20,9 @@ function Profile({ userObj, history }) {
       }
     });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     axios
       .put("/api/users/update_profile", { name }) //req.body에 존재하게 됨
       .then((response) => {

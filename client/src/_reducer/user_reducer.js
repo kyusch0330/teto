@@ -1,4 +1,9 @@
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../_actions/types";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  SOCIAL_LOGIN_USER,
+} from "../_actions/types";
 
 //dispatch를 통해 전달된 action 처리
 export default function (prevState = {}, action) {
@@ -6,6 +11,9 @@ export default function (prevState = {}, action) {
   switch (action.type) {
     case LOGIN_USER:
       // 이전 state에서 loginSuccess만 payload로 교체해서(혹은 추가) store에 저장
+      return { ...prevState, loginSuccess: action.payload };
+      break;
+    case SOCIAL_LOGIN_USER:
       return { ...prevState, loginSuccess: action.payload };
       break;
     case REGISTER_USER:
