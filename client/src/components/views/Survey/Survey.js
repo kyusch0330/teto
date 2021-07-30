@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import getTime from "../../../utils/getTime";
-import LikeButton from "../../_Commons/LikeButton";
+import LikeButton from "../../Commons/LikeButton";
 import { getResult } from "./getResult";
 import Question from "./Sections/Question";
 
@@ -47,7 +47,7 @@ function Survey({ match, userObj }) {
             <button onClick={handleDeleteSurvey}>Delete Test</button>
           )}
           <LikeButton
-            initialLike={survey.likes}
+            initialLikes={survey.likes}
             userObj={userObj}
             testId={params.id}
           />
