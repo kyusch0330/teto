@@ -64,20 +64,15 @@ function LoginPage(props) {
         if (!res.data.checkSocialIdSuccess) {
           //존재하지 않으면 회원가입
           dispatch(registerUser(body)).then((response) => {
-            if (response.payload.success) {
-              console.log(response.payload);
-            } else console.log("social register error");
+            if (!response.payload.success) console.log("social register error");
           });
         }
       })
       .then(() => {
         dispatch(socialLoginUser(body)).then((response) => {
           if (response.payload.loginSuccess) {
-            console.log(response);
             props.history.push("/"); //로그인 성공시 landing page로
-          } else {
-            setLoginError(response.payload.message);
-          }
+          } else setLoginError(response.payload.message);
         });
       });
   };

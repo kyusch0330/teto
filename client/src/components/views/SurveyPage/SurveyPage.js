@@ -8,14 +8,12 @@ function SurveyPage() {
   const [orderBy, setOrderBy] = useState(0);
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
-    console.log(surveyList);
     const request = axios
       .get("/api/surveys/latest", { params: { loadCount: loadCount } })
       .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
-  }, [loadCount]);
+  }, []);
 
   useEffect(() => {
-    console.log("USEFFE");
     if (orderBy === 0) {
       const request = axios
         .get("/api/surveys/latest", { params: { loadCount: loadCount } })
@@ -25,7 +23,7 @@ function SurveyPage() {
         .get("/api/surveys/popular", { params: { loadCount: loadCount } })
         .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
     }
-  }, [orderBy]);
+  }, [orderBy, loadCount]);
 
   const handleOrderByChange = (e) => {
     const nextOrderBy = Number(e.target.value);
