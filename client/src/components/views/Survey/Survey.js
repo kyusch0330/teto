@@ -1,51 +1,29 @@
-import axios from "axios";
-import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import { ErrorMessage, FieldArray, Form, Formik } from "formik";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import useSurvey from "../../../hooks/useSurvey";
 import getTime from "../../../utils/getTime";
-import LikeButton from "../../Commons/LikeButton";
+import DeleteSuveyButton from "../../Common/DeleteSuveyButton";
+import LikeButton from "../../Common/LikeButton";
 import { getResult } from "./getResult";
 import Question from "./Sections/Question";
 
 function Survey({ match, userObj }) {
   const { params } = match;
-  const [survey, setSurvey] = useState(null);
-
   const history = useHistory();
   // 해당 survey 가져오기
-  useEffect(() => {
-    const response = axios
-      .post("/api/surveys/specific", { id: params.id })
-      .then((res) => {
-        if (!res.data.success) {
-          alert(res.data.message);
-          history.push("/survey");
-        }
-        setSurvey(res.data.survey);
-        console.log(res.data);
-      });
-  }, []);
-  // survey 삭제 (작성자, 어드민만)
-  const handleDeleteSurvey = () => {
-    const response = axios
-      .delete("/api/surveys/delete", {
-        data: { id: survey._id },
-        withCredentials: true,
-      })
-      .then((res) => console.log(res.data))
-      .then(() => history.push("/survey"))
-      .catch((err) => console.log(err));
-  };
-
+  const survey = useSurvey(params.id);
   return (
     <div>
       {params.id}
       {!survey ? null : (
         <div>
-          {userObj && (survey.userId === userObj._id || userObj.isAdmin) && (
-            <button onClick={handleDeleteSurvey}>Delete Test</button>
-          )}
+          <DeleteSuveyButton
+            testId={survey._id}
+            creatorId={survey.userId}
+            userObj={userObj}
+          />
           <LikeButton
             initialLikes={survey.likes}
             userObj={userObj}
@@ -66,12 +44,9 @@ function Survey({ match, userObj }) {
               ),
             })}
             onSubmit={(values) => {
-              console.log("- RESULT -");
               const result = getResult(survey.types, values.checks);
-              console.log(result);
               history.push("/result", {
                 result,
-                userObj,
                 testId: params.id,
                 likes: survey.likes,
               });

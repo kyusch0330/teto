@@ -8,18 +8,18 @@ function SurveyPage() {
   const [orderBy, setOrderBy] = useState(0);
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
-    const request = axios
+    axios
       .get("/api/surveys/latest", { params: { loadCount: loadCount } })
       .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
   }, []);
 
   useEffect(() => {
     if (orderBy === 0) {
-      const request = axios
+      axios
         .get("/api/surveys/latest", { params: { loadCount: loadCount } })
         .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
     } else if (orderBy === 1) {
-      const request = axios
+      axios
         .get("/api/surveys/popular", { params: { loadCount: loadCount } })
         .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
     }
