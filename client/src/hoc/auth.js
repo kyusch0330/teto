@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import LoadingPage from "../components/views/LoadingPage/LoadingPage";
 import { authUser } from "../_actions/user_action";
 
 //고차 컴포넌트로 사용자 상태에 따라 다른 페이지를 보여준다.
@@ -50,7 +51,7 @@ export default function (SpecificComponent, option, adminRoute = null) {
       });
     }, []);
 
-    if (loading) return null;
+    if (loading) return <LoadingPage />;
     //<LoadingPage/>
     else return <SpecificComponent userObj={userObj} {...props} />; //Auth를 통해 전달받은 user 정보와 함께 반환(비로그인시 null)
   }
