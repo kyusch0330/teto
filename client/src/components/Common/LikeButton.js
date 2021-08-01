@@ -1,5 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { ReactComponent as LikeImg } from "../../assets/like.svg";
 import axios from "axios";
+import styled from "styled-components";
+import { PALLETE } from "../../constants/pallete";
+
+const LikeBtn = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  background: ${PALLETE.WHITE};
+  padding: 10px;
+  border: 1px solid ${PALLETE.GRAY_LIGHT};
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    svg: {
+      color: ${PALLETE.GRAY_LIGHT};
+    }
+  }
+`;
 const LikeButton = ({ initialLikes, userObj, testId }) => {
   const [likedBefore, setLikedBefore] = useState(null);
   const [likes, setLikes] = useState(initialLikes);
@@ -21,7 +40,6 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
 
   // 좋아요 저장
   const handleLikeClick = () => {
-    setLikedBefore(true);
     if (!userObj) {
       // 로그인하지 않은 유저
       alert("you should sign in first.");
@@ -36,6 +54,7 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
       alert("you already liked before.");
       return;
     } else {
+      setLikedBefore(true);
       //해당 게시글 해당 유저 좋아요 등록
       axios
         .post("/api/likes/register", {
@@ -60,11 +79,14 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
     }
   };
   return (
-    <div>
-      <button type="button" onClick={handleLikeClick}>
-        Like {likes}
-      </button>
-    </div>
+    <LikeBtn type="button" onClick={handleLikeClick}>
+      <LikeImg
+        width={likedBefore ? 20 : 15}
+        height={likedBefore ? 20 : 15}
+        fill={likedBefore ? PALLETE.RED : PALLETE.GRAY_LIGHT}
+      />
+      &nbsp;{likes}
+    </LikeBtn>
   );
 };
 

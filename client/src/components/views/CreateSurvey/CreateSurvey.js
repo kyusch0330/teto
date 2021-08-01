@@ -39,7 +39,7 @@ const CreateSurvey = ({ userObj }) => {
             questions: Yup.array().of(
               Yup.object().shape({
                 text: Yup.string()
-                  .max(30, "too long question text")
+                  .max(50, "too long question text")
                   .required("Required"),
                 options: Yup.array().of(
                   Yup.object().shape({

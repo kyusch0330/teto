@@ -45,40 +45,40 @@ function SurveyPage() {
   return (
     <Container>
       <CreateButton to="/survey/create">Create Test</CreateButton>
-      {surveyList.length > 0 && (
-        <TestList>
-          <OrderByButtonContainer>
-            <button
-              onClick={handleOrderByChange}
-              className={orderBy === 0 ? "selected" : ""}
-              value="0"
-            >
-              latest
-            </button>
-            <button
-              onClick={handleOrderByChange}
-              className={orderBy === 1 ? "selected" : ""}
-              value="1"
-            >
-              popular
-            </button>
-          </OrderByButtonContainer>
+      {/* {surveyList.length > 0 && ( */}
+      <TestList>
+        <OrderByButtonContainer>
+          <button
+            onClick={handleOrderByChange}
+            className={orderBy === 0 ? "selected" : ""}
+            value="0"
+          >
+            latest
+          </button>
+          <button
+            onClick={handleOrderByChange}
+            className={orderBy === 1 ? "selected" : ""}
+            value="1"
+          >
+            popular
+          </button>
+        </OrderByButtonContainer>
 
-          {surveyList.map((survey) => {
-            const d = new Date(Number(survey.createdAt));
-            return (
-              <TestLinkItem key={survey._id} to={`/survey/${survey._id}`}>
-                <span className="survey_title">{survey.title}</span>
-                <span className="survey_createdAt">
-                  &nbsp; {getTime(survey.createdAt)}
-                </span>
-                <p className="survey_description">{survey.description}</p>
-                <LikeInfo likes={survey.likes} />
-              </TestLinkItem>
-            );
-          })}
-        </TestList>
-      )}
+        {surveyList.map((survey) => {
+          const d = new Date(Number(survey.createdAt));
+          return (
+            <TestLinkItem key={survey._id} to={`/survey/${survey._id}`}>
+              <span className="survey_title">{survey.title}</span>
+              <span className="survey_createdAt">
+                &nbsp; {getTime(survey.createdAt)}
+              </span>
+              <p className="survey_description">{survey.description}</p>
+              <LikeInfo likes={survey.likes} />
+            </TestLinkItem>
+          );
+        })}
+      </TestList>
+      {/* )} */}
       {surveyList.length > 0 && (
         <LoadMoreButton onClick={() => setLoadCount(loadCount + 1)}>
           load more...

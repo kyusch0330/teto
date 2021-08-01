@@ -11,6 +11,7 @@ export const NavContainer = styled.nav`
   color: ${PALLETE.BLACK};
   padding: 15px;
   z-index: 1;
+  box-sizing: border-box;
 `;
 
 export const MenuBar = styled.div`

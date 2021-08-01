@@ -60,24 +60,12 @@ export const TestList = styled.div`
   background: ${PALLETE.WHITE};
   width: 50%;
   max-width: 800px;
+  min-height: 800px;
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
   padding: 30px;
   margin: 30px;
-  ${(props) =>
-    props.active &&
-    `
-   animation: ${fadeIn} 2s 1s infinite linear alternate;
-  `};
 `;
-
-const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0;
-  }`;
 
 export const TestLinkItem = styled(Link)`
   list-style: none;
