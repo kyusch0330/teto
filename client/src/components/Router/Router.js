@@ -17,6 +17,7 @@ import About from "../views/About/About";
 import CreateSurvey from "../views/CreateSurvey/CreateSurvey";
 import Survey from "../views/Survey/Survey";
 import ResultPage from "../views/ResultPage/ResultPage";
+import Footer from "../views/Footer/Footer";
 
 function AppRouter() {
   return (
@@ -39,6 +40,7 @@ function AppRouter() {
         <Route exact path="/about" component={About} />
         <Redirect from="*" to="/" />
       </Switch>
+      <Footer />
     </Router>
   );
 }

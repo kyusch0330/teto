@@ -1,51 +1,46 @@
-import axios from "axios";
-import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import { ErrorMessage, FieldArray, Form, Formik } from "formik";
+import React from "react";
+import { useRef } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
+import useSlider from "../../../hooks/useSlider";
+import useSurvey from "../../../hooks/useSurvey";
 import getTime from "../../../utils/getTime";
-import LikeButton from "../../Commons/LikeButton";
+import DeleteSuveyButton from "../../Common/DeleteSuveyButton";
+import LikeButton from "../../Common/LikeButton";
 import { getResult } from "./getResult";
 import Question from "./Sections/Question";
+import {
+  Container,
+  QuestionCard,
+  QuestionSlider,
+  StyledForm,
+  SurveyPaper,
+} from "./Survey.styles";
+import SliderController from "./Sections/SliderController";
 
 function Survey({ match, userObj }) {
   const { params } = match;
-  const [survey, setSurvey] = useState(null);
-
   const history = useHistory();
   // 해당 survey 가져오기
-  useEffect(() => {
-    const response = axios
-      .post("/api/surveys/specific", { id: params.id })
-      .then((res) => {
-        if (!res.data.success) {
-          alert(res.data.message);
-          history.push("/survey");
-        }
-        setSurvey(res.data.survey);
-        console.log(res.data);
-      });
-  }, []);
-  // survey 삭제 (작성자, 어드민만)
-  const handleDeleteSurvey = () => {
-    const response = axios
-      .delete("/api/surveys/delete", {
-        data: { id: survey._id },
-        withCredentials: true,
-      })
-      .then((res) => console.log(res.data))
-      .then(() => history.push("/survey"))
-      .catch((err) => console.log(err));
-  };
-
+  const survey = useSurvey(params.id);
+  const {
+    currentQuestion,
+    prevQuestion,
+    nextQuestion,
+    moveToPrev,
+    moveToNext,
+  } = useSlider();
   return (
-    <div>
-      {params.id}
+    <Container>
       {!survey ? null : (
-        <div>
-          {userObj && (survey.userId === userObj._id || userObj.isAdmin) && (
-            <button onClick={handleDeleteSurvey}>Delete Test</button>
-          )}
+        <SurveyPaper>
+          <DeleteSuveyButton
+            testId={survey._id}
+            creatorId={survey.userId}
+            userObj={userObj}
+          />
           <LikeButton
             initialLikes={survey.likes}
             userObj={userObj}
@@ -66,37 +61,65 @@ function Survey({ match, userObj }) {
               ),
             })}
             onSubmit={(values) => {
-              console.log("- RESULT -");
               const result = getResult(survey.types, values.checks);
-              console.log(result);
               history.push("/result", {
                 result,
-                userObj,
                 testId: params.id,
                 likes: survey.likes,
               });
             }}
           >
-            {({ values }) => (
-              <Form>
+            {({ values, touched, errors }) => (
+              <StyledForm>
                 <h3>Questions</h3>
-                <FieldArray name={`checks`}>
+                <QuestionSlider>
+                  <button type="button" onClick={() => moveToNext()}>
+                    START
+                  </button>
+                  <FieldArray name={`checks`}>
+                    <>
+                      {survey.questions.map((question, qIndex) => (
+                        <QuestionCard
+                          ref={
+                            currentQuestion + 1 === qIndex
+                              ? nextQuestion
+                              : currentQuestion - 1 === qIndex
+                              ? prevQuestion
+                              : null
+                          }
+                          key={question.id}
+                          className="question"
+                        >
+                          <Question
+                            moveToNext={moveToNext}
+                            question={question}
+                            qIndex={qIndex}
+                          />
+                        </QuestionCard>
+                      ))}
+                    </>
+                  </FieldArray>
+                </QuestionSlider>
+                {currentQuestion >= 0 && (
+                  <SliderController
+                    moveToPrev={moveToPrev}
+                    moveToNext={moveToNext}
+                  />
+                )}
+                {!errors.checks && touched.checks ? (
+                  <button type="submit">Result</button>
+                ) : (
                   <>
-                    {survey.questions.map((question, qIndex) => (
-                      <div key={question.id}>
-                        <Question question={question} qIndex={qIndex} />
-                      </div>
-                    ))}
+                    <ErrorMessage name="checks" />
+                    <button>Cant Submit</button>
                   </>
-                </FieldArray>
-                <ErrorMessage name="checks" />
-                <button type="submit">Result</button>
-              </Form>
+                )}
+              </StyledForm>
             )}
           </Formik>
-        </div>
+        </SurveyPaper>
       )}
-    </div>
+    </Container>
   );
 }
 

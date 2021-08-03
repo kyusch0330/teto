@@ -2,30 +2,37 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import getTime from "../../../utils/getTime";
+import LikeInfo from "../../Common/LikeInfo";
+import { LoadMoreButton } from "../NavBar/NavBar.styles";
+import {
+  Container,
+  CreateButton,
+  OrderByButtonContainer,
+  TestLinkItem,
+  TestList,
+} from "./SurveyPage.styles";
 
 function SurveyPage() {
   const [surveyList, setSurveyList] = useState([]);
   const [orderBy, setOrderBy] = useState(0);
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
-    console.log(surveyList);
-    const request = axios
+    axios
       .get("/api/surveys/latest", { params: { loadCount: loadCount } })
       .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
-  }, [loadCount]);
+  }, []);
 
   useEffect(() => {
-    console.log("USEFFE");
     if (orderBy === 0) {
-      const request = axios
+      axios
         .get("/api/surveys/latest", { params: { loadCount: loadCount } })
         .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
     } else if (orderBy === 1) {
-      const request = axios
+      axios
         .get("/api/surveys/popular", { params: { loadCount: loadCount } })
         .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
     }
-  }, [orderBy]);
+  }, [orderBy, loadCount]);
 
   const handleOrderByChange = (e) => {
     const nextOrderBy = Number(e.target.value);
@@ -36,36 +43,48 @@ function SurveyPage() {
   };
 
   return (
-    <div>
-      <Link to="/survey/create">Create Survey</Link>
-      <br />
-      Survey List
-      <button onClick={handleOrderByChange} value="0">
-        latest
-      </button>
-      <button onClick={handleOrderByChange} value="1">
-        popular
-      </button>
-      <ul>
-        {surveyList.length > 0 &&
-          surveyList.map((survey) => {
-            const d = new Date(Number(survey.createdAt));
-            return (
-              <>
-                <Link key={survey.id} to={`/survey/${survey._id}`}>
-                  <span>제목: {survey.title}</span>
-                  <span> (추천:{survey.likes})</span>
-                  <br />
-                  <span> {getTime(survey.createdAt)}</span>
-                </Link>
-                <br />
-                <br />
-              </>
-            );
-          })}
-      </ul>
-      <button onClick={() => setLoadCount(loadCount + 1)}>load more...</button>
-    </div>
+    <Container>
+      <CreateButton to="/survey/create">Create Test</CreateButton>
+      {/* {surveyList.length > 0 && ( */}
+      <TestList>
+        <OrderByButtonContainer>
+          <button
+            onClick={handleOrderByChange}
+            className={orderBy === 0 ? "selected" : ""}
+            value="0"
+          >
+            latest
+          </button>
+          <button
+            onClick={handleOrderByChange}
+            className={orderBy === 1 ? "selected" : ""}
+            value="1"
+          >
+            popular
+          </button>
+        </OrderByButtonContainer>
+
+        {surveyList.map((survey) => {
+          const d = new Date(Number(survey.createdAt));
+          return (
+            <TestLinkItem key={survey._id} to={`/survey/${survey._id}`}>
+              <span className="survey_title">{survey.title}</span>
+              <span className="survey_createdAt">
+                &nbsp; {getTime(survey.createdAt)}
+              </span>
+              <p className="survey_description">{survey.description}</p>
+              <LikeInfo likes={survey.likes} />
+            </TestLinkItem>
+          );
+        })}
+      </TestList>
+      {/* )} */}
+      {surveyList.length > 0 && (
+        <LoadMoreButton onClick={() => setLoadCount(loadCount + 1)}>
+          load more...
+        </LoadMoreButton>
+      )}
+    </Container>
   );
 }
 
