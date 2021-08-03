@@ -36,12 +36,16 @@ function CreateOptions({ qIndex, options, types }) {
                 remove
               </button>
             )}
-            <button
-              type="button"
-              onClick={() => arrayHelpers.insert(oIndex + 1, initOption(types))} // insert an initalValue at a position
-            >
-              add
-            </button>
+            {options.length < 8 && (
+              <button
+                type="button"
+                onClick={() =>
+                  arrayHelpers.insert(oIndex + 1, initOption(types))
+                } // insert an initalValue at a position
+              >
+                add
+              </button>
+            )}
           </li>
         ))
       }

@@ -6,6 +6,11 @@ import * as Yup from "yup";
 import CreateTypes from "./Sections/CreateTypes/CreateTypes";
 import CreateQuestions from "./Sections/CreateQuestions/CreateQuestions";
 import usePreventCreatePageLeave from "../../../hooks/usePreventCreatePageLeave";
+import {
+  Container,
+  CreateSurveyPaper,
+  SurveyCoverForm,
+} from "./CreateSurvey.styles";
 
 const CreateSurvey = ({ userObj }) => {
   const [types, setTypes] = useState([]);
@@ -16,79 +21,72 @@ const CreateSurvey = ({ userObj }) => {
   const history = useHistory();
 
   return (
-    <div>
+    <Container>
       <Prompt
         when={blocked}
         message="You have unsaved changes, are you sure you want to leave?"
       />
-
-      <div>
-        <h3>Questions</h3>
-        <Formik
-          initialValues={{
-            userId: userObj._id,
-            createdAt: 0,
-            types: [],
-            title: "",
-            description: "",
-            questions: [], //initQuestion(types)
-          }}
-          validationSchema={Yup.object({
-            title: Yup.string().max(20, "too long title").required(),
-            description: Yup.string().max(200, "too long description"),
-            questions: Yup.array().of(
-              Yup.object().shape({
-                text: Yup.string()
-                  .max(50, "too long question text")
-                  .required("Required"),
-                options: Yup.array().of(
-                  Yup.object().shape({
-                    text: Yup.string()
-                      .max(30, "too long option text")
-                      .required("Required"),
-                  })
-                ),
-              })
-            ),
-          })}
-          onSubmit={(values) => {
-            values.types = types;
-            values.createdAt = Date.now();
-            // upload 성공 시 메뉴로 나갈 수 있게
-            disablePrevent();
-            console.log(values);
-            const response = axios
-              .post("/api/surveys/upload", values)
-              .then((response) => console.log(response.data))
-              .then(() => history.push("/survey"))
-              .catch((err) => {
-                console.log(err);
-                enablePrevent();
-              });
-          }}
-          render={({ values }) => (
-            <>
-              <Form>
-                <label>
-                  title
-                  <Field name="title" />
-                </label>
-                <label>
-                  description
-                  <Field as="textarea" name="description" />
-                </label>
-              </Form>
-              <CreateTypes onFixTypes={setTypes} />
-              <Form>
-                {types.length > 0 && (
-                  <CreateQuestions questions={values.questions} types={types} />
-                )}
-              </Form>
-            </>
-          )}
-        />
-      </div>
-    </div>
+      <Formik
+        initialValues={{
+          userId: userObj._id,
+          createdAt: 0,
+          types: [],
+          title: "",
+          description: "",
+          questions: [], //initQuestion(types)
+        }}
+        validationSchema={Yup.object({
+          title: Yup.string().max(20, "too long title").required(),
+          description: Yup.string().max(200, "too long description"),
+          questions: Yup.array().of(
+            Yup.object().shape({
+              text: Yup.string()
+                .max(50, "too long question text")
+                .required("Required"),
+              options: Yup.array().of(
+                Yup.object().shape({
+                  text: Yup.string()
+                    .max(30, "too long option text")
+                    .required("Required"),
+                })
+              ),
+            })
+          ),
+        })}
+        onSubmit={(values) => {
+          values.types = types;
+          values.createdAt = Date.now();
+          // upload 성공 시 메뉴로 나갈 수 있게
+          disablePrevent();
+          console.log(values);
+          const response = axios
+            .post("/api/surveys/upload", values)
+            .then((response) => console.log(response.data))
+            .then(() => history.push("/survey"))
+            .catch((err) => {
+              console.log(err);
+              enablePrevent();
+            });
+        }}
+        render={({ values }) => (
+          <CreateSurveyPaper>
+            <SurveyCoverForm>
+              <h3>Title</h3>
+              <Field name="title" />
+              <h3>description</h3>
+              <Field as="textarea" name="description" />
+            </SurveyCoverForm>
+            <CreateTypes onFixTypes={setTypes} />
+            <h3>Questions</h3>
+            <Form>
+              {types.length > 0 && (
+                <CreateQuestions questions={values.questions} types={types} />
+              )}
+            </Form>
+          </CreateSurveyPaper>
+        )}
+      />
+    </Container>
   );
 };
 export default CreateSurvey;

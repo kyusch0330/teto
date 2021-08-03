@@ -36,7 +36,7 @@ router.post("/login", (req, res) => {
   //요청된 이메일을 데이터베이스에서 있는지 찾는다.
 
   //MongoDB 메소드 findOne
-  User.findOne({ email: req.body.email }, (err, user) => {
+  User.findOne({ email: req.body.email, socialId: "" }, (err, user) => {
     if (!user) {
       return res.json({
         loginSuccess: false,
@@ -144,16 +144,8 @@ router.post("/social_login", (req, res) => {
         loginSuccess: false,
         message: "제공된 social ID에 해당하는 유저가 없습니다.",
       });
-    }
-    //social ID가 DB에 있다면, 비밀번호가 맞는지 확인
-    user.comparePassword(req.body.password, (err, isMatch) => {
-      if (!isMatch)
-        // 비밀번호 불일치 시
-        return res.json({
-          loginSuccess: false,
-          message: "비밀번호가 틀렸습니다.",
-        });
-      //비밀번호까지 맞다면 토큰을 생성
+    } else {
+      // 존재한다면 로그인 처리
       user.generateToken((err, user) => {
         if (err) return res.status(400).send(err);
         //토큰을 쿠키에 저장한다.
@@ -162,7 +154,25 @@ router.post("/social_login", (req, res) => {
           .status(200)
           .json({ loginSuccess: true, userId: user._id });
       });
-    });
+    }
+    // //social ID가 DB에 있다면, 비밀번호가 맞는지 확인
+    // user.comparePassword(req.body.password, (err, isMatch) => {
+    //   if (!isMatch)
+    //     // 비밀번호 불일치 시
+    //     return res.json({
+    //       loginSuccess: false,
+    //       message: "비밀번호가 틀렸습니다.",
+    //     });
+    //   //비밀번호까지 맞다면 토큰을 생성
+    //   user.generateToken((err, user) => {
+    //     if (err) return res.status(400).send(err);
+    //     //토큰을 쿠키에 저장한다.
+    //     res
+    //       .cookie("x_auth", user.token)
+    //       .status(200)
+    //       .json({ loginSuccess: true, userId: user._id });
+    //   });
+    // });
   });
 });
 

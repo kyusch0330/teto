@@ -52,7 +52,7 @@ function LoginPage(props) {
     let body = {
       name: res.Ts.Me,
       email: res.Ts.Et,
-      password: res.tokenId,
+      password: socialId,
       socialId: socialId,
     };
     //해당 Social ID가 DB에 존재하는지 확인

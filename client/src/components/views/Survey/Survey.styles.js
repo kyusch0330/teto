@@ -36,19 +36,22 @@ export const StyledForm = styled(Form)`
 
 export const QuestionSlider = styled.div`
   width: 100%;
-  height: 400px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
+  button {
+    margin-top: 200px;
+  }
 `;
 
 export const QuestionCard = styled.div`
   width: 50%;
   max-width: 500px;
   padding: 20px;
-  margin: 400px 200px;
+  margin: 500px 200px;
   border: 1px solid ${PALLETE.BORDER_BLUE};
   background: ${PALLETE.WHITE};
   border-radius: 10px;

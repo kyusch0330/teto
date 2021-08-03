@@ -7,7 +7,7 @@ export const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   font-size: 1rem;
   background: ${PALLETE.BACKGROUND_BLUE};
   color: ${PALLETE.BLACK};
