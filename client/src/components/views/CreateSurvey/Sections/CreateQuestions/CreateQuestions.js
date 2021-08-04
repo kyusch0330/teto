@@ -12,6 +12,7 @@ import {
   OptionList,
   CloseQuestionButton,
   AddQuestionButton,
+  SubmitButton,
 } from "./CreateQuestions.styles";
 import { ReactComponent as CloseImg } from "../../../../../assets/close.svg";
 import { ReactComponent as PlusSquareImg } from "../../../../../assets/plus_sq.svg";
@@ -76,9 +77,11 @@ function CreateQuestions({ questions, types, errors }) {
                       <QuestionTextBox>
                         <label>
                           text
-                          <Field name={`questions[${qIndex}].text`} />
+                          <div>
+                            <Field name={`questions[${qIndex}].text`} />
+                            <ErrorMessage name={`questions[${qIndex}].text`} />
+                          </div>
                         </label>
-                        <ErrorMessage name={`questions[${qIndex}].text`} />
                       </QuestionTextBox>
                       <QuestionDescriptionBox>
                         <label>
@@ -120,7 +123,7 @@ function CreateQuestions({ questions, types, errors }) {
       />
       <div>
         {!errors.questions ? (
-          <button type="submit">Submit</button>
+          <SubmitButton type="submit">Submit</SubmitButton>
         ) : (
           "fill out all required forms"
         )}

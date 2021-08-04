@@ -20,8 +20,9 @@ export const QuestionList = styled.div`
   border-radius: 5px;
   background: ${PALLETE.WHITE};
   width: 100%;
-  height: 1000px;
-  padding: 80px 20px;
+  min-height: 700px;
+  max-height: 700px;
+  padding: 20px;
   gap: 30px;
   overflow: hidden;
 `;
@@ -32,15 +33,21 @@ export const QuestionItem = styled.div`
   justify-content: flex-start;
   align-items: center;
   position: relative;
-  border: 2px ridge ${PALLETE.BORDER_BLUE};
+  border: 3px ridge ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
   background: ${PALLETE.CONTAINER_BLUE};
   box-sizing: border-box;
-  padding: 30px;
-  width: 100%;
-  min-height: 1000px;
+  padding: 30px 50px;
+  width: 95%;
+  min-height: 500px;
+  max-height: 500px;
+  overflow-y: scroll;
+  box-sizing: border-box;
   h5 {
     margin-top: 0;
+  }
+  &:nth-child(1) {
+    margin-top: 80px;
   }
 `;
 
@@ -70,22 +77,27 @@ export const QuestionTextBox = styled.div`
   flex-direction: row;
   width: 100%;
   height: 3em;
-  color: ${PALLETE.RED};
+
   label {
     color: ${PALLETE.BLACK};
   }
-  input {
-    width: 100%;
-    color: ${PALLETE.BLACK};
-    font-size: 1.1em;
-    border: 2px solid ${PALLETE.BORDER_BLUE};
-    background: ${PALLETE.WHITE};
-    border-radius: 5px;
+  div {
+    display: flex;
+    color: ${PALLETE.RED};
+    input {
+      width: 100%;
+      color: ${PALLETE.BLACK};
+      font-size: 1.1em;
+      border: 2px solid ${PALLETE.BORDER_BLUE};
+      background: ${PALLETE.WHITE};
+      border-radius: 5px;
+      margin-right: 5px;
+    }
   }
 `;
 
 export const QuestionDescriptionBox = styled.div`
-  margin-top: 25px;
+  margin-top: 15px;
   width: 100%;
   label {
     color: ${PALLETE.BLACK};
@@ -101,7 +113,7 @@ export const QuestionDescriptionBox = styled.div`
 export const OptionList = styled.div`
   width: 100%;
   display: flex;
-  gap: 3px;
+  gap: 10px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
@@ -111,10 +123,21 @@ export const AddQuestionButton = styled.button`
   border: none;
   background: transparent;
   padding: 0;
+  margin: 30px 0;
   transition: all 500ms;
   transition-delay: 50ms;
   &:hover {
     cursor: pointer;
     transform: scale(1.2, 1.2);
   }
+`;
+
+export const SubmitButton = styled.button`
+  margin-top: 20px;
+  border: 3px groove ${PALLETE.WHITE};
+  background: ${PALLETE.PRIMARY_BLUE};
+  padding: 20px 70px;
+  font-weight: 700;
+  font-size: 1.2em;
+  color: ${PALLETE.WHITE};
 `;
