@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { PALLETE } from "../../../../constants/pallete";
-import { ReactComponent as ArrowImg } from "../../../../assets/direction.svg";
+import { PALLETE } from "../../constants/pallete";
+import { ReactComponent as ArrowImg } from "../../assets/direction.svg";
 const SlideController = styled.div`
   position: fixed;
   right: 20%;

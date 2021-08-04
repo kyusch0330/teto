@@ -14,4 +14,6 @@ export const PALLETE = {
   BACKGROUND_BLUE: "#f3f3fa",
   BACKGROUND_YELLOW: "#f1f1f1",
   BORDER_BLUE: "#aab2fe",
+  // CONTAINER_BLUE: "#e3effe",/
+  CONTAINER_BLUE: "#f3f7fe",
 };

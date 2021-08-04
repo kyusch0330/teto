@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { initType } from "../../../../../utils/initObjs";
 import {
   CloseButton,
+  FixTypesButton,
   SurveyTypesForm,
   TypeItem,
   TypeList,
@@ -36,7 +37,7 @@ function CreateTypes({ onFixTypes }) {
       }}
       render={({ values, errors }) => (
         <>
-          <SurveyTypesForm>
+          <SurveyTypesForm autoComplete="off">
             <h3>Types</h3>
             <TypeList>
               <FieldArray
@@ -45,6 +46,7 @@ function CreateTypes({ onFixTypes }) {
                   values.types.map((type, index) => (
                     <>
                       <TypeItem key={type.id}>
+                        <h5>Type {index + 1}</h5>
                         {values.types.length > 1 && (
                           <CloseButton type="button">
                             <CloseImg
@@ -58,7 +60,7 @@ function CreateTypes({ onFixTypes }) {
                         <TypeNameBox>
                           <Field
                             name={`types[${index}].name`}
-                            placeHolder="Type Name"
+                            placeholder="Type Name"
                           />
                           <ErrorMessage name={`types[${index}].name`} />
                         </TypeNameBox>
@@ -87,12 +89,12 @@ function CreateTypes({ onFixTypes }) {
                 }
               />
             </TypeList>
-            {errors.types ? (
-              <button className="fixTypesBtn">Can't Fix</button>
+            {errors.types || values.types[0].name === "" ? (
+              <FixTypesButton className="fixTypesBtn">Can't Fix</FixTypesButton>
             ) : (
-              <button className="fixTypesBtn" type="submit">
+              <FixTypesButton className="fixTypesBtn" type="submit">
                 Fix Types
-              </button>
+              </FixTypesButton>
             )}
           </SurveyTypesForm>
         </>

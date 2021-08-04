@@ -35,21 +35,21 @@ export const SurveyCoverForm = styled(Form)`
   justify-content: flex-start;
   align-items: center;
   padding: 20px;
-  border: 1px solid ${PALLETE.BORDER_BLUE};
+  border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
   border-radius: 10px;
 
   input {
     width: 90%;
     font-weight: 600;
     font-size: 1.2em;
-    border: 1px solid ${PALLETE.PRIMARY_BLUE_DARK};
+    border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
   }
   textarea {
     width: 90%;
     height: 200px;
-    padding: 5px;
+    padding: 15px 10px;
     border: 1px solid ${PALLETE.PRIMARY_BLUE_DARK};
     border-radius: 5px;
   }
