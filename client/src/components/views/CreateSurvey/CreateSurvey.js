@@ -68,7 +68,7 @@ const CreateSurvey = ({ userObj }) => {
               enablePrevent();
             });
         }}
-        render={({ values }) => (
+        render={({ values, errors }) => (
           <CreateSurveyPaper>
             <SurveyCoverForm>
               <h3>Title</h3>
@@ -77,12 +77,14 @@ const CreateSurvey = ({ userObj }) => {
               <Field as="textarea" name="description" />
             </SurveyCoverForm>
             <CreateTypes onFixTypes={setTypes} />
-            <h3>Questions</h3>
-            <Form>
-              {types.length > 0 && (
-                <CreateQuestions questions={values.questions} types={types} />
-              )}
-            </Form>
+
+            {types.length > 0 && (
+              <CreateQuestions
+                questions={values.questions}
+                types={types}
+                errors={errors}
+              />
+            )}
           </CreateSurveyPaper>
         )}
       />

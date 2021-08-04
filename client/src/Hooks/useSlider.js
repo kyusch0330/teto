@@ -12,6 +12,7 @@ const useSlider = () => {
       block: "center",
       inline: "center",
     });
+    console.log(currentQuestion, nextQuestion);
     setCurrentQuestion(currentQuestion + 1);
   };
   const moveToPrev = () => {
@@ -21,10 +22,12 @@ const useSlider = () => {
       block: "center",
       inline: "center",
     });
+    console.log(currentQuestion, prevQuestion);
     if (currentQuestion !== 0) setCurrentQuestion(currentQuestion - 1);
   };
   return {
     currentQuestion,
+    setCurrentQuestion,
     prevQuestion,
     nextQuestion,
     moveToPrev,

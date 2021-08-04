@@ -18,7 +18,7 @@ import {
   StyledForm,
   SurveyPaper,
 } from "./Survey.styles";
-import SliderController from "./Sections/SliderController";
+import SliderController from "../../Common/SliderController";
 
 function Survey({ match, userObj }) {
   const { params } = match;
