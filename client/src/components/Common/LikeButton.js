@@ -14,6 +14,7 @@ const LikeBtn = styled.button`
   border-radius: 5px;
   &:hover {
     cursor: pointer;
+    transform: scale(1.1, 1.1);
     svg: {
       color: ${PALLETE.GRAY_LIGHT};
     }

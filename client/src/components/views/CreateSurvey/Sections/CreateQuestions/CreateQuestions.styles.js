@@ -77,12 +77,14 @@ export const QuestionTextBox = styled.div`
   flex-direction: row;
   width: 100%;
   height: 3em;
-
   label {
     color: ${PALLETE.BLACK};
+    width: 100%;
   }
   div {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     color: ${PALLETE.RED};
     input {
       width: 100%;
@@ -140,4 +142,7 @@ export const SubmitButton = styled.button`
   font-weight: 700;
   font-size: 1.2em;
   color: ${PALLETE.WHITE};
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -1,36 +1,37 @@
 import { Field } from "formik";
 import React from "react";
-import styled from "styled-components";
-import { PALLETE } from "../../../../constants/pallete";
-
-const OptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import {
+  OptionContainer,
+  QuestionMain,
+  StyledRadioContainer,
+} from "./Question.styles";
 
 const Question = ({ question, qIndex, moveToNext }) => {
   return (
     <>
-      <h5>
-        Q{qIndex + 1} {question.text}
-      </h5>
-      <h6>{question.description}</h6>
-      <OptionContainer
-        role="group"
-        aria-labelledby="my-radio-group"
-        onChange={() => moveToNext()}
-      >
-        {question.options.map((option, oIndex) => (
-          <label>
-            <Field
-              type="radio"
-              name={`checks[${qIndex}]`}
-              value={`${option.id}/${option.forType}/${option.weight}`}
-            />
-            {option.text}
-          </label>
-        ))}
-      </OptionContainer>
+      <QuestionMain>
+        <h5>
+          Q{qIndex + 1}. {question.text}
+        </h5>
+        <h6>{question.description ? question.description : " "}</h6>
+      </QuestionMain>
+      <StyledRadioContainer>
+        <OptionContainer
+          aria-labelledby="my-radio-group"
+          onChange={() => moveToNext()}
+        >
+          {question.options.map((option, oIndex) => (
+            <label>
+              <Field
+                type="radio"
+                name={`checks[${qIndex}]`}
+                value={`${option.id}/${option.forType}/${option.weight}`}
+              />
+              &nbsp;{option.text}
+            </label>
+          ))}
+        </OptionContainer>
+      </StyledRadioContainer>
     </>
   );
 };

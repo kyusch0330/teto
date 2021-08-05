@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import useSlider from "../../../hooks/useSlider";
 import useSurvey from "../../../hooks/useSurvey";
 import getTime from "../../../utils/getTime";
-import DeleteSuveyButton from "../../Common/DeleteSuveyButton";
+import DeleteSurveyButton from "../../Common/DeleteSurveyButton";
 import LikeButton from "../../Common/LikeButton";
 import { getResult } from "./getResult";
 import Question from "./Sections/Question";
@@ -15,10 +15,15 @@ import {
   Container,
   QuestionCard,
   QuestionSlider,
+  ResultButton,
+  ResultButtonBox,
+  StartButton,
   StyledForm,
   SurveyPaper,
 } from "./Survey.styles";
 import SliderController from "../../Common/SliderController";
+import { SurveyQuestionsForm } from "../CreateSurvey/Sections/CreateQuestions/CreateQuestions.styles";
+import { boolean } from "yup/lib/locale";
 
 function Survey({ match, userObj }) {
   const { params } = match;
@@ -31,12 +36,12 @@ function Survey({ match, userObj }) {
     nextQuestion,
     moveToPrev,
     moveToNext,
-  } = useSlider();
+  } = useSlider(-1);
   return (
     <Container>
       {!survey ? null : (
         <SurveyPaper>
-          <DeleteSuveyButton
+          <DeleteSurveyButton
             testId={survey._id}
             creatorId={survey.userId}
             userObj={userObj}
@@ -55,10 +60,9 @@ function Survey({ match, userObj }) {
               checks: [],
             }}
             validationSchema={Yup.object({
-              checks: Yup.array().min(
-                survey.questions.length,
-                "please check all"
-              ),
+              checks: Yup.array()
+                .min(survey.questions.length, "please check all")
+                .of(Yup.string().required()),
             })}
             onSubmit={(values) => {
               const result = getResult(survey.types, values.checks);
@@ -73,29 +77,33 @@ function Survey({ match, userObj }) {
               <StyledForm>
                 <h3>Questions</h3>
                 <QuestionSlider>
-                  <button type="button" onClick={() => moveToNext()}>
+                  <StartButton type="button" onClick={moveToNext}>
                     START
-                  </button>
+                  </StartButton>
                   <FieldArray name={`checks`}>
                     <>
                       {survey.questions.map((question, qIndex) => (
-                        <QuestionCard
-                          ref={
-                            currentQuestion + 1 === qIndex
-                              ? nextQuestion
-                              : currentQuestion - 1 === qIndex
-                              ? prevQuestion
-                              : null
-                          }
-                          key={question.id}
-                          className="question"
-                        >
-                          <Question
-                            moveToNext={moveToNext}
-                            question={question}
-                            qIndex={qIndex}
-                          />
-                        </QuestionCard>
+                        <>
+                          <QuestionCard
+                            ref={
+                              currentQuestion + 1 === qIndex
+                                ? nextQuestion
+                                : currentQuestion - 1 === qIndex
+                                ? prevQuestion
+                                : null
+                            }
+                            key={question.id}
+                            className="question"
+                          >
+                            <Question
+                              moveToNext={moveToNext}
+                              question={question}
+                              qIndex={qIndex}
+                            />
+                          </QuestionCard>
+                          <h1> </h1>
+                          {/*slider 버그 해결 용도*/}
+                        </>
                       ))}
                     </>
                   </FieldArray>
@@ -106,14 +114,27 @@ function Survey({ match, userObj }) {
                     moveToNext={moveToNext}
                   />
                 )}
-                {!errors.checks && touched.checks ? (
-                  <button type="submit">Result</button>
-                ) : (
-                  <>
-                    <ErrorMessage name="checks" />
-                    <button>Cant Submit</button>
-                  </>
-                )}
+                <ResultButtonBox
+                  ref={
+                    currentQuestion === survey.questions.length - 1
+                      ? nextQuestion
+                      : null
+                  }
+                >
+                  {values.checks.length < survey.questions.length ||
+                  errors.checks ? (
+                    <>
+                      {errors.checks &&
+                        values.checks[survey.questions.length - 1] &&
+                        "모든 질문에 체크해주세요"}
+                      <ResultButton type="submit" className="notComplete">
+                        Result
+                      </ResultButton>
+                    </>
+                  ) : (
+                    <ResultButton type="submit">Result</ResultButton>
+                  )}
+                </ResultButtonBox>
               </StyledForm>
             )}
           </Formik>

@@ -54,8 +54,8 @@ router.get("/latest", (req, res) => {
     });
   })
     .sort({ createdAt: -1 })
-    .limit(5)
-    .skip((req.query.loadCount - 1) * 5);
+    .limit(8)
+    .skip((req.query.loadCount - 1) * 8);
 });
 
 // Get Surveys(인기순)
@@ -68,8 +68,8 @@ router.get("/popular", (req, res) => {
     });
   })
     .sort({ likes: -1 })
-    .limit(5)
-    .skip((req.query.loadCount - 1) * 5);
+    .limit(8)
+    .skip((req.query.loadCount - 1) * 8);
 });
 
 // Get Specific Survey

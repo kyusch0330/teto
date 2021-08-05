@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import LikeButton from "../../Common/LikeButton";
+import { ResultContainer, ResultPageContainer } from "./ResultPage.styles";
 
 function ResultPage({ location }) {
   const userObj = useSelector((state) => state.user.userData);
@@ -17,18 +18,18 @@ function ResultPage({ location }) {
     state: { result, testId, likes },
   } = location;
   return (
-    <div>
+    <ResultPageContainer>
       {result && (
-        <>
-          Result
+        <ResultContainer>
+          <h1>Result</h1>
           <h2>{result.name}</h2>
           <p>{result.description}</p>
           <LikeButton initialLikes={likes} userObj={userObj} testId={testId} />
           <br />
           <Link to="/survey">다른 테스트하러 가기</Link>
-        </>
+        </ResultContainer>
       )}
-    </div>
+    </ResultPageContainer>
   );
 }
 

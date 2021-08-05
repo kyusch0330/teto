@@ -1,8 +1,7 @@
-import React from "react";
 import { useRef, useState } from "react";
 
-const useSlider = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(-1);
+const useSlider = (initialQuestion = 0) => {
+  const [currentQuestion, setCurrentQuestion] = useState(initialQuestion);
   const nextQuestion = useRef();
   const prevQuestion = useRef();
   const moveToNext = () => {
@@ -10,9 +9,9 @@ const useSlider = () => {
     nextQuestion.current.scrollIntoView({
       behavior: "smooth",
       block: "center",
-      inline: "center",
+      inline: "start",
     });
-    console.log(currentQuestion, nextQuestion);
+    console.log("toNext", currentQuestion, nextQuestion);
     setCurrentQuestion(currentQuestion + 1);
   };
   const moveToPrev = () => {
@@ -20,9 +19,9 @@ const useSlider = () => {
     prevQuestion.current.scrollIntoView({
       behavior: "smooth",
       block: "center",
-      inline: "center",
+      inline: "start",
     });
-    console.log(currentQuestion, prevQuestion);
+    console.log("toPrev", currentQuestion, prevQuestion);
     if (currentQuestion !== 0) setCurrentQuestion(currentQuestion - 1);
   };
   return {

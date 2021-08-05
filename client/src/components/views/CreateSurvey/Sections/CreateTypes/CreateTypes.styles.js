@@ -49,6 +49,7 @@ export const TypeItem = styled.div`
   h5 {
     margin: 0;
     margin-bottom: 10px;
+    color: ${PALLETE.PRIMARY_BLUE_DARK};
   }
   textarea {
     margin-top: 5px;
@@ -95,12 +96,12 @@ export const FixTypesButton = styled.button`
   color: ${PALLETE.WHITE};
   font-size: 1.4em;
   padding: 10px 20px;
-  transition: all 500ms;
-  transition-delay: 200ms;
+  transition: all 400ms;
+  transition-delay: 100ms;
   margin: 50px 50px;
   &:hover {
     background: ${PALLETE.PRIMARY_BLUE_DARK};
-    transform: scale(1.1, 1.1);
+    transform: scale(1.05, 1.05);
     cursor: pointer;
   }
 `;

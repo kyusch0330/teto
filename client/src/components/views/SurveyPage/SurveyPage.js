@@ -3,14 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import getTime from "../../../utils/getTime";
 import LikeInfo from "../../Common/LikeInfo";
-import { LoadMoreButton } from "../NavBar/NavBar.styles";
 import {
   Container,
   CreateButton,
+  LoadMoreButton,
   OrderByButtonContainer,
+  TestBoard,
   TestLinkItem,
   TestList,
 } from "./SurveyPage.styles";
+import { ReactComponent as WriteImg } from "../../../assets/write.svg";
+import { PALLETE } from "../../../constants/pallete";
 
 function SurveyPage() {
   const [surveyList, setSurveyList] = useState([]);
@@ -44,9 +47,12 @@ function SurveyPage() {
 
   return (
     <Container>
-      <CreateButton to="/survey/create">Create Test</CreateButton>
+      <CreateButton to="/survey/create">
+        <WriteImg width={32} height={32} fill={PALLETE.WHITE} />
+        <span>Create Test</span>
+      </CreateButton>
       {/* {surveyList.length > 0 && ( */}
-      <TestList>
+      <TestBoard>
         <OrderByButtonContainer>
           <button
             onClick={handleOrderByChange}
@@ -63,27 +69,32 @@ function SurveyPage() {
             popular
           </button>
         </OrderByButtonContainer>
+        <TestList>
+          {surveyList.map((survey) => {
+            const d = new Date(Number(survey.createdAt));
+            return (
+              <TestLinkItem key={survey._id} to={`/survey/${survey._id}`}>
+                <div className="survey_title">{survey.title}</div>
+                <div className="survey_createdAt">
+                  {getTime(survey.createdAt)}
+                </div>
+                <p className="survey_description">
+                  {survey.description && survey.description.length > 50
+                    ? survey.description.slice(0, 100) + "..."
+                    : survey.description}
+                </p>
+                <LikeInfo likes={survey.likes} />
+              </TestLinkItem>
+            );
+          })}
+        </TestList>
 
-        {surveyList.map((survey) => {
-          const d = new Date(Number(survey.createdAt));
-          return (
-            <TestLinkItem key={survey._id} to={`/survey/${survey._id}`}>
-              <span className="survey_title">{survey.title}</span>
-              <span className="survey_createdAt">
-                &nbsp; {getTime(survey.createdAt)}
-              </span>
-              <p className="survey_description">{survey.description}</p>
-              <LikeInfo likes={survey.likes} />
-            </TestLinkItem>
-          );
-        })}
-      </TestList>
-      {/* )} */}
-      {surveyList.length > 0 && (
-        <LoadMoreButton onClick={() => setLoadCount(loadCount + 1)}>
-          load more...
-        </LoadMoreButton>
-      )}
+        {surveyList.length > 0 && (
+          <LoadMoreButton onClick={() => setLoadCount(loadCount + 1)}>
+            load more...
+          </LoadMoreButton>
+        )}
+      </TestBoard>
     </Container>
   );
 }
