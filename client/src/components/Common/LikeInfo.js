@@ -6,12 +6,11 @@ import { PALLETE } from "../../constants/pallete";
 const LikeInfoContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
 `;
 
 const LikeInfo = ({ likes }) => {
   return (
-    <LikeInfoContainer>
+    <LikeInfoContainer className="likeInfo">
       <LikeImg width={15} height={15} fill={PALLETE.RED} />
       <span>&nbsp;{likes}</span>
     </LikeInfoContainer>

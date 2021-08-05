@@ -8,6 +8,8 @@ export const PALLETE = {
   WHITE: "#fefefe",
 
   RED: "#de5e5e",
+  GREEN_LIGHT: "#ceeece",
+  GREEN: "#aeeeae",
 
   PRIMARY_BLUE: "#5a62be",
   PRIMARY_BLUE_DARK: "#4a52ae",

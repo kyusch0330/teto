@@ -45,7 +45,3 @@ export const UserBar = styled.div`
   }
   margin-right: 20px;
 `;
-
-export const LoadMoreButton = styled.button`
-  background: ${PALLETE.PRIMARY_BLUE};
-`;

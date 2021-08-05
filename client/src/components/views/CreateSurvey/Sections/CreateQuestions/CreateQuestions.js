@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { ErrorMessage, Field, FieldArray, Form } from "formik";
 import { initQuestion } from "../../../../../utils/initObjs";
 import CreateOptions from "../CreateOptions/CreateOptions";
@@ -28,13 +28,22 @@ function CreateQuestions({ questions, types, errors }) {
     nextQuestion,
     moveToPrev,
     moveToNext,
-  } = useSlider();
+  } = useSlider(0);
+
+  const questionArea = useRef();
 
   useEffect(() => {
-    setCurrentQuestion(0);
-  }, []);
+    if (!questionArea.current) return;
+    questionArea.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center",
+    });
+  }, [types]);
+  useEffect(() => {
+    if (currentQuestion + 1 === questions.length - 1) moveToNext();
+  }, [questions.length]);
 
-  console.log(currentQuestion);
   return (
     <SurveyQuestionsForm autoComplete="off">
       <FieldArray
@@ -42,7 +51,7 @@ function CreateQuestions({ questions, types, errors }) {
         render={(arrayHelpers) => (
           <>
             <h3>Questions</h3>
-            <QuestionList>
+            <QuestionList ref={questionArea}>
               {questions.length < 1
                 ? arrayHelpers.push(initQuestion(types))
                 : null}
@@ -91,6 +100,9 @@ function CreateQuestions({ questions, types, errors }) {
                             name={`questions[${qIndex}].description`}
                           />
                         </label>
+                        <ErrorMessage
+                          name={`questions[${qIndex}].description`}
+                        />
                       </QuestionDescriptionBox>
                     </QuestionMain>
                     <OptionList>

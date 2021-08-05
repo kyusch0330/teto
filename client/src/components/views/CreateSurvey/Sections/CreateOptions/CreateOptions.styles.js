@@ -22,8 +22,8 @@ export const OptionItem = styled.div`
   }
   span.optionNum {
     position: absolute;
-    top: 0;
-    left: 10px;
+    top: -10px;
+    left: -15px;
     font-size: 1.3em;
     font-weight: 500;
     color: ${PALLETE.PRIMARY_BLUE_DARK};
@@ -38,6 +38,7 @@ export const OptionTextBox = styled.div`
     width: 90%;
     border: 2px solid ${PALLETE.BORDER_BLUE};
     padding: 5px;
+    margin-right: 5px;
   }
   div {
     color: ${PALLETE.RED};

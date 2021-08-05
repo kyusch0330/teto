@@ -1,8 +1,10 @@
 import axios from "axios";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { ReactComponent as DeleteImg } from "../../assets/delete.svg";
+import { PALLETE } from "../../constants/pallete";
 
-const DeleteSuveyButton = ({ testId, creatorId, userObj }) => {
+const DeleteSurveyButton = ({ testId, creatorId, userObj }, props = []) => {
   const history = useHistory();
   // survey 삭제 (작성자, 어드민만)
   const handleDeleteSurvey = () => {
@@ -18,10 +20,19 @@ const DeleteSuveyButton = ({ testId, creatorId, userObj }) => {
   return (
     <>
       {userObj && (creatorId === userObj._id || userObj.isAdmin) && (
-        <button onClick={handleDeleteSurvey}>Delete Test</button>
+        <DeleteImg
+          className="deleteBtn"
+          width={32}
+          height={32}
+          fill={PALLETE.BLACK_LIGHT}
+          {...props}
+          onClick={handleDeleteSurvey}
+        >
+          Delete Test
+        </DeleteImg>
       )}
     </>
   );
 };
 
-export default DeleteSuveyButton;
+export default DeleteSurveyButton;

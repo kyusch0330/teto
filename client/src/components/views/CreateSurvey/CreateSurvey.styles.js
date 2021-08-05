@@ -37,6 +37,7 @@ export const SurveyCoverForm = styled(Form)`
   padding: 20px;
   border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
   border-radius: 10px;
+  background: ${PALLETE.CONTAINER_BLUE};
 
   input {
     width: 90%;
