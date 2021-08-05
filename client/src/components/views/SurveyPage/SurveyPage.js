@@ -48,7 +48,7 @@ function SurveyPage() {
   return (
     <Container>
       <CreateButton to="/survey/create">
-        <WriteImg width={32} height={32} fill={PALLETE.WHITE} />
+        <WriteImg width={24} height={24} fill={PALLETE.WHITE} />
         <span>Create Test</span>
       </CreateButton>
       {/* {surveyList.length > 0 && ( */}

@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 100px 0;
+  padding: 60px 0;
   background: ${PALLETE.BACKGROUND_BLUE};
 `;
 

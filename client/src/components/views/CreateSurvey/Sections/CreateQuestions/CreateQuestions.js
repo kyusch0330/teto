@@ -134,7 +134,7 @@ function CreateQuestions({ questions, types, errors }) {
         )}
       />
       <div>
-        {!errors.questions ? (
+        {!errors.questions && !errors.title ? (
           <SubmitButton type="submit">Submit</SubmitButton>
         ) : (
           "fill out all required forms"

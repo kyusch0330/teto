@@ -24,6 +24,7 @@ import {
 import SliderController from "../../Common/SliderController";
 import { SurveyQuestionsForm } from "../CreateSurvey/Sections/CreateQuestions/CreateQuestions.styles";
 import { boolean } from "yup/lib/locale";
+import { useEffect } from "react";
 
 function Survey({ match, userObj }) {
   const { params } = match;
@@ -37,6 +38,10 @@ function Survey({ match, userObj }) {
     moveToPrev,
     moveToNext,
   } = useSlider(-1);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container>
       {!survey ? null : (
@@ -69,7 +74,6 @@ function Survey({ match, userObj }) {
               history.push("/result", {
                 result,
                 testId: params.id,
-                likes: survey.likes,
               });
             }}
           >

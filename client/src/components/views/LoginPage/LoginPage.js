@@ -9,6 +9,7 @@ import {
 import { withRouter } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
+import { LoginButton, LoginContainer, LoginForm } from "./LoginPage.styles";
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 function LoginPage(props) {
@@ -79,7 +80,7 @@ function LoginPage(props) {
   const handleGoogleFailure = (err) => console.log(err);
 
   return (
-    <div
+    <LoginContainer
       style={{
         display: "flex",
         justifyContent: "center",
@@ -88,7 +89,7 @@ function LoginPage(props) {
         height: "100vh",
       }}
     >
-      <form
+      <LoginForm
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit}
       >
@@ -106,18 +107,17 @@ function LoginPage(props) {
           value={password}
           onChange={handlePasswordChange}
         />
-        <br />
         <h5>{loginError}</h5>
-        <button>Login</button>
-        <GoogleLogin
-          clientId={GOOGLE_API_KEY}
-          buttonText="Login with Google"
-          onSuccess={handleGoogleSuccess}
-          onFailure={handleGoogleFailure}
-          cookiePolicy="single_host_origin"
-        />
-      </form>
-    </div>
+        <LoginButton>Login</LoginButton>
+      </LoginForm>
+      <GoogleLogin
+        clientId={GOOGLE_API_KEY}
+        buttonText="Login with Google"
+        onSuccess={handleGoogleSuccess}
+        onFailure={handleGoogleFailure}
+        cookiePolicy="single_host_origin"
+      />
+    </LoginContainer>
   );
 }
 

@@ -24,8 +24,8 @@ export const CreateButton = styled(Link)`
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 1.8em;
-  padding: 20px;
+  font-size: 1.5em;
+  padding: 12px;
   border: 1px solid ${PALLETE.BORDER_BLUE};
   border-radius: 2px;
   background: ${PALLETE.BLACK_LIGHT};
@@ -72,7 +72,7 @@ export const OrderByButtonContainer = styled.div`
     }
   }
   button.selected {
-    background: green;
+    background: ${PALLETE.PRIMARY_BLUE_DARK};
   }
 `;
 
