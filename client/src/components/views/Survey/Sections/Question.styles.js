@@ -6,7 +6,7 @@ export const QuestionMain = styled.div`
   flex-direction: column;
   color: ${PALLETE.BLACK};
   h5 {
-    padding: 20px 10px;
+    padding: 20px 20px;
     border-radius: 10px;
     background: ${PALLETE.CONTAINER_BLUE};
     margin: 0;
@@ -15,7 +15,7 @@ export const QuestionMain = styled.div`
   h6 {
     margin: 0;
     margin-top: -10px;
-    padding: 10px;
+    padding: 10px 20px;
     color: ${PALLETE.BLACK_LIGHT};
     background: ${PALLETE.CONTAINER_BLUE};
     border-bottom: 1px solid ${PALLETE.BORDER_BLUE};

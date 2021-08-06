@@ -26,11 +26,15 @@ export const RegisterForm = styled.form`
   padding: 50px 100px;
   background: ${PALLETE.WHITE};
   margin: 30px 0;
+  svg {
+    margin-bottom: 20px;
+  }
   label {
     align-self: flex-start;
   }
   input {
     width: 100%;
+    padding: 5px;
     border: 2px solid ${PALLETE.BORDER_BLUE};
     font-size: 0.8em;
   }
@@ -42,11 +46,12 @@ export const RegisterForm = styled.form`
 
 export const RegisterButton = styled.button`
   border: 2px solid ${PALLETE.BORDER_BLUE};
-  background: ${PALLETE.PRIMARY_BLUE_DARK};
+  background: ${PALLETE.PRIMARY_BLUE};
   color: ${PALLETE.WHITE};
   width: 100%;
   padding: 10px 30px;
   &:hover {
     cursor: pointer;
+    background: ${PALLETE.PRIMARY_BLUE_DARK};
   }
 `;

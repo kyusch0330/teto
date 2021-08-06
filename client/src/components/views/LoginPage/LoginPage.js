@@ -6,10 +6,18 @@ import {
   socialLoginUser,
 } from "../../../_actions/user_action";
 //HOC 사용후 history.push가 안되는 오류방지
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
-import { LoginButton, LoginContainer, LoginForm } from "./LoginPage.styles";
+import {
+  LoginButton,
+  LoginContainer,
+  LoginForm,
+  RegisterLinkButton,
+} from "./LoginPage.styles";
+import { ReactComponent as LogoImg } from "../../../assets/teto_logo.svg";
+import { PALLETE } from "../../../constants/pallete";
+
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 function LoginPage(props) {
@@ -93,6 +101,7 @@ function LoginPage(props) {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit}
       >
+        <LogoImg width={130} height={50} fill={PALLETE.GRAY_LIGHT} />
         <label>Email</label>
         <input
           type="email"
@@ -110,6 +119,9 @@ function LoginPage(props) {
         <h5>{loginError}</h5>
         <LoginButton>Login</LoginButton>
       </LoginForm>
+      <RegisterLinkButton>
+        <Link to="/register">Sign up</Link>
+      </RegisterLinkButton>
       <GoogleLogin
         clientId={GOOGLE_API_KEY}
         buttonText="Login with Google"

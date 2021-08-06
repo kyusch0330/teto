@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import LikeButton from "../../Common/LikeButton";
-import { ResultContainer, ResultPageContainer } from "./ResultPage.styles";
+import {
+  ResultContainer,
+  ResultPageContainer,
+  ShareForm,
+} from "./ResultPage.styles";
 import useSurvey from "../../../hooks/useSurvey";
+import { ReactComponent as CopyImg } from "../../../assets/copy.svg";
+import { PALLETE } from "../../../constants/pallete";
 
 function ResultPage({ location }) {
   const userObj = useSelector((state) => state.user.userData);
   const history = useHistory();
+  const testURL = useRef();
   if (!location.state) {
     alert("잘못된 경로입니다.");
     history.push("/");
@@ -34,7 +41,28 @@ function ResultPage({ location }) {
           />
           <br />
           <Link to="/survey">다른 테스트하러 가기</Link>
-          <a>이 테스트 공유하기</a>
+          <span>이 테스트 공유하기</span>
+          {testId && (
+            <ShareForm>
+              <input
+                ref={testURL}
+                value={`http://localhost:3000/survey/${testId}`}
+              />
+              <CopyImg
+                width={24}
+                height={24}
+                fill={PALLETE.PRIMARY_BLUE_DARK}
+                onClick={() => {
+                  if (testURL.current) {
+                    testURL.current.select();
+                    document.execCommand("copy");
+                  }
+                }}
+              >
+                공유
+              </CopyImg>
+            </ShareForm>
+          )}
         </ResultContainer>
       )}
     </ResultPageContainer>

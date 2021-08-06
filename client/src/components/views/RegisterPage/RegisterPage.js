@@ -7,6 +7,8 @@ import {
   RegisterContainer,
   RegisterForm,
 } from "./Register.styles";
+import { ReactComponent as LogoImg } from "../../../assets/teto_logo.svg";
+import { PALLETE } from "../../../constants/pallete";
 
 function RegisterPage(props) {
   const dispatch = useDispatch();
@@ -56,6 +58,7 @@ function RegisterPage(props) {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit}
       >
+        <LogoImg width={130} height={50} fill={PALLETE.GRAY_LIGHT} />
         <label>Name</label>
         <input
           type="text"

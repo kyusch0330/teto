@@ -8,6 +8,8 @@ const DeleteSurveyButton = ({ testId, creatorId, userObj }, props = []) => {
   const history = useHistory();
   // survey 삭제 (작성자, 어드민만)
   const handleDeleteSurvey = () => {
+    const doDelete = window.confirm("sure to delete this test?");
+    if (!doDelete) return;
     axios
       .delete("/api/surveys/delete", {
         data: { id: testId },

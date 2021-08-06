@@ -90,7 +90,12 @@ function CreateTypes({ onFixTypes }) {
               />
             </TypeList>
             {errors.types || values.types[0].name === "" ? (
-              <FixTypesButton className="fixTypesBtn">Can't Fix</FixTypesButton>
+              <>
+                <FixTypesButton className="fixTypesBtn">
+                  Can't Fix
+                </FixTypesButton>
+                <span>please fill out all requirement</span>
+              </>
             ) : (
               <FixTypesButton className="fixTypesBtn" type="submit">
                 Fix Types

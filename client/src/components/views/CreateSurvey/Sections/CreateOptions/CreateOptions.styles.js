@@ -62,9 +62,8 @@ export const OptionWeightBox = styled.div`
     min-width: 50px;
   }
   input {
-    width: 35px;
+    width: 50px;
     text-align: center;
-    padding-left: 8px;
     border: 2px solid ${PALLETE.BORDER_BLUE};
   }
   span {

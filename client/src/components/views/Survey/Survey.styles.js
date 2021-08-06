@@ -32,6 +32,10 @@ export const SurveyPaper = styled.div`
       transform: scale(1.1, 1.1);
     }
   }
+  p {
+    padding: 30px;
+    font-size: 0.9em;
+  }
 `;
 
 export const StyledForm = styled(Form)`

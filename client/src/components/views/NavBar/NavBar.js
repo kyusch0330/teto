@@ -9,6 +9,7 @@ import {
   UserBar,
 } from "./NavBar.styles";
 import { ReactComponent as MenuImg } from "../../../assets/menu.svg";
+import { ReactComponent as LogoImg } from "../../../assets/teto_logo.svg";
 import { PALLETE } from "../../../constants/pallete";
 
 function NavBar({ isAuth, loading }) {
@@ -17,8 +18,8 @@ function NavBar({ isAuth, loading }) {
   return (
     <NavContainer>
       <MainBar>
-        <Link onClick={handleMenuClick} to="/">
-          Home
+        <Link className="logo" onClick={handleMenuClick} to="/">
+          <LogoImg width={130} height={50} fill={PALLETE.WHITE} />
         </Link>
         <MenuButton
           type="button"

@@ -14,7 +14,7 @@ export const LoginContainer = styled.div`
   border-radius: 5px;
 `;
 export const LoginForm = styled.form`
-  width: 80%;
+  width: 90%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
@@ -23,25 +23,48 @@ export const LoginForm = styled.form`
   gap: 10px;
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
-  padding: 50px;
+  padding: 50px 100px;
   background: ${PALLETE.WHITE};
   margin: 30px 0;
+  svg {
+    margin-bottom: 20px;
+  }
+  label {
+    align-self: flex-start;
+  }
   input {
+    width: 100%;
+    padding: 5px;
     border: 2px solid ${PALLETE.BORDER_BLUE};
-    width: 60%;
     font-size: 0.9em;
-    @media (max-width: ${WIDTH.MOBILE}px) {
-      width: 100%;
-    }
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    padding: 50px 30px;
   }
 `;
 
 export const LoginButton = styled.button`
   border: 2px solid ${PALLETE.BORDER_BLUE};
-  background: ${PALLETE.PRIMARY_BLUE_DARK};
+  background: ${PALLETE.PRIMARY_BLUE};
   color: ${PALLETE.WHITE};
   width: 100%;
   padding: 10px 30px;
+  &:hover {
+    cursor: pointer;
+    background: ${PALLETE.PRIMARY_BLUE_DARK};
+  }
+`;
+
+export const RegisterLinkButton = styled.button`
+  background: ${PALLETE.BLACK};
+  width: 180px;
+  padding: 10px 30px;
+  margin-bottom: 20px;
+  box-shadow: ${PALLETE.BLACK_LIGHT} 1px 3px 4px 0px;
+  a {
+    text-decoration: none;
+    color: ${PALLETE.WHITE};
+  }
   &:hover {
     cursor: pointer;
   }

@@ -137,8 +137,14 @@ export const TestLinkItem = styled(Link)`
     bottom:10px;
     left:10px;
   }
+  p{
+    font-size:0.9em;
+    @media (max-width: ${WIDTH.TABLET}px) {
+      font-size:0.8em;
+    }
+  }
   @media (max-width: ${WIDTH.MOBILE}px) {
-    height: 220px;
+    height: 190px;
   }
 `;
 

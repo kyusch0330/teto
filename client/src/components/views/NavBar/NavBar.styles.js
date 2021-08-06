@@ -46,6 +46,13 @@ export const MainBar = styled.div`
       margin-top: 10px;
       text-align: center;
     }
+    .logo {
+      margin: 0;
+      svg {
+        width: 80px;
+        height: 30px;
+      }
+    }
   }
 `;
 
@@ -70,6 +77,7 @@ export const MenuBar = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    border-top: 2px solid ${PALLETE.WHITE};
   }
 `;
 
