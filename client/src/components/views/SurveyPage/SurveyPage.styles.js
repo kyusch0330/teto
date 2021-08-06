@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
+import { WIDTH } from "../../../constants/mediaWidth";
 import { PALLETE } from "../../../constants/pallete";
 
 export const Container = styled.div`
@@ -24,8 +25,8 @@ export const CreateButton = styled(Link)`
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 1.8em;
-  padding: 20px;
+  font-size: 1.5em;
+  padding: 12px;
   border: 1px solid ${PALLETE.BORDER_BLUE};
   border-radius: 2px;
   background: ${PALLETE.BLACK_LIGHT};
@@ -51,6 +52,10 @@ export const TestBoard = styled.div`
   border-radius: 5px;
   padding: 30px;
   margin: 30px 0;
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 100%;
+    padding: 10px;
+  }
 `;
 
 export const OrderByButtonContainer = styled.div`
@@ -72,19 +77,22 @@ export const OrderByButtonContainer = styled.div`
     }
   }
   button.selected {
-    background: green;
+    background: ${PALLETE.PRIMARY_BLUE_DARK};
   }
 `;
 
 export const TestList = styled.div`
-  display: flex;
-  flex-direction: column;
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
 
   margin-bottom: 20px;
   box-sizing: border-box;
+
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const TestLinkItem = styled(Link)`
@@ -128,6 +136,15 @@ export const TestLinkItem = styled(Link)`
     position: absolute;
     bottom:10px;
     left:10px;
+  }
+  p{
+    font-size:0.9em;
+    @media (max-width: ${WIDTH.TABLET}px) {
+      font-size:0.8em;
+    }
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    height: 190px;
   }
 `;
 

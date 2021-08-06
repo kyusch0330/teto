@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import {
+  ProfileForm,
+  LogoutButton,
+  ProfileContainer,
+  UpdateButton,
+} from "./Profile.styles";
 
 function Profile({ userObj, history }) {
   const [name, setName] = useState(userObj.name);
@@ -35,17 +41,17 @@ function Profile({ userObj, history }) {
       .catch((err) => console.log(err));
   };
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <ProfileContainer>
+      <ProfileForm onSubmit={handleSubmit}>
         <label htmlFor="name">name</label>
         <input type="text" onChange={handleNameChange} value={name} id="name" />
         <label htmlFor="email">email</label>
         <input type="email" readOnly value={userObj.email} id="email" />
-        <input type="submit" value="update" />
+        <UpdateButton type="submit">Update Profile</UpdateButton>
         {/* 비밀번호 변경, 프로필 사진 변경... */}
-      </form>
-      <button onClick={handleLogoutClick}>로그아웃</button>
-    </div>
+      </ProfileForm>
+      <LogoutButton onClick={handleLogoutClick}>로그아웃</LogoutButton>
+    </ProfileContainer>
   );
 }
 

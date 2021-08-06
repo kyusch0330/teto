@@ -1,21 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { MenuBar, NavContainer, UserBar } from "./NavBar.styles";
+import {
+  MainBar,
+  MenuBar,
+  MenuButton,
+  NavContainer,
+  UserBar,
+} from "./NavBar.styles";
+import { ReactComponent as MenuImg } from "../../../assets/menu.svg";
+import { ReactComponent as LogoImg } from "../../../assets/teto_logo.svg";
+import { PALLETE } from "../../../constants/pallete";
+
 function NavBar({ isAuth, loading }) {
+  const [menuBarDisplay, setMenuBarDisplay] = useState(false);
+  const handleMenuClick = () => setMenuBarDisplay(false);
   return (
     <NavContainer>
-      <MenuBar>
-        <Link to="/">Home</Link>
-        <Link to="/survey">Survey</Link>
-        <Link to="/bingo">Bingo</Link>
-        <Link to="/about">About</Link>
-      </MenuBar>
-      <UserBar>
+      <MainBar>
+        <Link className="logo" onClick={handleMenuClick} to="/">
+          <LogoImg width={130} height={50} fill={PALLETE.WHITE} />
+        </Link>
+        <MenuButton
+          type="button"
+          onClick={() => setMenuBarDisplay((menuBarDisplay) => !menuBarDisplay)}
+        >
+          <MenuImg width={24} height={24} fill={PALLETE.WHITE} />
+        </MenuButton>
+        <MenuBar menuDisplay={menuBarDisplay}>
+          <Link onClick={handleMenuClick} to="/survey">
+            Survey
+          </Link>
+          <Link onClick={handleMenuClick} to="/bingo">
+            Bingo
+          </Link>
+          <Link onClick={handleMenuClick} to="/about">
+            About
+          </Link>
+        </MenuBar>
+      </MainBar>
+      <UserBar menuDisplay={menuBarDisplay}>
         {!loading && !isAuth && (
           <>
-            <Link to="/register">Sign up</Link>
-            <Link to="/login">Sign in</Link>
+            <Link onClick={handleMenuClick} to="/register">
+              Sign up
+            </Link>
+            <Link onClick={handleMenuClick} to="/login">
+              Sign in
+            </Link>
           </>
         )}
         {!loading && isAuth && <Link to="/profile">Profile</Link>}

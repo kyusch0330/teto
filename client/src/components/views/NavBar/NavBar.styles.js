@@ -1,20 +1,32 @@
+import { WIDTH } from "../../../constants/mediaWidth";
 import styled from "styled-components";
 import { PALLETE } from "../../../constants/pallete";
 
 export const NavContainer = styled.nav`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   font-size: 1rem;
   background: ${PALLETE.PRIMARY_BLUE};
   color: ${PALLETE.BLACK};
-  padding: 15px;
+  padding: 8px;
   z-index: 1;
   box-sizing: border-box;
+
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    flex-direction: column;
+    padding: 10 0px;
+  }
 `;
 
-export const MenuBar = styled.div`
+export const MainBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
   a {
     text-decoration: none;
     color: ${PALLETE.WHITE};
@@ -24,7 +36,51 @@ export const MenuBar = styled.div`
       color: ${PALLETE.GRAY_LIGHT};
     }
   }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    a {
+      width: 100%;
+      margin: 0;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .logo {
+      margin: 0;
+      svg {
+        width: 80px;
+        height: 30px;
+      }
+    }
+  }
 `;
+
+export const MenuButton = styled.button`
+  border: none;
+  background: transparent;
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 8px;
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    display: block;
+  }
+`;
+
+export const MenuBar = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    display: ${(props) => (props.menuDisplay ? "flex" : "none")};
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-top: 2px solid ${PALLETE.WHITE};
+  }
+`;
+
 export const UserBar = styled.div`
   a {
     text-decoration: none;
@@ -44,4 +100,12 @@ export const UserBar = styled.div`
     }
   }
   margin-right: 20px;
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    display: ${(props) => (props.menuDisplay ? "flex" : "none")};
+    width: 100%;
+    border-top: 1px solid ${PALLETE.WHITE};
+    flex-direction: column;
+    margin: 0;
+    margin-top: 15px;
+  }
 `;

@@ -1,5 +1,6 @@
 import { Form } from "formik";
 import styled from "styled-components";
+import { WIDTH } from "../../../../../constants/mediaWidth";
 import { PALLETE } from "../../../../../constants/pallete";
 
 export const SurveyQuestionsForm = styled(Form)`
@@ -25,6 +26,10 @@ export const QuestionList = styled.div`
   padding: 20px;
   gap: 30px;
   overflow: hidden;
+
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    padding: 10px 10px;
+  }
 `;
 
 export const QuestionItem = styled.div`
@@ -48,6 +53,9 @@ export const QuestionItem = styled.div`
   }
   &:nth-child(1) {
     margin-top: 80px;
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    padding: 20px 22px;
   }
 `;
 
@@ -77,18 +85,16 @@ export const QuestionTextBox = styled.div`
   flex-direction: row;
   width: 100%;
   height: 3em;
+  color: ${PALLETE.BLACK};
   label {
-    color: ${PALLETE.BLACK};
     width: 100%;
   }
   div {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    color: ${PALLETE.RED};
     input {
       width: 100%;
-      color: ${PALLETE.BLACK};
       font-size: 1.1em;
       border: 2px solid ${PALLETE.BORDER_BLUE};
       background: ${PALLETE.WHITE};
@@ -145,4 +151,8 @@ export const SubmitButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const ErorrSpan = styled.span`
+  color: ${PALLETE.RED};
 `;

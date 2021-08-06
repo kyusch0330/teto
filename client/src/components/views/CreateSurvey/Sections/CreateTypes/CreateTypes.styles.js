@@ -1,5 +1,6 @@
 import { Form } from "formik";
 import styled, { keyframes } from "styled-components";
+import { WIDTH } from "../../../../../constants/mediaWidth";
 import { PALLETE } from "../../../../../constants/pallete";
 
 export const SurveyTypesForm = styled(Form)`
@@ -58,6 +59,10 @@ export const TypeItem = styled.div`
     border: 1px solid ${PALLETE.BORDER_BLUE};
     border-radius: 5px;
     padding: 6px;
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 100%;
+    margin: 20px 0;
   }
 `;
 

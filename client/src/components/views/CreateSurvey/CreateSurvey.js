@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Prompt, useHistory } from "react-router-dom";
 import axios from "axios";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import CreateTypes from "./Sections/CreateTypes/CreateTypes";
 import CreateQuestions from "./Sections/CreateQuestions/CreateQuestions";
@@ -11,6 +11,7 @@ import {
   CreateSurveyPaper,
   SurveyCoverForm,
 } from "./CreateSurvey.styles";
+import { ErorrSpan } from "./Sections/CreateQuestions/CreateQuestions.styles";
 
 const CreateSurvey = ({ userObj }) => {
   const [types, setTypes] = useState([]);
@@ -77,6 +78,9 @@ const CreateSurvey = ({ userObj }) => {
             <SurveyCoverForm>
               <h3>Title</h3>
               <Field name="title" />
+              <ErorrSpan>
+                <ErrorMessage name="title" />
+              </ErorrSpan>
               <h3>description</h3>
               <Field as="textarea" name="description" />
             </SurveyCoverForm>

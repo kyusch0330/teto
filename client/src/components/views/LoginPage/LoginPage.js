@@ -6,9 +6,18 @@ import {
   socialLoginUser,
 } from "../../../_actions/user_action";
 //HOC 사용후 history.push가 안되는 오류방지
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import axios from "axios";
+import {
+  LoginButton,
+  LoginContainer,
+  LoginForm,
+  RegisterLinkButton,
+} from "./LoginPage.styles";
+import { ReactComponent as LogoImg } from "../../../assets/teto_logo.svg";
+import { PALLETE } from "../../../constants/pallete";
+
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 function LoginPage(props) {
@@ -79,7 +88,7 @@ function LoginPage(props) {
   const handleGoogleFailure = (err) => console.log(err);
 
   return (
-    <div
+    <LoginContainer
       style={{
         display: "flex",
         justifyContent: "center",
@@ -88,10 +97,11 @@ function LoginPage(props) {
         height: "100vh",
       }}
     >
-      <form
+      <LoginForm
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit}
       >
+        <LogoImg width={130} height={50} fill={PALLETE.GRAY_LIGHT} />
         <label>Email</label>
         <input
           type="email"
@@ -106,18 +116,20 @@ function LoginPage(props) {
           value={password}
           onChange={handlePasswordChange}
         />
-        <br />
         <h5>{loginError}</h5>
-        <button>Login</button>
-        <GoogleLogin
-          clientId={GOOGLE_API_KEY}
-          buttonText="Login with Google"
-          onSuccess={handleGoogleSuccess}
-          onFailure={handleGoogleFailure}
-          cookiePolicy="single_host_origin"
-        />
-      </form>
-    </div>
+        <LoginButton>Login</LoginButton>
+      </LoginForm>
+      <RegisterLinkButton>
+        <Link to="/register">Sign up</Link>
+      </RegisterLinkButton>
+      <GoogleLogin
+        clientId={GOOGLE_API_KEY}
+        buttonText="Login with Google"
+        onSuccess={handleGoogleSuccess}
+        onFailure={handleGoogleFailure}
+        cookiePolicy="single_host_origin"
+      />
+    </LoginContainer>
   );
 }
 
