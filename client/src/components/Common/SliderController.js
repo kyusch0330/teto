@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { PALLETE } from "../../constants/pallete";
 import { ReactComponent as ArrowImg } from "../../assets/direction.svg";
+import { WIDTH } from "../../constants/mediaWidth";
 const SlideController = styled.div`
   position: fixed;
-  right: 20%;
+  right: 15%;
   top: 50%;
   display: flex;
   flex-direction: column;
@@ -23,6 +24,10 @@ const SlideController = styled.div`
       cursor: pointer;
       transform: scale(1.2, 1.2) rotate(180deg);
     }
+  }
+  @media (max-width: ${WIDTH.TABLET}px) {
+    right: 8%;
+    top: 70%;
   }
 `;
 const SliderController = ({ moveToPrev, moveToNext }) => {

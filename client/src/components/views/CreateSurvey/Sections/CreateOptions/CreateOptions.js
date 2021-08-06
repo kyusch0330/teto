@@ -38,7 +38,7 @@ function CreateOptions({ qIndex, options, types }) {
                 </div>
               </OptionTextBox>
               <OptionWeightBox>
-                <span>for Type :</span>
+                <span>for Type</span>
                 <Field
                   as="select"
                   name={`questions[${qIndex}].options[${oIndex}].forType`}
@@ -47,7 +47,7 @@ function CreateOptions({ qIndex, options, types }) {
                     <option value={type.id}>{type.name}</option>
                   ))}
                 </Field>
-                <span>&nbsp; weight :</span>
+                <span>weight</span>
                 <Field
                   type="number"
                   name={`questions[${qIndex}].options[${oIndex}].weight`}

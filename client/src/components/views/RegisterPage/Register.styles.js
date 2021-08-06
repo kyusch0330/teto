@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { WIDTH } from "../../../constants/mediaWidth";
 import { PALLETE } from "../../../constants/pallete";
 
 export const RegisterContainer = styled.div`
@@ -13,7 +14,8 @@ export const RegisterContainer = styled.div`
   border-radius: 5px;
 `;
 export const RegisterForm = styled.form`
-  width: 30%;
+  width: 80%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,12 +23,20 @@ export const RegisterForm = styled.form`
   gap: 10px;
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
-  padding: 50px;
+  padding: 50px 100px;
   background: ${PALLETE.WHITE};
   margin: 30px 0;
+  label {
+    align-self: flex-start;
+  }
   input {
+    width: 100%;
     border: 2px solid ${PALLETE.BORDER_BLUE};
-    font-size: 1em;
+    font-size: 0.8em;
+  }
+
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    padding: 50px 50px;
   }
 `;
 

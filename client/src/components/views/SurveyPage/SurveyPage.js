@@ -80,7 +80,7 @@ function SurveyPage() {
                 </div>
                 <p className="survey_description">
                   {survey.description && survey.description.length > 50
-                    ? survey.description.slice(0, 100) + "..."
+                    ? survey.description.slice(0, 50) + "..."
                     : survey.description}
                 </p>
                 <LikeInfo likes={survey.likes} />

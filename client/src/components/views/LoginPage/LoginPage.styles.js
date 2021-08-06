@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { WIDTH } from "../../../constants/mediaWidth";
 import { PALLETE } from "../../../constants/pallete";
 
 export const LoginContainer = styled.div`
@@ -13,7 +14,8 @@ export const LoginContainer = styled.div`
   border-radius: 5px;
 `;
 export const LoginForm = styled.form`
-  width: 30%;
+  width: 80%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,7 +28,11 @@ export const LoginForm = styled.form`
   margin: 30px 0;
   input {
     border: 2px solid ${PALLETE.BORDER_BLUE};
-    font-size: 1.2em;
+    width: 60%;
+    font-size: 0.9em;
+    @media (max-width: ${WIDTH.MOBILE}px) {
+      width: 100%;
+    }
   }
 `;
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { WIDTH } from "../../../../../constants/mediaWidth";
 import { PALLETE } from "../../../../../constants/pallete";
 
 export const OptionItem = styled.div`
@@ -19,6 +20,10 @@ export const OptionItem = styled.div`
     position: absolute;
     top: 8px;
     right: 16px;
+
+    @media (max-width: ${WIDTH.MOBILE}px) {
+      right: 10px;
+    }
   }
   span.optionNum {
     position: absolute;
@@ -27,6 +32,9 @@ export const OptionItem = styled.div`
     font-size: 1.3em;
     font-weight: 500;
     color: ${PALLETE.PRIMARY_BLUE_DARK};
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    padding: 20px 10px;
   }
 `;
 
@@ -50,14 +58,23 @@ export const OptionWeightBox = styled.div`
   display: flex;
   font-size: 0.9em;
   select {
-    border: 1px solid ${PALLETE.BORDER_BLUE};
+    border: 2px solid ${PALLETE.BORDER_BLUE};
     min-width: 50px;
   }
   input {
     width: 35px;
     text-align: center;
     padding-left: 8px;
-    border: 1px solid ${PALLETE.BORDER_BLUE};
+    border: 2px solid ${PALLETE.BORDER_BLUE};
+  }
+  span {
+    margin: 10px;
+    @media (max-width: ${WIDTH.MOBILE}px) {
+      margin: 5px 0;
+    }
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    flex-direction: column;
   }
 `;
 export const AddOptionButton = styled.button`

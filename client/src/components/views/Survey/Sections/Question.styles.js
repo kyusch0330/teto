@@ -46,6 +46,6 @@ export const OptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 30px 10px;
+  padding: 30px 15px;
   font-size: 0.9em;
 `;

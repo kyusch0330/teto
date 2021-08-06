@@ -1,5 +1,6 @@
 import { Form } from "formik";
 import styled from "styled-components";
+import { WIDTH } from "../../../constants/mediaWidth";
 import { PALLETE } from "../../../constants/pallete";
 
 export const Container = styled.div`
@@ -14,7 +15,7 @@ export const Container = styled.div`
 `;
 
 export const SurveyPaper = styled.div`
-  width: 70%;
+  width: 90%;
   max-width: 700px;
   display: flex;
   flex-direction: column;
@@ -23,7 +24,7 @@ export const SurveyPaper = styled.div`
   border: 2px solid ${PALLETE.BORDER_BLUE};
   background: ${PALLETE.WHITE};
   border-radius: 10px;
-  padding: 20px 50px;
+  padding: 20px 30px;
   .deleteBtn {
     align-self: flex-end;
     &:hover {
@@ -47,6 +48,7 @@ export const StartButton = styled.button`
   background: ${PALLETE.GREEN_LIGHT};
   padding: 20px 50px;
   color: ${PALLETE.WHITE};
+  margin: 100px 0 200px 0;
   font-size: 1.5em;
   transition: all 300ms ease-in;
   &:hover {
@@ -65,13 +67,10 @@ export const QuestionSlider = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
-  button {
-    margin-top: 200px;
-  }
 `;
 
 export const QuestionCard = styled.div`
-  width: 50%;
+  width: 70%;
   max-width: 500px;
   padding: 0px;
   margin: 500px 200px;
@@ -80,6 +79,9 @@ export const QuestionCard = styled.div`
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 100%;
+  }
 `;
 
 export const ResultButtonBox = styled.div`
