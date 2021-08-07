@@ -5,8 +5,8 @@
   production 인지 development 인지에 따라
   어떤 key를 가져올지 나눠진다.
 */
-if(process.env.NODE_DEV === 'production') {
-  module.exports = require('./prod');
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./prod");
 } else {
-  module.exports = require('./dev');
+  module.exports = require("./dev");
 }
