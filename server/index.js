@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 //const bodyParser = require('body-parser');
@@ -18,6 +18,10 @@ app.use(cookieParser());
 app.use("/api/users", require("./routes/users"));
 app.use("/api/surveys", require("./routes/surveys"));
 app.use("/api/likes", require("./routes/likes"));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 const mongoose = require("mongoose");
 
