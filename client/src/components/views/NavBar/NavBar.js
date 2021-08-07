@@ -16,7 +16,7 @@ function NavBar({ isAuth, loading }) {
   const [menuBarDisplay, setMenuBarDisplay] = useState(false);
   const handleMenuClick = () => setMenuBarDisplay(false);
   return (
-    <NavContainer>
+    <NavContainer onMouseLeave={() => setMenuBarDisplay(false)}>
       <MainBar>
         <Link className="logo" onClick={handleMenuClick} to="/">
           <LogoImg width={130} height={50} fill={PALLETE.WHITE} />
