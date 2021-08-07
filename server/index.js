@@ -22,7 +22,7 @@ app.use("/api/likes", require("./routes/likes"));
 
 if (true || process.env.NODE_ENV === "production") {
   // 임시 수정
-  app.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static("client/build"));
   // index.html for all page routes
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
