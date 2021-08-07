@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
+const path = require("path");
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 //const bodyParser = require('body-parser');
@@ -21,6 +22,10 @@ app.use("/api/likes", require("./routes/likes"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
+  // index.html for all page routes
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
 }
 
 const mongoose = require("mongoose");
