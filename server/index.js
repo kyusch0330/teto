@@ -20,7 +20,8 @@ app.use("/api/users", require("./routes/users"));
 app.use("/api/surveys", require("./routes/surveys"));
 app.use("/api/likes", require("./routes/likes"));
 
-if (process.env.NODE_ENV === "production") {
+if (true || process.env.NODE_ENV === "production") {
+  // 임시 수정
   app.use(express.static(path.join(__dirname, "client/build")));
   // index.html for all page routes
   app.get("*", (req, res) => {
