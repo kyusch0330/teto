@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Prompt, useHistory } from "react-router-dom";
 import axios from "axios";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from "yup";
 import CreateTypes from "./Sections/CreateTypes/CreateTypes";
 import CreateQuestions from "./Sections/CreateQuestions/CreateQuestions";

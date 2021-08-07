@@ -50,4 +50,9 @@ export const ShareForm = styled.form`
     width: 90%;
     border: 1px solid ${PALLETE.BORDER_BLUE};
   }
+  svg {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
