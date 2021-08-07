@@ -75,7 +75,7 @@ const CreateSurvey = ({ userObj }) => {
         }}
         render={({ values, errors }) => (
           <CreateSurveyPaper>
-            <SurveyCoverForm>
+            <SurveyCoverForm autoComplete="off">
               <h3>Title</h3>
               <Field name="title" />
               <ErorrSpan>

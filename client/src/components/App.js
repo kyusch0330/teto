@@ -1,4 +1,3 @@
-import "./App.css";
 import { StyledApp } from "./App.styles";
 import AppRouter from "./Router/Router";
 

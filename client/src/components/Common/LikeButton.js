@@ -25,7 +25,7 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
   const [likes, setLikes] = useState(initialLikes);
   useEffect(() => {
     // 사용자 좋아요 여부 가져오기
-    if (userObj) {
+    if (userObj && userObj.isAuth) {
       axios
         .get("/api/likes/likedbefore", {
           params: {
@@ -41,7 +41,7 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
 
   // 좋아요 저장
   const handleLikeClick = () => {
-    if (!userObj) {
+    if (!userObj || !userObj.isAuth) {
       // 로그인하지 않은 유저
       alert("you should sign in first.");
       return;
