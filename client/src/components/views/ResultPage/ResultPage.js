@@ -49,11 +49,11 @@ function ResultPage({ location }) {
             <ShareForm>
               <input
                 ref={testURL}
-                value={`http://localhost:3000/survey/${testId}`}
+                value={`https://teto-test-together.herokuapp.com/${testId}`}
               />
               <CopyImg
-                width={24}
-                height={24}
+                width={28}
+                height={28}
                 fill={PALLETE.PRIMARY_BLUE_DARK}
                 onClick={() => {
                   if (testURL.current) {

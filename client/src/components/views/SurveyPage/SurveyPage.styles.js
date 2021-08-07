@@ -14,7 +14,6 @@ export const Container = styled.div`
   background: ${PALLETE.BACKGROUND_BLUE};
   color: ${PALLETE.BLACK};
   padding: 15px;
-  box-sizing: border-box;
   font-size: 1rem;
 `;
 

@@ -19,3 +19,13 @@ export const initOption = (types) => {
     weight: 1,
   };
 };
+
+/* Bingo Objs */
+export const initLevel = (biggestMinLines) => {
+  return {
+    id: "l" + Date.now().toString(),
+    name: "",
+    description: "",
+    minLines: biggestMinLines + 1,
+  };
+};

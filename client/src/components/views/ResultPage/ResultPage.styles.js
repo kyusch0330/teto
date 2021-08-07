@@ -41,7 +41,7 @@ export const ResultContainer = styled.div`
 
 export const ShareForm = styled.form`
   display: flex;
-  gap: 5px;
+  gap: 10px;
   padding: 5px;
   width: 90%;
   max-width: 300px;
