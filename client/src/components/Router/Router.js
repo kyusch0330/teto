@@ -12,12 +12,12 @@ import RegisterPage from "../views/RegisterPage/RegisterPage";
 import NavBar from "../views/NavBar/NavBar";
 import Profile from "../views/Profile/Profile";
 import SurveyPage from "../views/SurveyPage/SurveyPage";
-import Bingo from "../views/Bingo/Bingo";
 import About from "../views/About/About";
 import CreateSurvey from "../views/CreateSurvey/CreateSurvey";
 import Survey from "../views/Survey/Survey";
 import ResultPage from "../views/ResultPage/ResultPage";
 import Footer from "../views/Footer/Footer";
+import BingoPage from "../views/BingoPage/BingoPage";
 
 function AppRouter() {
   return (
@@ -36,7 +36,7 @@ function AppRouter() {
         />
         <Route exact path="/survey/:id" component={Auth(Survey, null)} />
         <Route exact path="/result" component={ResultPage} />
-        <Route exact path="/bingo" component={Bingo} />
+        <Route exact path="/bingo" component={BingoPage} />
         <Route exact path="/about" component={About} />
         <Redirect from="*" to="/" />
       </Switch>

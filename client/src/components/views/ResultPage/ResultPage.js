@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import LikeButton from "../../Common/LikeButton";
@@ -27,6 +27,9 @@ function ResultPage({ location }) {
   } = location;
   console.log(userObj, testId, result);
   const survey = useSurvey(testId);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <ResultPageContainer>
       {result && survey && userObj && (

@@ -44,7 +44,9 @@ function SurveyPage() {
     setLoadCount(1);
     setOrderBy(nextOrderBy);
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Container>
       <CreateButton to="/survey/create">

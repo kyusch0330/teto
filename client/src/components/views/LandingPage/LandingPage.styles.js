@@ -18,7 +18,7 @@ export const PopularSurveyList = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   algin-items: center;
-  width: 50%;
+  width: 80%;
   max-width: 400px;
   background: ${PALLETE.WHITE};
   border: 1px solid ${PALLETE.GRAY_LIGHT};
