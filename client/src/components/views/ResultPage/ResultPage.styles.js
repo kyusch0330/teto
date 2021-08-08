@@ -9,7 +9,7 @@ export const ResultPageContainer = styled.div`
   gap: 5px;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 10px;
   background: ${PALLETE.BACKGROUND_BLUE};
 `;
 

@@ -3,7 +3,7 @@ import { Form } from "formik";
 import styled from "styled-components";
 
 export const CommentSectionContainer = styled.div`
-  width: 90%;
+  width: 100%;
   max-width: 600px;
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@ export const CommentForm = styled(Form)`
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
-  width: 80%;
+  width: 90%;
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 3px;
   background: ${PALLETE.WHITE};
@@ -66,7 +66,7 @@ export const CommentList = styled.div`
   align-items: center;
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 3px;
-  width: 80%;
+  width: 90%;
   background: ${PALLETE.WHITE};
 `;
 

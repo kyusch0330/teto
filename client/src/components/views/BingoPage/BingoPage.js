@@ -19,21 +19,21 @@ function BingoPage() {
   const [orderBy, setOrderBy] = useState(0);
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
-    axios
-      .get("/api/bingos/latest", { params: { loadCount: loadCount } })
-      .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+    // axios
+    //   .get("/api/bingos/latest", { params: { loadCount: loadCount } })
+    //   .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
   }, []);
 
   useEffect(() => {
-    if (orderBy === 0) {
-      axios
-        .get("/api/bingos/latest", { params: { loadCount: loadCount } })
-        .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
-    } else if (orderBy === 1) {
-      axios
-        .get("/api/bingos/popular", { params: { loadCount: loadCount } })
-        .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
-    }
+    // if (orderBy === 0) {
+    //   axios
+    //     .get("/api/bingos/latest", { params: { loadCount: loadCount } })
+    //     .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+    // } else if (orderBy === 1) {
+    //   axios
+    //     .get("/api/bingos/popular", { params: { loadCount: loadCount } })
+    //     .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+    // }
   }, [orderBy, loadCount]);
 
   const handleOrderByChange = (e) => {
