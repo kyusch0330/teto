@@ -12,6 +12,7 @@ import LikeButton from "../../Common/LikeButton";
 import { getResult } from "./getResult";
 import Question from "./Sections/Question";
 import {
+  AuthorMenu,
   Container,
   QuestionCard,
   QuestionSlider,
@@ -25,6 +26,8 @@ import SliderController from "components/Common/SliderController";
 import { SurveyQuestionsForm } from "../CreateSurvey/Sections/CreateQuestions/CreateQuestions.styles";
 import { boolean } from "yup/lib/locale";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import EditSurveyButton from "components/Common/EditSurveyButton";
 
 function Survey({ match, userObj }) {
   const { params } = match;
@@ -46,18 +49,26 @@ function Survey({ match, userObj }) {
     <Container>
       {!survey ? null : (
         <SurveyPaper>
-          <DeleteSurveyButton
-            testId={survey._id}
-            creatorId={survey.userId}
-            userObj={userObj}
-          />
+          <AuthorMenu>
+            <EditSurveyButton
+              survey={survey}
+              creatorId={survey.userId}
+              userObj={userObj}
+            />
+            <DeleteSurveyButton
+              testId={survey._id}
+              creatorId={survey.userId}
+              userObj={userObj}
+            />
+          </AuthorMenu>
           <LikeButton
             initialLikes={survey.likes}
             userObj={userObj}
             testId={params.id}
           />
           <h3>{survey.title}</h3>
-          <span>{getTime(survey.createdAt)}</span>
+          <span className="authorName">{survey.userName}</span>
+          <span className="createdAt">{getTime(survey.createdAt)}</span>
           <p>{survey.description}</p>
           <br />
           <Formik

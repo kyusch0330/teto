@@ -10,6 +10,9 @@ const surveySchema = mongoose.Schema({
   userId: {
     type: String,
   },
+  userName: {
+    type: String,
+  },
   createdAt: {
     type: String,
   },

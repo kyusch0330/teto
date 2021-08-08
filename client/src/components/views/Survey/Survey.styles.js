@@ -25,16 +25,33 @@ export const SurveyPaper = styled.div`
   background: ${PALLETE.WHITE};
   border-radius: 10px;
   padding: 20px 30px;
-  .deleteBtn {
-    align-self: flex-end;
+  & span.authorName {
+    font-weight: 500;
+  }
+  & span.createdAt {
+    color: ${PALLETE.GRAY};
+  }
+  p {
+    padding: 30px;
+    font-size: 0.9em;
+  }
+`;
+
+export const AuthorMenu = styled.div`
+  align-self: flex-end;
+  display: flex;
+  gap: 10px;
+  .editLink {
     &:hover {
       cursor: pointer;
       transform: scale(1.1, 1.1);
     }
   }
-  p {
-    padding: 30px;
-    font-size: 0.9em;
+  .deleteBtn {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1, 1.1);
+    }
   }
 `;
 

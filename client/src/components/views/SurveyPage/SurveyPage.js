@@ -79,6 +79,7 @@ function SurveyPage() {
                 <div className="survey_createdAt">
                   {getTime(survey.createdAt)}
                 </div>
+                <div className="survey_userName">{survey.userName}</div>
                 <p className="survey_description">
                   {survey.description && survey.description.length > 50
                     ? survey.description.slice(0, 50) + "..."

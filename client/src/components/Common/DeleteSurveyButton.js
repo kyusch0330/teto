@@ -1,8 +1,8 @@
 import axios from "axios";
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { ReactComponent as DeleteImg } from "../../assets/delete.svg";
-import { PALLETE } from "../../constants/pallete";
+import { ReactComponent as DeleteImg } from "assets/delete.svg";
+import { PALLETE } from "constants/pallete";
 
 const DeleteSurveyButton = ({ testId, creatorId, userObj }, props = []) => {
   const history = useHistory();

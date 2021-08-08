@@ -101,7 +101,7 @@ export const TestLinkItem = styled(Link)`
   margin: 5px;
   font-size: 0.9em;
   background:${PALLETE.WHITE};
-
+  
   height: 200px;
 
   display: block;
@@ -117,6 +117,12 @@ export const TestLinkItem = styled(Link)`
     font-weight: 700;
     font-size: 1.1em;
     margin: 5px 0;
+  }
+  & div.survey_userName {
+    width:100%;
+    text-align: end;
+    font-weight:500;
+    color:${PALLETE.BLACK_LIGHT};
   }
   & div.survey_createdAt {
     font-weight: 500;

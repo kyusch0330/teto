@@ -14,11 +14,11 @@ import { ReactComponent as PlusImg } from "assets/plus.svg";
 import { ReactComponent as CloseImg } from "assets/close.svg";
 import { PALLETE } from "constants/pallete";
 
-function CreateTypes({ onFixTypes }) {
+function CreateTypes({ onFixTypes, initialTypes = null }) {
   return (
     <Formik
       initialValues={{
-        types: [initType()],
+        types: initialTypes ? initialTypes : [initType()],
       }}
       validationSchema={Yup.object({
         types: Yup.array().of(

@@ -15,7 +15,7 @@ import { PALLETE } from "constants/pallete";
 function NavBar({ isAuth, loading }) {
   const [menuBarDisplay, setMenuBarDisplay] = useState(false);
   const handleCloseMenu = () => {
-    setTimeout(() => setMenuBarDisplay(false), 300);
+    setTimeout(() => setMenuBarDisplay(false), 250);
   };
   return (
     <NavContainer onBlur={handleCloseMenu}>

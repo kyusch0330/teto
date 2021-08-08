@@ -100,4 +100,24 @@ router.delete("/delete", (req, res) => {
   });
 });
 
+/* update survey */
+router.put("/update", (req, res) => {
+  Survey.findOneAndUpdate(
+    { _id: req.body._id },
+    {
+      //수정할 survey 항목들 (req.body에 수정데이터 존재)
+      title: req.body.surveyToEdit.title,
+      description: req.body.surveyToEdit.description,
+      types: req.body.surveyToEdit.types,
+      questions: req.body.surveyToEdit.questions,
+    },
+    (err, user) => {
+      if (err) return res.json({ success: false, err });
+      return res.status(200).send({
+        success: true,
+      });
+    }
+  );
+});
+
 module.exports = router;

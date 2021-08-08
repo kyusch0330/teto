@@ -13,8 +13,12 @@ import {
 } from "./CreateSurvey.styles";
 import { ErorrSpan } from "./Sections/CreateQuestions/CreateQuestions.styles";
 
-const CreateSurvey = ({ userObj }) => {
-  const [types, setTypes] = useState([]);
+const CreateSurvey = ({ userObj, location }) => {
+  console.log(location);
+  const { edit, surveyToEdit } = location.state
+    ? location.state
+    : { edit: false, surveyToEdit: null };
+  const [types, setTypes] = useState(edit ? surveyToEdit.types : []);
 
   const { blocked, enablePrevent, disablePrevent } = usePreventCreatePageLeave([
     "block",
@@ -29,12 +33,13 @@ const CreateSurvey = ({ userObj }) => {
       />
       <Formik
         initialValues={{
-          userId: userObj._id,
+          userId: edit ? surveyToEdit.userId : userObj._id,
+          userName: edit ? surveyToEdit.userName : userObj.name,
           createdAt: 0,
-          types: [],
-          title: "",
-          description: "",
-          questions: [], //initQuestion(types)
+          types: edit ? surveyToEdit.types : [],
+          title: edit ? surveyToEdit.title : "",
+          description: edit ? surveyToEdit.description : "",
+          questions: edit ? surveyToEdit.questions : [], //initQuestion(types)
         }}
         validationSchema={Yup.object({
           title: Yup.string().max(20, "too long title").required(),
@@ -60,18 +65,33 @@ const CreateSurvey = ({ userObj }) => {
         })}
         onSubmit={(values) => {
           values.types = types;
-          values.createdAt = Date.now();
+          values.createdAt = edit ? surveyToEdit.createdAt : Date.now();
           // upload 성공 시 메뉴로 나갈 수 있게
           disablePrevent();
           console.log(values);
-          const response = axios
-            .post("/api/surveys/upload", values)
-            .then((response) => console.log(response.data))
-            .then(() => history.push("/survey"))
-            .catch((err) => {
-              console.log(err);
-              enablePrevent();
-            });
+          if (edit) {
+            console.log(values);
+            axios
+              .put("/api/surveys/update", {
+                _id: surveyToEdit._id,
+                surveyToEdit: values,
+              })
+              .then((response) => console.log(response.data))
+              .then(() => history.push(`/survey/${surveyToEdit._id}`))
+              .catch((err) => {
+                console.log(err);
+                enablePrevent();
+              });
+          } else {
+            axios
+              .post("/api/surveys/upload", values)
+              .then((response) => console.log(response.data))
+              .then(() => history.push("/survey"))
+              .catch((err) => {
+                console.log(err);
+                enablePrevent();
+              });
+          }
         }}
         render={({ values, errors }) => (
           <CreateSurveyPaper>
@@ -84,7 +104,10 @@ const CreateSurvey = ({ userObj }) => {
               <h3>description</h3>
               <Field as="textarea" name="description" />
             </SurveyCoverForm>
-            <CreateTypes onFixTypes={setTypes} />
+            <CreateTypes
+              onFixTypes={setTypes}
+              initialTypes={edit && surveyToEdit.types}
+            />
 
             {types.length > 0 && (
               <CreateQuestions
