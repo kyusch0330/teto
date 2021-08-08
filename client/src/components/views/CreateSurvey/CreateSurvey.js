@@ -5,7 +5,7 @@ import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from "yup";
 import CreateTypes from "./Sections/CreateTypes/CreateTypes";
 import CreateQuestions from "./Sections/CreateQuestions/CreateQuestions";
-import usePreventCreatePageLeave from "../../../hooks/usePreventCreatePageLeave";
+import usePreventCreatePageLeave from "hooks/usePreventCreatePageLeave";
 import {
   Container,
   CreateSurveyPaper,

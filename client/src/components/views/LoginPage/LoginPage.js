@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  loginUser,
-  registerUser,
-  socialLoginUser,
-} from "../../../_actions/user_action";
+import { loginUser, registerUser, socialLoginUser } from "_actions/user_action";
 //HOC 사용후 history.push가 안되는 오류방지
 import { Link, withRouter } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
@@ -15,8 +11,8 @@ import {
   LoginForm,
   RegisterLinkButton,
 } from "./LoginPage.styles";
-import { ReactComponent as LogoImg } from "../../../assets/teto_logo.svg";
-import { PALLETE } from "../../../constants/pallete";
+import { ReactComponent as LogoImg } from "assets/teto_logo.svg";
+import { PALLETE } from "constants/pallete";
 
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 

@@ -21,7 +21,7 @@ import {
   StyledForm,
   SurveyPaper,
 } from "./Survey.styles";
-import SliderController from "../../Common/SliderController";
+import SliderController from "components/Common/SliderController";
 import { SurveyQuestionsForm } from "../CreateSurvey/Sections/CreateQuestions/CreateQuestions.styles";
 import { boolean } from "yup/lib/locale";
 import { useEffect } from "react";

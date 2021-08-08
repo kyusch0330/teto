@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import LikeButton from "../../Common/LikeButton";
+import LikeButton from "components/Common/LikeButton";
 import {
   ResultContainer,
   ResultPageContainer,
   ShareForm,
 } from "./ResultPage.styles";
-import useSurvey from "../../../hooks/useSurvey";
-import { ReactComponent as CopyImg } from "../../../assets/copy.svg";
-import { PALLETE } from "../../../constants/pallete";
+import useSurvey from "hooks/useSurvey";
+import { ReactComponent as CopyImg } from "assets/copy.svg";
+import { PALLETE } from "constants/pallete";
 
 function ResultPage({ location }) {
   const userObj = useSelector((state) => state.user.userData);

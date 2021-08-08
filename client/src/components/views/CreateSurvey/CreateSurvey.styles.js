@@ -1,7 +1,7 @@
 import { Form } from "formik";
 import styled from "styled-components";
-import { WIDTH } from "../../../constants/mediaWidth";
-import { PALLETE } from "../../../constants/pallete";
+import { WIDTH } from "constants/mediaWidth";
+import { PALLETE } from "constants/pallete";
 
 export const Container = styled.div`
   display: flex;
@@ -38,9 +38,9 @@ export const SurveyCoverForm = styled(Form)`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px 10px;
+  padding: 10px 10px 20px 10px;
   border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
-  border-radius: 10px;
+  border-radius: 5px;
   background: ${PALLETE.CONTAINER_BLUE};
   input {
     width: 90%;

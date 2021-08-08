@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { ErrorMessage, Field, FieldArray, Form } from "formik";
-import { initQuestion } from "../../../../../utils/initObjs";
+import { initQuestion } from "utils/initObjs";
 import CreateOptions from "../CreateOptions/CreateOptions";
 import {
   QuestionList,
@@ -15,11 +15,11 @@ import {
   SubmitButton,
   ErorrSpan,
 } from "./CreateQuestions.styles";
-import { ReactComponent as CloseImg } from "../../../../../assets/close.svg";
-import { ReactComponent as PlusSquareImg } from "../../../../../assets/plus_sq.svg";
-import { PALLETE } from "../../../../../constants/pallete";
-import useSlider from "../../../../../hooks/useSlider";
-import SliderController from "../../../../Common/SliderController";
+import { ReactComponent as CloseImg } from "assets/close.svg";
+import { ReactComponent as PlusSquareImg } from "assets/plus_sq.svg";
+import { PALLETE } from "constants/pallete";
+import useSlider from "hooks/useSlider";
+import SliderController from "components/Common/SliderController";
 
 function CreateQuestions({ questions, types, errors }) {
   const {

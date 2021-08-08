@@ -8,7 +8,7 @@ import {
 } from "./CreateBingo.styles";
 import * as Yup from "yup";
 import { Prompt, useHistory } from "react-router-dom";
-import usePreventCreatePageLeave from "../../../hooks/usePreventCreatePageLeave";
+import usePreventCreatePageLeave from "hooks/usePreventCreatePageLeave";
 import CreateLevels from "./Sections/CreateLevels/CreateLevels";
 
 function CreateBingo({ userObj }) {

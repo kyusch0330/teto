@@ -8,11 +8,11 @@ import {
   BingoLinkItem,
   LoadMoreButton,
 } from "./BingoPage.styles";
-import { ReactComponent as BingoImg } from "../../../assets/bingo.svg";
-import { PALLETE } from "../../../constants/pallete";
+import { ReactComponent as BingoImg } from "assets/bingo.svg";
+import { PALLETE } from "constants/pallete";
 import axios from "axios";
-import getTime from "../../../utils/getTime";
-import LikeInfo from "../../Common/LikeInfo";
+import getTime from "utils/getTime";
+import LikeInfo from "components/Common/LikeInfo";
 
 function BingoPage() {
   const [surveyList, setSurveyList] = useState([]);

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import getTime from "../../../utils/getTime";
-import LikeInfo from "../../Common/LikeInfo";
+import getTime from "utils/getTime";
+import LikeInfo from "components/Common/LikeInfo";
 import {
   Container,
   CreateButton,
@@ -11,8 +11,8 @@ import {
   TestLinkItem,
   TestList,
 } from "./SurveyPage.styles";
-import { ReactComponent as WriteImg } from "../../../assets/write.svg";
-import { PALLETE } from "../../../constants/pallete";
+import { ReactComponent as WriteImg } from "assets/write.svg";
+import { PALLETE } from "constants/pallete";
 
 function SurveyPage() {
   const [surveyList, setSurveyList] = useState([]);

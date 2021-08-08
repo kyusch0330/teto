@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { PALLETE } from "../../../constants/pallete";
+import { PALLETE } from "constants/pallete";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PALLETE } from "../../../constants/pallete";
+import { PALLETE } from "constants/pallete";
 
 export const AboutContainer = styled.div`
   width: 100%;

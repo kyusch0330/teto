@@ -1,15 +1,15 @@
 import React from "react";
 import { ErrorMessage, Field, FieldArray } from "formik";
-import { initOption } from "../../../../../utils/initObjs";
+import { initOption } from "utils/initObjs";
 import {
   AddOptionButton,
   OptionItem,
   OptionTextBox,
   OptionWeightBox,
 } from "./CreateOptions.styles";
-import { ReactComponent as CloseImg } from "../../../../../assets/close.svg";
-import { ReactComponent as PlusSquareImg } from "../../../../../assets/plus_sq.svg";
-import { PALLETE } from "../../../../../constants/pallete";
+import { ReactComponent as CloseImg } from "assets/close.svg";
+import { ReactComponent as PlusSquareImg } from "assets/plus_sq.svg";
+import { PALLETE } from "constants/pallete";
 
 function CreateOptions({ qIndex, options, types }) {
   return (

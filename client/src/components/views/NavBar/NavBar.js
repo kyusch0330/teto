@@ -8,17 +8,19 @@ import {
   NavContainer,
   UserBar,
 } from "./NavBar.styles";
-import { ReactComponent as MenuImg } from "../../../assets/menu.svg";
-import { ReactComponent as LogoImg } from "../../../assets/teto_logo.svg";
-import { PALLETE } from "../../../constants/pallete";
+import { ReactComponent as MenuImg } from "assets/menu.svg";
+import { ReactComponent as LogoImg } from "assets/teto_logo.svg";
+import { PALLETE } from "constants/pallete";
 
 function NavBar({ isAuth, loading }) {
   const [menuBarDisplay, setMenuBarDisplay] = useState(false);
-  const handleMenuClick = () => setMenuBarDisplay(false);
+  const handleCloseMenu = () => {
+    setTimeout(() => setMenuBarDisplay(false), 300);
+  };
   return (
-    <NavContainer onMouseLeave={() => setMenuBarDisplay(false)}>
+    <NavContainer onBlur={handleCloseMenu}>
       <MainBar>
-        <Link className="logo" onClick={handleMenuClick} to="/">
+        <Link className="logo" to="/">
           <LogoImg width={130} height={50} fill={PALLETE.WHITE} />
         </Link>
         <MenuButton
@@ -28,26 +30,16 @@ function NavBar({ isAuth, loading }) {
           <MenuImg width={24} height={24} fill={PALLETE.WHITE} />
         </MenuButton>
         <MenuBar menuDisplay={menuBarDisplay}>
-          <Link onClick={handleMenuClick} to="/survey">
-            Survey
-          </Link>
-          <Link onClick={handleMenuClick} to="/bingo">
-            Bingo
-          </Link>
-          <Link onClick={handleMenuClick} to="/about">
-            About
-          </Link>
+          <Link to="/survey">Survey</Link>
+          <Link to="/bingo">Bingo</Link>
+          <Link to="/about">About</Link>
         </MenuBar>
       </MainBar>
       <UserBar menuDisplay={menuBarDisplay}>
         {!loading && !isAuth && (
           <>
-            <Link onClick={handleMenuClick} to="/register">
-              Sign up
-            </Link>
-            <Link onClick={handleMenuClick} to="/login">
-              Sign in
-            </Link>
+            <Link to="/register">Sign up</Link>
+            <Link to="/login">Sign in</Link>
           </>
         )}
         {!loading && isAuth && <Link to="/profile">Profile</Link>}

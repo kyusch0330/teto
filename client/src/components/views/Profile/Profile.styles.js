@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PALLETE } from "../../../constants/pallete";
+import { PALLETE } from "constants/pallete";
 export const ProfileContainer = styled.div`
   width: 100%;
   height: 100vh;

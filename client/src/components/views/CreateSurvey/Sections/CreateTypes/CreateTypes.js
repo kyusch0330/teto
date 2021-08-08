@@ -1,7 +1,7 @@
 import React from "react";
 import { ErrorMessage, Field, FieldArray, Formik } from "formik";
 import * as Yup from "yup";
-import { initType } from "../../../../../utils/initObjs";
+import { initType } from "utils/initObjs";
 import {
   CloseButton,
   FixTypesButton,
@@ -10,9 +10,9 @@ import {
   TypeList,
   TypeNameBox,
 } from "./CreateTypes.styles";
-import { ReactComponent as PlusImg } from "../../../../../assets/plus.svg";
-import { ReactComponent as CloseImg } from "../../../../../assets/close.svg";
-import { PALLETE } from "../../../../../constants/pallete";
+import { ReactComponent as PlusImg } from "assets/plus.svg";
+import { ReactComponent as CloseImg } from "assets/close.svg";
+import { PALLETE } from "constants/pallete";
 
 function CreateTypes({ onFixTypes }) {
   return (

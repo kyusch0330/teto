@@ -1,6 +1,6 @@
-import { WIDTH } from "../../../constants/mediaWidth";
 import styled from "styled-components";
-import { PALLETE } from "../../../constants/pallete";
+import { WIDTH } from "constants/mediaWidth";
+import { PALLETE } from "constants/pallete";
 
 export const NavContainer = styled.nav`
   display: flex;
@@ -47,6 +47,7 @@ export const MainBar = styled.div`
       text-align: center;
     }
     .logo {
+      width: auto;
       margin: 0;
       svg {
         width: 80px;
@@ -61,8 +62,9 @@ export const MenuButton = styled.button`
   background: transparent;
   display: none;
   position: absolute;
-  top: 16px;
-  right: 8px;
+  top: 6px;
+  right: 6px;
+  padding: 10px;
   @media (max-width: ${WIDTH.MOBILE}px) {
     display: block;
   }

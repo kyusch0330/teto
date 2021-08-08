@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { WIDTH } from "../../../constants/mediaWidth";
-import { PALLETE } from "../../../constants/pallete";
+import { WIDTH } from "constants/mediaWidth";
+import { PALLETE } from "constants/pallete";
 
 export const BingoPageContainer = styled.div`
   display: flex;

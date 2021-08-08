@@ -14,7 +14,7 @@ function Footer() {
         </ul>
       </div>
       <div>
-        Another Apps
+        Other Apps
         <ul>
           <li>
             <a href="#">Ring my bell</a>

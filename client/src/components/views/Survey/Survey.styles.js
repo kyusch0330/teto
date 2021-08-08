@@ -1,7 +1,7 @@
 import { Form } from "formik";
 import styled from "styled-components";
-import { WIDTH } from "../../../constants/mediaWidth";
-import { PALLETE } from "../../../constants/pallete";
+import { WIDTH } from "constants/mediaWidth";
+import { PALLETE } from "constants/pallete";
 
 export const Container = styled.div`
   width: 100%;

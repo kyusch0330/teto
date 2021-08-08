@@ -8,7 +8,7 @@ import {
   PopularSurveyList,
   TestLinkItem,
 } from "./LandingPage.styles";
-import LikeInfo from "../../Common/LikeInfo";
+import LikeInfo from "components/Common/LikeInfo";
 
 function LandingPage({ userObj }) {
   const [surveyList, setSurveyList] = useState([]);
