@@ -10,6 +10,7 @@ import {
 import useSurvey from "hooks/useSurvey";
 import { ReactComponent as CopyImg } from "assets/copy.svg";
 import { PALLETE } from "constants/pallete";
+import CommentSection from "components/Common/CommentSection/CommentSection";
 
 function ResultPage({ location }) {
   const userObj = useSelector((state) => state.user.userData);
@@ -33,40 +34,44 @@ function ResultPage({ location }) {
   return (
     <ResultPageContainer>
       {result && survey && userObj && (
-        <ResultContainer>
-          <h1>Result</h1>
-          <h2>{result.name}</h2>
-          <p>{result.description}</p>
-          <LikeButton
-            initialLikes={survey.likes}
-            userObj={userObj}
-            testId={testId}
-          />
-          <br />
-          <Link to="/survey">다른 테스트하러 가기</Link>
-          <span>이 테스트 공유하기</span>
-          {testId && (
-            <ShareForm>
-              <input
-                ref={testURL}
-                value={`https://teto-test-together.herokuapp.com/${testId}`}
-              />
-              <CopyImg
-                width={28}
-                height={28}
-                fill={PALLETE.PRIMARY_BLUE_DARK}
-                onClick={() => {
-                  if (testURL.current) {
-                    testURL.current.select();
-                    document.execCommand("copy");
-                  }
-                }}
-              >
-                공유
-              </CopyImg>
-            </ShareForm>
-          )}
-        </ResultContainer>
+        <>
+          <ResultContainer>
+            <h1>Result</h1>
+            <h2>{result.name}</h2>
+            <p>{result.description}</p>
+            <LikeButton
+              initialLikes={survey.likes}
+              userObj={userObj}
+              testId={testId}
+            />
+            <br />
+            <Link to="/survey">다른 테스트하러 가기</Link>
+            <span>이 테스트 공유하기</span>
+            {testId && (
+              <ShareForm>
+                <input
+                  ref={testURL}
+                  focu
+                  value={`https://teto-test-together.herokuapp.com/${testId}`}
+                />
+                <CopyImg
+                  width={28}
+                  height={28}
+                  fill={PALLETE.PRIMARY_BLUE_DARK}
+                  onClick={() => {
+                    if (testURL.current) {
+                      testURL.current.select();
+                      document.execCommand("copy");
+                    }
+                  }}
+                >
+                  공유
+                </CopyImg>
+              </ShareForm>
+            )}
+          </ResultContainer>
+          <CommentSection userObj={userObj} testId={testId} />
+        </>
       )}
     </ResultPageContainer>
   );

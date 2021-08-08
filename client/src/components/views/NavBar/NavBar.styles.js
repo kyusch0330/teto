@@ -65,6 +65,9 @@ export const MenuButton = styled.button`
   top: 6px;
   right: 6px;
   padding: 10px;
+  &:hover {
+    cursor: pointer;
+  }
   @media (max-width: ${WIDTH.MOBILE}px) {
     display: block;
   }

@@ -9,6 +9,7 @@ export const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   font-size: 1rem;
+  padding: 50px 0;
   background: ${PALLETE.BACKGROUND_BLUE};
   color: ${PALLETE.BLACK};
 `;

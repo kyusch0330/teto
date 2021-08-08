@@ -77,7 +77,7 @@ function SurveyPage() {
               <TestLinkItem key={survey._id} to={`/survey/${survey._id}`}>
                 <div className="survey_title">{survey.title}</div>
                 <div className="survey_createdAt">
-                  {getTime(survey.createdAt)}
+                  {getTime(survey.createdAt, true)}
                 </div>
                 <div className="survey_userName">{survey.userName}</div>
                 <p className="survey_description">

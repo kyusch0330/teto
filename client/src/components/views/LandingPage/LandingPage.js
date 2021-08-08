@@ -29,8 +29,6 @@ function LandingPage({ userObj }) {
             </TestLinkItem>
           ))}
       </PopularSurveyList>
-      <h2>시작 페이지</h2>
-      {userObj ? "로그인 상태" : "비로그인 상태"}
     </Container>
   );
 }

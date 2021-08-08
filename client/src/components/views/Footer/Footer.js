@@ -8,9 +8,11 @@ function Footer() {
         - made by Kyusch -
         <ul>
           <li>
-            <a href="#">github : https://github.com/cssdsasdasad</a>
+            <a className="githubLink" href="https://github.com/kyusch0330">
+              GitHub
+            </a>
           </li>
-          <li>email : kydsad@dsadsadzxc</li>
+          <li>email : kyusch0330@gmail.com</li>
         </ul>
       </div>
       <div>

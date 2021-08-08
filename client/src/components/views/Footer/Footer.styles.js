@@ -13,4 +13,7 @@ export const FooterContainer = styled.div`
   a {
     color: ${PALLETE.BLACK_LIGHT};
   }
+  a.githubLink {
+    font-size: 1.2rem;
+  }
 `;

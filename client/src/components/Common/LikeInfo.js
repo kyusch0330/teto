@@ -1,7 +1,7 @@
-import { ReactComponent as LikeImg } from "../../assets/like.svg";
+import { ReactComponent as LikeImg } from "assets/like.svg";
 import React from "react";
 import styled from "styled-components";
-import { PALLETE } from "../../constants/pallete";
+import { PALLETE } from "constants/pallete";
 
 const LikeInfoContainer = styled.div`
   display: flex;

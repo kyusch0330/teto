@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Survey } = require("../models/Survey");
+const { Comment } = require("../models/Comment");
 /* Survey */
 // Save Survey
 router.post("/upload", (req, res) => {
@@ -95,7 +96,17 @@ router.delete("/delete", (req, res) => {
         message: "문서 삭제에 실패했습니다.",
       });
     } else {
-      res.status(200).json({ deleteSuccess: true });
+      // 해당 글의 댓글도 삭제
+      Comment.deleteMany({ testId: req.body.id }, (err) => {
+        if (err) {
+          return res.json({
+            deleteSuccess: false,
+            message: "관련 댓글 삭제에 실패했습니다.",
+          });
+        } else {
+          res.status(200).json({ deleteSuccess: true });
+        }
+      });
     }
   });
 });

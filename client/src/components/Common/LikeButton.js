@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { ReactComponent as LikeImg } from "../../assets/like.svg";
+import { ReactComponent as LikeImg } from "assets/like.svg";
 import axios from "axios";
 import styled from "styled-components";
-import { PALLETE } from "../../constants/pallete";
+import { PALLETE } from "constants/pallete";
 
 const LikeBtn = styled.button`
   display: flex;
