@@ -3,21 +3,22 @@
 # client
 
 react  
+react hook
 react-router  
 react-redux  
 redux-thunk  
 axios  
-SCSS  
+styled-component
 Formik, Yup
 
 # Server
 
-express.js  
-nodemon  
+express
 mongoose  
 bcrypt  
 jsonwebtoken  
 cookie-parser
+nodemon
 
 # DB
 

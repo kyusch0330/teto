@@ -42,6 +42,7 @@ function Profile({ userObj, history }) {
   return (
     <ProfileContainer>
       <ProfileForm onSubmit={handleSubmit}>
+        <input type="img" />
         <label htmlFor="name">name</label>
         <input type="text" onChange={handleNameChange} value={name} id="name" />
         <label htmlFor="email">email</label>

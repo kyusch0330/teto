@@ -13,6 +13,7 @@ export const LoginContainer = styled.div`
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
 `;
+
 export const LoginForm = styled.form`
   width: 90%;
   max-width: 500px;

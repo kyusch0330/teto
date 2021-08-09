@@ -34,7 +34,8 @@ export const OptionItem = styled.div`
     color: ${PALLETE.PRIMARY_BLUE_DARK};
   }
   @media (max-width: ${WIDTH.MOBILE}px) {
-    padding: 20px 10px;
+    width: 90%;
+    padding: 20px 0px;
   }
 `;
 

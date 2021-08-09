@@ -14,7 +14,6 @@ import {
 import { ErorrSpan } from "./Sections/CreateQuestions/CreateQuestions.styles";
 
 const CreateSurvey = ({ userObj, location }) => {
-  console.log(location);
   const { edit, surveyToEdit } = location.state
     ? location.state
     : { edit: false, surveyToEdit: null };

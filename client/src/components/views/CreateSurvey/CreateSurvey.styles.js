@@ -39,14 +39,14 @@ export const SurveyCoverForm = styled(Form)`
   justify-content: flex-start;
   align-items: center;
   padding: 10px 10px 20px 10px;
-  border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
+  border: 2px solid ${PALLETE.PRIMARY_BLUE};
   border-radius: 5px;
   background: ${PALLETE.CONTAINER_BLUE};
   input {
     width: 90%;
     font-weight: 600;
     font-size: 1.2em;
-    border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
+    border: 2px solid ${PALLETE.BORDER_BLUE};
     border-radius: 5px;
     padding: 10px;
   }
@@ -54,7 +54,7 @@ export const SurveyCoverForm = styled(Form)`
     width: 90%;
     height: 200px;
     padding: 15px 10px;
-    border: 1px solid ${PALLETE.PRIMARY_BLUE_DARK};
+    border: 1px solid ${PALLETE.BORDER_BLUE};
     border-radius: 5px;
   }
 `;

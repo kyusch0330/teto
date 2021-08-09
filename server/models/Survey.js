@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const surveySchema = mongoose.Schema({
   title: {
@@ -8,7 +9,8 @@ const surveySchema = mongoose.Schema({
     type: String,
   },
   userId: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "User",
   },
   userName: {
     type: String,

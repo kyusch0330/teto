@@ -7,6 +7,7 @@ export const ProfileContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: ${PALLETE.BACKGROUND_BLUE};
 `;
 
 export const ProfileForm = styled.form`
@@ -17,7 +18,7 @@ export const ProfileForm = styled.form`
   gap: 10px;
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
-  padding: 80px;
+  padding: 60px 80px;
   background: ${PALLETE.WHITE};
 `;
 
@@ -29,6 +30,7 @@ export const UpdateButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+  margin-top: 50px;
 `;
 
 export const LogoutButton = styled.button`

@@ -73,6 +73,7 @@ function SurveyPage() {
         <TestList>
           {surveyList.map((survey) => {
             const d = new Date(Number(survey.createdAt));
+            console.log(survey);
             return (
               <TestLinkItem key={survey._id} to={`/survey/${survey._id}`}>
                 <div className="survey_title">{survey.title}</div>
