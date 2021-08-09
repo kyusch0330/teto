@@ -9,7 +9,7 @@ const useSlider = (initialQuestion = 0) => {
     nextQuestion.current.scrollIntoView({
       behavior: "smooth",
       block: "center",
-      inline: "start",
+      inline: "center",
     });
     console.log("toNext", currentQuestion, nextQuestion);
     setCurrentQuestion(currentQuestion + 1);
@@ -19,7 +19,7 @@ const useSlider = (initialQuestion = 0) => {
     prevQuestion.current.scrollIntoView({
       behavior: "smooth",
       block: "center",
-      inline: "start",
+      inline: "center",
     });
     console.log("toPrev", currentQuestion, prevQuestion);
     if (currentQuestion !== 0) setCurrentQuestion(currentQuestion - 1);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Prompt, useHistory } from "react-router-dom";
-import axios from "axios";
+import surveyAPI from "api/surveys";
 import { ErrorMessage, Field, Formik } from "formik";
 import * as Yup from "yup";
 import CreateTypes from "./Sections/CreateTypes/CreateTypes";
@@ -68,24 +68,17 @@ const CreateSurvey = ({ userObj, location }) => {
           values.createdAt = edit ? surveyToEdit.createdAt : Date.now();
           // upload 성공 시 메뉴로 나갈 수 있게
           disablePrevent();
-          console.log(values);
           if (edit) {
-            console.log(values);
-            axios
-              .put("/api/surveys/update", {
-                _id: surveyToEdit._id,
-                surveyToEdit: values,
-              })
-              .then((response) => console.log(response.data))
+            surveyAPI
+              .updateSurvey(surveyToEdit._id, values)
               .then(() => history.push(`/survey/${surveyToEdit._id}`))
               .catch((err) => {
                 console.log(err);
                 enablePrevent();
               });
           } else {
-            axios
-              .post("/api/surveys/upload", values)
-              .then((response) => console.log(response.data))
+            surveyAPI
+              .uploadSurvey(values)
               .then(() => history.push("/survey"))
               .catch((err) => {
                 console.log(err);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import surveyAPI from "api/surveys";
 //history는 react-router-dom을 이용해서 사용하는 것
 //HOC를 거쳐도 history.push를 사용할 수 있도록 import
 import { Link, withRouter } from "react-router-dom";
@@ -13,9 +13,9 @@ import LikeInfo from "components/Common/LikeInfo";
 function LandingPage({ userObj }) {
   const [surveyList, setSurveyList] = useState([]);
   useEffect(() => {
-    const request = axios
-      .get("/api/surveys/popular", { params: { loadCount: 1 } })
-      .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+    surveyAPI
+      .getPopularSurveys(1)
+      .then((surveys) => setSurveyList(surveyList.concat(surveys)));
   }, []);
   return (
     <Container>

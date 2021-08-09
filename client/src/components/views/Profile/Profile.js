@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import userAPI from "api/users";
 import { withRouter } from "react-router-dom";
 import {
   ProfileForm,
@@ -17,7 +17,7 @@ function Profile({ userObj, history }) {
 
   //로그아웃 서버에 요청(토큰을 지움)
   const handleLogoutClick = () => {
-    axios.get("/api/users/logout").then((response) => {
+    userAPI.logoutUser().then((response) => {
       if (response.data.success) {
         history.push("/login");
       } else {
@@ -28,8 +28,8 @@ function Profile({ userObj, history }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .put("/api/users/update_profile", { name }) //req.body에 존재하게 됨
+    userAPI
+      .updateProfile({ name })
       .then((response) => {
         if (response.data.success) {
           alert("업데이트 성공");

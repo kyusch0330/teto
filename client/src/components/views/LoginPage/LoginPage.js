@@ -4,7 +4,8 @@ import { loginUser, registerUser, socialLoginUser } from "_actions/user_action";
 //HOC 사용후 history.push가 안되는 오류방지
 import { Link, withRouter } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
-import axios from "axios";
+import userAPI from "api/users";
+
 import {
   LoginButton,
   LoginContainer,
@@ -37,7 +38,6 @@ function LoginPage(props) {
       password: password,
     };
 
-    //axios.post('api/users/login',body) ~~ -> redux를 사용하지 않는 경우
     //action을 반환받아 dispatch 실행
     //redux thunk 덕에 비동기 동작을 하는 함수가 인자로 들어갈 수 있다.
     dispatch(loginUser(body)).then((response) => {
@@ -61,10 +61,8 @@ function LoginPage(props) {
       socialId: socialId,
     };
     //해당 Social ID가 DB에 존재하는지 확인
-    axios
-      .get("api/users/check_social_id", {
-        params: { socialId: socialId },
-      })
+    userAPI
+      .checkSocialId()
       .then((res) => {
         if (!res.data.checkSocialIdSuccess) {
           //존재하지 않으면 회원가입

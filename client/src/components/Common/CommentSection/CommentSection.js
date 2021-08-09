@@ -1,4 +1,4 @@
-import axios from "axios";
+import commentAPI from "api/comments";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import getTime from "utils/getTime";
@@ -24,18 +24,15 @@ const CommentSection = ({ userObj, testId }) => {
   const [loadCount, setLoadCount] = useState(1);
 
   const loadComments = (refresh = false) => {
-    axios
-      .get("/api/comments/latest", {
-        params: { testId: testId, loadCount: refresh ? 1 : loadCount },
-      })
+    commentAPI
+      .getLatestComments(testId, refresh ? 1 : loadCount)
       .then((res) => {
         if (refresh) {
-          setLoadCount(1);
+          setLoadCount(2);
           setComments(res.data.comments);
         } else {
           setComments(comments.concat(res.data.comments));
         }
-        console.log(res);
       });
   };
 
@@ -45,16 +42,10 @@ const CommentSection = ({ userObj, testId }) => {
   };
 
   const handleDeleteComment = (commentIdtoDelete) => {
-    axios
-      .delete("/api/comments/delete", {
-        data: { commentId: commentIdtoDelete },
-        withCredentials: true,
-      })
-      .then((res) => {
-        alert("삭제되었습니다.");
-        loadComments(true);
-      })
-      .catch((err) => console.log(err));
+    commentAPI.deleteComment(commentIdtoDelete).then((res) => {
+      alert("삭제되었습니다.");
+      loadComments(true);
+    });
   };
 
   return (
@@ -77,16 +68,10 @@ const CommentSection = ({ userObj, testId }) => {
           onSubmit={(values) => {
             console.log(values);
             values.createdAt = Date.now();
-            axios
-              .post("/api/comments/upload", values)
-              .then((response) => console.log(response.data))
-              .then(() => {
-                loadComments(true);
-                values.text = "";
-              })
-              .catch((err) => {
-                console.log(err);
-              });
+            commentAPI.uploadComment(values).then(() => {
+              loadComments(true);
+              values.text = "";
+            });
           }}
           render={({ values, errors }) => (
             <CommentForm autoComplete="off">

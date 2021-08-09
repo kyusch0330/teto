@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ReactComponent as LikeImg } from "assets/like.svg";
-import axios from "axios";
+import surveyAPI from "api/surveys";
+import likeAPI from "api/likes";
 import styled from "styled-components";
 import { PALLETE } from "constants/pallete";
 
@@ -26,14 +27,8 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
   useEffect(() => {
     // 사용자 좋아요 여부 가져오기
     if (userObj && userObj.isAuth) {
-      axios
-        .get("/api/likes/likedbefore", {
-          params: {
-            testId: testId,
-            userId: userObj._id,
-          },
-          withCredentials: true,
-        })
+      likeAPI
+        .getLikedBefore(testId, userObj._id)
         .then((res) => setLikedBefore(res.data.likedBefore))
         .catch((err) => console.log(err));
     }
@@ -47,7 +42,6 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
       return;
     } else if (likedBefore === null) {
       // 좋아요 여부 가져오는 중
-      alert("loading like info");
       return;
     } else if (likedBefore) {
       // 이미 좋아요 등록
@@ -57,12 +51,8 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
     } else {
       setLikedBefore(true);
       //해당 게시글 해당 유저 좋아요 등록
-      axios
-        .post("/api/likes/register", {
-          testId,
-          userId: userObj._id,
-        })
-        .then((res) => console.log(res.data))
+      likeAPI
+        .registerLike(testId, userObj._id)
         .then(() => {
           setLikes(likes + 1);
         })
@@ -71,12 +61,7 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
           setLikedBefore(true);
         });
       // 해당 게시글에 좋아요 수 업데이트
-      axios
-        .put("/api/surveys/update_like", {
-          testId,
-        })
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
+      surveyAPI.updateLikes(testId).catch((err) => console.log(err));
     }
   };
   return (

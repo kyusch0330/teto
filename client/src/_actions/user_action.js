@@ -1,4 +1,4 @@
-import axios from "axios";
+import userAPI from "api/users";
 //action 타입들을 가져온다.
 import {
   LOGIN_USER,
@@ -10,9 +10,7 @@ import {
 //login 시 dispatch에 들어갈 action을 반환하는 함수
 export function loginUser(dataToSubmit) {
   // 로그인 정보를 서버로 전송하여 돌아온 응답을 저장
-  const response = axios
-    .post("/api/users/login", dataToSubmit)
-    .then((response) => response.data);
+  const response = userAPI.loginUser(dataToSubmit);
 
   // user reducer로 보내서 저장할 데이터 반환
   return {
@@ -24,9 +22,7 @@ export function loginUser(dataToSubmit) {
 //social login 시 dispatch에 들어갈 action을 반환하는 함수
 export function socialLoginUser(dataToSubmit) {
   // 로그인 정보를 서버로 전송하여 돌아온 응답을 저장
-  const response = axios
-    .post("/api/users/social_login", dataToSubmit)
-    .then((response) => response.data);
+  const response = userAPI.socialLoginUser(dataToSubmit);
 
   // user reducer로 보내서 저장할 데이터 반환
   return {
@@ -38,9 +34,7 @@ export function socialLoginUser(dataToSubmit) {
 //register 시 dispatch에 들어갈 action을 반환하는 함수
 export function registerUser(dataToSubmit) {
   // 회원가입 정보를 서버로 전송하여 돌아온 응답을 저장
-  const response = axios
-    .post("/api/users/register", dataToSubmit)
-    .then((response) => response.data);
+  const response = userAPI.registerUser(dataToSubmit);
 
   // user reducer로 보내서 저장할 데이터 반환
   return {
@@ -52,7 +46,7 @@ export function registerUser(dataToSubmit) {
 //쿠키의 토큰을 전송해 사용자 인증
 export function authUser() {
   // 쿠키 외에 전송할 데이터 없음 (서버에서 토큰에서 사용자 아이디 추출가능)
-  const response = axios.get("/api/users/auth").then((res) => res.data);
+  const response = userAPI.authUser();
 
   // user reducer로 보내서 저장할 데이터 반환
   return {

@@ -1,4 +1,4 @@
-import axios from "axios";
+import surveyAPI from "api/surveys";
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as DeleteImg } from "assets/delete.svg";
@@ -10,12 +10,8 @@ const DeleteSurveyButton = ({ testId, creatorId, userObj }, props = []) => {
   const handleDeleteSurvey = () => {
     const doDelete = window.confirm("sure to delete this test?");
     if (!doDelete) return;
-    axios
-      .delete("/api/surveys/delete", {
-        data: { id: testId },
-        withCredentials: true,
-      })
-      .then((res) => console.log(res.data))
+    surveyAPI
+      .deleteSurvey(testId)
       .then(() => history.push("/survey"))
       .catch((err) => console.log(err));
   };

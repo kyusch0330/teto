@@ -1,4 +1,4 @@
-import axios from "axios";
+import surveyAPI from "api/surveys";
 import React, { useEffect, useState } from "react";
 import getTime from "utils/getTime";
 import LikeInfo from "components/Common/LikeInfo";
@@ -19,20 +19,20 @@ function SurveyPage() {
   const [orderBy, setOrderBy] = useState(0);
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
-    axios
-      .get("/api/surveys/latest", { params: { loadCount: loadCount } })
-      .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+    surveyAPI
+      .getLatestSurveys(loadCount)
+      .then((surveys) => setSurveyList(surveyList.concat(surveys)));
   }, []);
 
   useEffect(() => {
     if (orderBy === 0) {
-      axios
-        .get("/api/surveys/latest", { params: { loadCount: loadCount } })
-        .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+      surveyAPI
+        .getLatestSurveys(loadCount)
+        .then((surveys) => setSurveyList(surveyList.concat(surveys)));
     } else if (orderBy === 1) {
-      axios
-        .get("/api/surveys/popular", { params: { loadCount: loadCount } })
-        .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+      surveyAPI
+        .getPopularSurveys(loadCount)
+        .then((surveys) => setSurveyList(surveyList.concat(surveys)));
     }
   }, [orderBy, loadCount]);
 
