@@ -41,7 +41,7 @@ const CreateSurvey = ({ userObj, location }) => {
           questions: edit ? surveyToEdit.questions : [], //initQuestion(types)
         }}
         validationSchema={Yup.object({
-          title: Yup.string().max(20, "too long title").required(),
+          title: Yup.string().max(30, "too long title").required(),
           description: Yup.string().max(200, "too long description"),
           questions: Yup.array().of(
             Yup.object().shape({
@@ -55,7 +55,7 @@ const CreateSurvey = ({ userObj, location }) => {
               options: Yup.array().of(
                 Yup.object().shape({
                   text: Yup.string()
-                    .max(30, "too long option text")
+                    .max(40, "too long option text")
                     .required("Required"),
                 })
               ),

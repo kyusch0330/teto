@@ -94,7 +94,7 @@ function CreateTypes({ onFixTypes, initialTypes = null }) {
                 <FixTypesButton className="fixTypesBtn">
                   Can't Fix
                 </FixTypesButton>
-                <span>please fill out all requirement</span>
+                <span>유형 이름을 입력해주세요.</span>
               </>
             ) : (
               <FixTypesButton className="fixTypesBtn" type="submit">

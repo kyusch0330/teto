@@ -19,7 +19,7 @@ export const OptionItem = styled.div`
     cursor: pointer;
     position: absolute;
     top: 8px;
-    right: 16px;
+    right: 14px;
 
     @media (max-width: ${WIDTH.MOBILE}px) {
       right: 10px;

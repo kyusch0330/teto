@@ -21,7 +21,7 @@ export const CreateSurveyPaper = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 90%;
-  max-width: 600px;
+  max-width: 750px;
   background: ${PALLETE.WHITE};
   padding: 30px;
   border: 2px solid ${PALLETE.BORDER_BLUE};
