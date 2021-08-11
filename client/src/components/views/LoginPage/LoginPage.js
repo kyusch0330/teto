@@ -71,7 +71,7 @@ function LoginPage(props) {
           });
         }
       })
-      .then(() => {
+      .finally(() => {
         dispatch(socialLoginUser(body)).then((response) => {
           if (response.payload.loginSuccess) {
             props.history.push("/"); //로그인 성공시 landing page로

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import userAPI from "api/users";
 import { withRouter } from "react-router-dom";
 import {
@@ -7,6 +7,7 @@ import {
   ProfileContainer,
   UpdateButton,
 } from "./Profile.styles";
+import { useDropzone } from "react-dropzone";
 
 function Profile({ userObj, history }) {
   const [name, setName] = useState(userObj.name);
@@ -39,10 +40,23 @@ function Profile({ userObj, history }) {
       })
       .catch((err) => console.log(err));
   };
+
+  const onDrop = useCallback((acceptedFiles) => {
+    // Do something with the files
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   return (
     <ProfileContainer>
       <ProfileForm onSubmit={handleSubmit}>
-        <input type="img" />
+        <div {...getRootProps()}>
+          <input style={{ border: "1px solid black" }} {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here, or click to select files</p>
+          )}
+        </div>
         <label htmlFor="name">name</label>
         <input type="text" onChange={handleNameChange} value={name} id="name" />
         <label htmlFor="email">email</label>
