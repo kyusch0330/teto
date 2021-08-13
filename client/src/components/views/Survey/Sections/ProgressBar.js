@@ -9,6 +9,8 @@ const ProgressBarContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: sticky;
+  top: 0;
 `;
 
 const ProgressLine = styled.div`
