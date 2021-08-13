@@ -1,3 +1,4 @@
+import { WIDTH } from "constants/mediaWidth";
 import { PALLETE } from "constants/pallete";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -11,14 +12,20 @@ const ProgressBarContainer = styled.div`
 `;
 
 const ProgressLine = styled.div`
-  width: 80%;
+  max-width: 90%;
   padding: 10px;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  justify-items: baseline;
   align-items: center;
+  gap: 10px 0;
   position: relative;
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    max-width: 100%;
+  }
 `;
+//justify-content: ${(props) => (props.total <= 8 ? "center" : "flex-start")};
 
 const QNode = styled.div`
   padding: 5px;
@@ -40,10 +47,16 @@ const QNode = styled.div`
 `;
 
 const MiddleLine = styled.div`
+  width: 20px;
+  max-width: 20px;
   height: 3px;
   background: ${(props) =>
     props.passed ? PALLETE.BORDER_BLUE : PALLETE.GRAY_LIGHT};
   flex-grow: 5;
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 10px;
+    max-width: 10px;
+  }
 `;
 
 const PercentBox = styled.div`
@@ -51,17 +64,13 @@ const PercentBox = styled.div`
 `;
 
 const ProgressBar = ({ current, total, progress, checks }) => {
-  const currentNum = current + 1;
-  // const [progress, setProgress] = useState(0);/
-  // useEffect(() => {
-  //   if (currentNum > progress) setProgress(currentNum);
-  // }, [current]);
+  // const currentNum = current + 1;
   const percent = Math.floor((progress / total) * 100);
   if (current >= -1)
     // current >= 0
     return (
       <ProgressBarContainer>
-        <ProgressLine>
+        <ProgressLine total={total}>
           {new Array(total).fill(0).map((qNode, index) => {
             return (
               <>
@@ -70,7 +79,13 @@ const ProgressBar = ({ current, total, progress, checks }) => {
                   current={index === current}
                   error={index < progress && !checks[index] ? true : false}
                 ></QNode>
-                {index < total - 1 && <MiddleLine passed={index < progress} />}
+                {index < total - 1 && (
+                  <MiddleLine
+                    passed={index < progress}
+                    lineWidth={300 / total}
+                  />
+                )}
+                {(index + 1) % 8 === 0 && <br />}
               </>
             );
           })}
