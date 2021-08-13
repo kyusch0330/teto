@@ -28,6 +28,7 @@ import { boolean } from "yup/lib/locale";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import EditSurveyButton from "components/Common/EditSurveyButton";
+import ProgressBar from "./Sections/ProgressBar";
 
 function Survey({ match, userObj }) {
   const { params } = match;
@@ -91,6 +92,12 @@ function Survey({ match, userObj }) {
             {({ values, touched, errors }) => (
               <StyledForm>
                 <h3>Questions</h3>
+                <ProgressBar
+                  current={currentQuestion}
+                  total={survey.questions.length}
+                  progress={values.checks.length}
+                  checks={values.checks}
+                />
                 <QuestionSlider>
                   <StartButton type="button" onClick={moveToNext}>
                     START
