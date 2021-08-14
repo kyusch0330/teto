@@ -1,6 +1,6 @@
 import { WIDTH } from "constants/mediaWidth";
 import { PALLETE } from "constants/pallete";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const ProgressBarContainer = styled.div`

@@ -5,13 +5,14 @@ import { PALLETE } from "constants/pallete";
 export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100%;
   min-height: 100vh;
   background: ${PALLETE.BACKGROUND_BLUE};
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
+  padding: 20px 0;
 `;
 
 export const LoginForm = styled.form`

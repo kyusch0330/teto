@@ -82,15 +82,7 @@ function LoginPage(props) {
   const handleGoogleFailure = (err) => console.log(err);
 
   return (
-    <LoginContainer
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh",
-      }}
-    >
+    <LoginContainer>
       <LoginForm
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={handleSubmit}
