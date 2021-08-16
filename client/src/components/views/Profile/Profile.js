@@ -49,14 +49,14 @@ function Profile({ userObj, history }) {
   return (
     <ProfileContainer>
       <ProfileForm onSubmit={handleSubmit}>
-        <div {...getRootProps()}>
+        {/* <div {...getRootProps()}>
           <input style={{ border: "1px solid black" }} {...getInputProps()} />
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (
             <p>Drag 'n' drop some files here, or click to select files</p>
           )}
-        </div>
+        </div> */}
         <label htmlFor="name">name</label>
         <input type="text" onChange={handleNameChange} value={name} id="name" />
         <label htmlFor="email">email</label>

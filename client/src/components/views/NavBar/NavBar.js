@@ -13,6 +13,7 @@ import { ReactComponent as LogoImg } from "assets/teto_logo.svg";
 import { PALLETE } from "constants/pallete";
 
 function NavBar({ isAuth, loading }) {
+  console.log(isAuth, loading);
   const [menuBarDisplay, setMenuBarDisplay] = useState(false);
   const handleCloseMenu = () => {
     setTimeout(() => setMenuBarDisplay(false), 250);

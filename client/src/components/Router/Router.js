@@ -29,17 +29,17 @@ function AppRouter() {
         <Route exact path="/login" component={Auth(LoginPage, false)} />
         <Route exact path="/register" component={Auth(RegisterPage, false)} />
         <Route exact path="/profile" component={Auth(Profile, true)} />
-        <Route exact path="/survey" component={SurveyPage} />
+        <Route exact path="/survey" component={Auth(SurveyPage, null)} />
         <Route
           exact
           path="/survey/create"
           component={Auth(CreateSurvey, true)}
         />
         <Route exact path="/survey/:id" component={Auth(Survey, null)} />
-        <Route exact path="/result" component={ResultPage} />
-        <Route exact path="/bingo" component={BingoPage} />
+        <Route exact path="/result" component={Auth(ResultPage, null)} />
+        <Route exact path="/bingo" component={Auth(BingoPage, null)} />
         <Route exact path="/bingo/create" component={Auth(CreateBingo, true)} />
-        <Route exact path="/about" component={About} />
+        <Route exact path="/about" component={Auth(About, null)} />
         <Redirect from="*" to="/" />
       </Switch>
       <Footer />
