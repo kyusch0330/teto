@@ -5,9 +5,12 @@ import { ReactComponent as CloseImg } from "assets/close.svg";
 import { PALLETE } from "constants/pallete";
 import { CloseButton, LevelItem, LevelNameBox } from "./CreateLevels.styles";
 import { initLevel } from "utils/initObjs";
+import { getBingoMaxLines } from "utils/getBingoMaxLines";
+import MinLinesButton from "./MinLinesButton";
 
 function CreateLevels({ levels, bingoSize }) {
   console.log(levels);
+
   return (
     <FieldArray
       name={`levels`}
@@ -32,86 +35,52 @@ function CreateLevels({ levels, bingoSize }) {
             <Field as="textarea" name={`levels[${index}].description`} />
             <ErrorMessage name={`levels[${index}].description`} />
             {index > 0 && (
-              <button
-                type="button"
-                onClick={() => {
-                  const newNum = levels[index].minLines - 1;
-                  if (newNum <= levels[index - 1].minLines) return;
-                  else {
-                    arrayHelpers.replace(index, {
-                      ...levels[index],
-                      minLines: newNum,
-                    });
-                  }
-                }}
-              >
-                -
-              </button>
+              <MinLinesButton
+                plus={false}
+                index={index}
+                levels={levels}
+                maxLines={getBingoMaxLines(bingoSize)}
+                arrayHelpers={arrayHelpers}
+              />
             )}
             <Field
               type="text"
               readOnly={index === 0 ? true : false}
               name={`levels[${index}].minLines`}
-              onChange={(e) => {
-                const newNum = Number(e.target.value);
-                if (
-                  Number.isNaN(newNum) ||
-                  newNum <= levels[index - 1].minLines ||
-                  (index + 1 < levels.length - 1 &&
-                    newNum >= levels[index + 1].minLines)
-                )
-                  return;
-                else {
-                  arrayHelpers.replace(index, {
-                    ...levels[index],
-                    minLines: newNum,
-                  });
-                }
-              }}
             />
             {index > 0 && (
-              <button
-                type="button"
-                onClick={() => {
-                  const newNum = levels[index].minLines + 1;
-                  if (
-                    index + 1 < levels.length &&
-                    newNum >= levels[index + 1].minLines
-                  )
-                    return;
-                  else {
-                    arrayHelpers.replace(index, {
-                      ...levels[index],
-                      minLines: newNum,
-                    });
-                  }
-                }}
-              >
-                +
-              </button>
-            )}
-            <ErrorMessage name={`levels[${index}].minLines`} />
-            {index === levels.length - 1 && (
-              <PlusImg
-                className="addTypeBtn"
-                width={30}
-                height={30}
-                fill={
-                  levels.length < 8 ? PALLETE.PRIMARY_BLUE_DARK : PALLETE.GRAY
-                }
-                onClick={() => {
-                  if (
-                    levels.length < 8 &&
-                    levels[levels.length - 1].minLines < bingoSize * 2 + 2
-                  )
-                    arrayHelpers.insert(
-                      index + 1,
-                      initLevel(levels[levels.length - 1].minLines)
-                      // 연속으로 누르면 해결 오류남***
-                    );
-                }} // insert an initalValue at a position
+              <MinLinesButton
+                plus={true}
+                index={index}
+                levels={levels}
+                maxLines={getBingoMaxLines(bingoSize)}
+                arrayHelpers={arrayHelpers}
               />
             )}
+            <ErrorMessage name={`levels[${index}].minLines`} />
+            {index === levels.length - 1 &&
+              levels[levels.length - 1].minLines <
+                getBingoMaxLines(bingoSize) && (
+                <PlusImg
+                  className="addTypeBtn"
+                  width={30}
+                  height={30}
+                  fill={
+                    levels.length < 8 ? PALLETE.PRIMARY_BLUE_DARK : PALLETE.GRAY
+                  }
+                  onClick={() => {
+                    if (
+                      levels.length < 8 &&
+                      levels[levels.length - 1].minLines <
+                        getBingoMaxLines(bingoSize)
+                    )
+                      arrayHelpers.insert(
+                        index + 1,
+                        initLevel(levels[levels.length - 1].minLines)
+                      );
+                  }}
+                />
+              )}
           </LevelItem>
         ))
       }
