@@ -1,3 +1,4 @@
+import { WIDTH } from "constants/mediaWidth";
 import { PALLETE } from "constants/pallete";
 import styled from "styled-components";
 
@@ -7,6 +8,22 @@ export const CreateBingoQuestionsContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  background: ${PALLETE.GREEN_LIGHT};
+  padding: 100px 0;
+  overflow: scroll;
+`;
+
+export const ModalInnerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  input {
+    width: 100%;
+    height: 30px;
+  }
 `;
 
 export const BingoBoard = styled.div`
@@ -27,17 +44,33 @@ export const BingoItem = styled.div`
   transition: background 400ms;
   width: 100px;
   height: 100px;
+  padding: 5px;
+
   &:hover {
     cursor: pointer;
     background: ${PALLETE.GRAY_LIGHT};
   }
+
+  @media (max-width: ${WIDTH.TABLET}px) {
+    width: 80px;
+    height: 80px;
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 45px;
+    height: 45px;
+    font-size: 0.4em;
+    padding: 2px;
+  }
 `;
 
-export const CreateQuestionModal = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 200vh;
-  background: rgba(30, 30, 30, 0.5);
+export const BingoTextBox = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 0.9em;
+  word-break: break-all;
+  overflow: hidden;
+
+  width: 90%;
+  height: 90%;
 `;

@@ -1,33 +1,49 @@
-import React, { useState } from "react";
-import { CreateBingoContainer } from "../../CreateBingo.styles";
+import Modal from "components/Common/Modal";
+import { Field } from "formik";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  CreateBingoQuestionsContainer,
   BingoBoard,
   BingoItem,
-  CreateQuestionModal,
+  ModalInnerContainer,
+  BingoTextBox,
 } from "./CreateBIngoQuestions.styles";
 
-function CreateBingoQuestions({ bingoSize }) {
+function CreateBingoQuestions({ questions, bingoSize }) {
+  const [currentQuestion, setCurrentQuestion] = useState({ num: -1 });
+  useEffect(() => {
+    if (currentQuestion.num > -1) setDisplayQuestionModal(true);
+  }, [currentQuestion]);
   const [displayQuestionModal, setDisplayQuestionModal] = useState(false);
-  console.log(displayQuestionModal);
   return (
-    <CreateBingoContainer>
+    <CreateBingoQuestionsContainer>
       {displayQuestionModal && (
-        <CreateQuestionModal onClick={() => setDisplayQuestionModal(false)}>
-          QUESTION MODAL
-        </CreateQuestionModal>
+        <Modal close={() => setDisplayQuestionModal(false)}>
+          <ModalInnerContainer>
+            <div>modal for Q{currentQuestion.num}</div>
+            <Field
+              autoFocus
+              type="text"
+              name={`questions[${currentQuestion.num}].text`}
+            />
+          </ModalInnerContainer>
+        </Modal>
       )}
       <BingoBoard bingoSize={bingoSize}>
         {Array(bingoSize * bingoSize)
           .fill(0)
           .map((q, index) => {
             return (
-              <BingoItem onClick={() => setDisplayQuestionModal(true)}>
-                Q {index}
+              <BingoItem
+                key={index}
+                onClick={() => setCurrentQuestion({ num: index })}
+              >
+                <BingoTextBox>{questions[index].text}</BingoTextBox>
               </BingoItem>
             );
           })}
       </BingoBoard>
-    </CreateBingoContainer>
+    </CreateBingoQuestionsContainer>
   );
 }
 

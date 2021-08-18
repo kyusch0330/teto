@@ -1,7 +1,8 @@
-import { ErrorMessage, Field, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import {
-  BingoCoverForm,
+  BingoCover,
+  BingoForm,
   CreateBingoContainer,
   CreateBingoPaper,
   ErorrSpan,
@@ -11,6 +12,7 @@ import { Prompt, useHistory } from "react-router-dom";
 import usePreventCreatePageLeave from "hooks/usePreventCreatePageLeave";
 import CreateLevels from "./Sections/CreateLevels/CreateLevels";
 import CreateBingoQuestions from "./Sections/CreateBingoQuestions/CreateBingoQuestions";
+import { initLevel } from "utils/initObjs";
 
 function CreateBingo({ userObj }) {
   const [bingoSize, setBingoSize] = useState(0);
@@ -50,10 +52,12 @@ function CreateBingo({ userObj }) {
             createdAt: 0,
             title: "",
             description: "",
-            levels: [
-              { name: "base", description: "description example", minLines: 0 },
-            ],
-            questions: [],
+            levels: [initLevel(-1)],
+            questions: Array(bingoSize * bingoSize)
+              .fill(0)
+              .map((q) => ({
+                text: "",
+              })),
           }}
           validationSchema={Yup.object({
             title: Yup.string().max(20, "too long title").required(),
@@ -79,6 +83,7 @@ function CreateBingo({ userObj }) {
             ),
           })}
           onSubmit={(values) => {
+            console.log(values);
             // values.types = types;
             // values.createdAt = Date.now();
             // // upload 성공 시 메뉴로 나갈 수 있게
@@ -93,41 +98,44 @@ function CreateBingo({ userObj }) {
             //     enablePrevent();
             //   });
           }}
-          render={({ values, errors }) => (
+          render={({ values, errors, touched }) => (
             <CreateBingoPaper>
-              <BingoCoverForm autoComplete="off">
-                <h3>Title</h3>
-                <Field name="title" />
-                <ErorrSpan>
-                  <ErrorMessage name="title" />
-                </ErorrSpan>
-                <h3>description</h3>
-                <Field as="textarea" name="description" />
-              </BingoCoverForm>
-              <CreateLevels levels={values.levels} bingoSize={bingoSize} />
-              <CreateBingoQuestions bingoSize={bingoSize} />
-              {/* {types.length > 0 && (
-                <CreateQuestions
+              <BingoForm>
+                <BingoCover autoComplete="off">
+                  <h3>Title</h3>
+                  <Field name="title" />
+                  <ErorrSpan>
+                    <ErrorMessage name="title" />
+                  </ErorrSpan>
+                  <h3>description</h3>
+                  <Field as="textarea" name="description" />
+                </BingoCover>
+
+                <CreateLevels levels={values.levels} bingoSize={bingoSize} />
+                <CreateBingoQuestions
                   questions={values.questions}
-                  types={types}
-                  errors={errors}
+                  bingoSize={bingoSize}
                 />
-              )} */}
-              {errors.title || errors.levels || errors.questions ? (
-                <>
-                  <span>
-                    {errors.title
-                      ? "제목을"
-                      : errors.levels
-                      ? "모든 레벨을"
-                      : "모든 질문을"}{" "}
-                    입력해주세요.
-                  </span>
-                  <div>CANT</div>
-                </>
-              ) : (
-                <button type="submit"> submit</button>
-              )}
+
+                {Object.keys(touched).length === 0 ||
+                errors.title ||
+                errors.levels ||
+                errors.questions ? (
+                  <>
+                    <span>
+                      {errors.title
+                        ? "제목을"
+                        : errors.levels
+                        ? "모든 레벨을"
+                        : "모든 질문을"}
+                      입력해주세요.
+                    </span>
+                    <div>CANT</div>
+                  </>
+                ) : (
+                  <button onClick={() => console.log(touched)}> submit</button>
+                )}
+              </BingoForm>
             </CreateBingoPaper>
           )}
         />

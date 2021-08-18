@@ -13,6 +13,7 @@ export const CreateBingoContainer = styled.div`
   font-size: 1rem;
   background: ${PALLETE.BACKGROUND_BLUE};
   color: ${PALLETE.BLACK};
+  padding: 50px 0;
 `;
 
 export const CreateBingoPaper = styled.div`
@@ -23,7 +24,6 @@ export const CreateBingoPaper = styled.div`
   width: 90%;
   max-width: 800px;
   background: ${PALLETE.WHITE};
-  padding: 30px;
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 10px;
   margin-top: 20px;
@@ -32,15 +32,24 @@ export const CreateBingoPaper = styled.div`
   }
 `;
 
-export const BingoCoverForm = styled(Form)`
+export const BingoForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+`;
+
+export const BingoCover = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   padding: 20px 10px;
-  border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
-  border-radius: 10px;
+  border-bottom: 1px solid ${PALLETE.PRIMARY_BLUE_DARK};
+  border-radius: 10px 10px 0 0;
   background: ${PALLETE.CONTAINER_BLUE};
   input {
     width: 90%;
