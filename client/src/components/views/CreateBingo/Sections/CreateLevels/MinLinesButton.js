@@ -13,7 +13,7 @@ const MinLinesBtn = styled.button`
   }
 `;
 
-function MinLinesButton({ plus, index, levels, maxLines, arrayHelpers }) {
+function MinLinesButton({ plus, index, levels, maxLines, replace }) {
   const handleChangeMinLines = () => {
     const newNum = levels[index].minLines + (plus ? 1 : -1);
     if (
@@ -24,7 +24,7 @@ function MinLinesButton({ plus, index, levels, maxLines, arrayHelpers }) {
       (!plus && newNum <= levels[index - 1].minLines)
     )
       return;
-    arrayHelpers.replace(index, {
+    replace(index, {
       ...levels[index],
       minLines: newNum,
     });

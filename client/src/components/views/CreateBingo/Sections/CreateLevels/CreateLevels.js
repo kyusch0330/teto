@@ -40,7 +40,7 @@ function CreateLevels({ levels, bingoSize }) {
                 index={index}
                 levels={levels}
                 maxLines={getBingoMaxLines(bingoSize)}
-                arrayHelpers={arrayHelpers}
+                replace={arrayHelpers.replace}
               />
             )}
             <Field
@@ -54,7 +54,7 @@ function CreateLevels({ levels, bingoSize }) {
                 index={index}
                 levels={levels}
                 maxLines={getBingoMaxLines(bingoSize)}
-                arrayHelpers={arrayHelpers}
+                replace={arrayHelpers.replace}
               />
             )}
             <ErrorMessage name={`levels[${index}].minLines`} />

@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { Prompt, useHistory } from "react-router-dom";
 import usePreventCreatePageLeave from "hooks/usePreventCreatePageLeave";
 import CreateLevels from "./Sections/CreateLevels/CreateLevels";
+import CreateBingoQuestions from "./Sections/CreateBingoQuestions/CreateBingoQuestions";
 
 function CreateBingo({ userObj }) {
   const [bingoSize, setBingoSize] = useState(0);
@@ -104,7 +105,7 @@ function CreateBingo({ userObj }) {
                 <Field as="textarea" name="description" />
               </BingoCoverForm>
               <CreateLevels levels={values.levels} bingoSize={bingoSize} />
-
+              <CreateBingoQuestions bingoSize={bingoSize} />
               {/* {types.length > 0 && (
                 <CreateQuestions
                   questions={values.questions}
@@ -112,6 +113,21 @@ function CreateBingo({ userObj }) {
                   errors={errors}
                 />
               )} */}
+              {errors.title || errors.levels || errors.questions ? (
+                <>
+                  <span>
+                    {errors.title
+                      ? "제목을"
+                      : errors.levels
+                      ? "모든 레벨을"
+                      : "모든 질문을"}{" "}
+                    입력해주세요.
+                  </span>
+                  <div>CANT</div>
+                </>
+              ) : (
+                <button type="submit"> submit</button>
+              )}
             </CreateBingoPaper>
           )}
         />
