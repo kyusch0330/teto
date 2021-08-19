@@ -15,10 +15,12 @@ import SurveyPage from "../views/SurveyPage/SurveyPage";
 import About from "../views/About/About";
 import CreateSurvey from "../views/CreateSurvey/CreateSurvey";
 import Survey from "../views/Survey/Survey";
-import ResultPage from "../views/ResultPage/ResultPage";
+import SurveyResultPage from "../views/SurveyResultPage/SurveyResultPage";
+import BingoResultPage from "../views/BingoResultPage/BingoResultPage";
 import Footer from "../views/Footer/Footer";
 import BingoPage from "../views/BingoPage/BingoPage";
 import CreateBingo from "../views/CreateBingo/CreateBingo";
+import Bingo from "components/views/Bingo/Bingo";
 
 function AppRouter() {
   return (
@@ -36,9 +38,19 @@ function AppRouter() {
           component={Auth(CreateSurvey, true)}
         />
         <Route exact path="/survey/:id" component={Auth(Survey, null)} />
-        <Route exact path="/result" component={Auth(ResultPage, null)} />
+        <Route
+          exact
+          path="/survey-result"
+          component={Auth(SurveyResultPage, null)}
+        />
         <Route exact path="/bingo" component={Auth(BingoPage, null)} />
         <Route exact path="/bingo/create" component={Auth(CreateBingo, true)} />
+        <Route exact path="/bingo/:id" component={Auth(Bingo, null)} />
+        <Route
+          exact
+          path="/bingo-result"
+          component={Auth(BingoResultPage, null)}
+        />
         <Route exact path="/about" component={Auth(About, null)} />
         <Redirect from="*" to="/" />
       </Switch>

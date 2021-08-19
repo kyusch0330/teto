@@ -14,6 +14,7 @@ export const CreateBingoContainer = styled.div`
   background: ${PALLETE.BACKGROUND_BLUE};
   color: ${PALLETE.BLACK};
   padding: 50px 0;
+  font-size: 1rem;
 `;
 
 export const CreateBingoPaper = styled.div`
@@ -27,9 +28,6 @@ export const CreateBingoPaper = styled.div`
   border: 2px solid ${PALLETE.BORDER_BLUE};
   border-radius: 10px;
   margin-top: 20px;
-  @media (max-width: ${WIDTH.MOBILE}px) {
-    padding: 15px;
-  }
 `;
 
 export const BingoForm = styled(Form)`
@@ -48,11 +46,12 @@ export const BingoCover = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 20px 10px;
-  border-bottom: 1px solid ${PALLETE.PRIMARY_BLUE_DARK};
+  border-bottom: 1px solid ${PALLETE.BORDER_BLUE};
   border-radius: 10px 10px 0 0;
   background: ${PALLETE.CONTAINER_BLUE};
   input {
     width: 90%;
+    max-width: 500px;
     font-weight: 600;
     font-size: 1.2em;
     border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
@@ -61,6 +60,7 @@ export const BingoCover = styled.div`
   }
   textarea {
     width: 90%;
+    max-width: 500px;
     height: 200px;
     padding: 15px 10px;
     border: 1px solid ${PALLETE.PRIMARY_BLUE_DARK};

@@ -20,7 +20,7 @@ function CreateBingoQuestions({ questions, bingoSize }) {
       {displayQuestionModal && (
         <Modal close={() => setDisplayQuestionModal(false)}>
           <ModalInnerContainer>
-            <div>modal for Q{currentQuestion.num}</div>
+            <h3>빙고 질문{currentQuestion.num} 작성</h3>
             <Field
               autoFocus
               type="text"
@@ -35,6 +35,9 @@ function CreateBingoQuestions({ questions, bingoSize }) {
           .map((q, index) => {
             return (
               <BingoItem
+                className={
+                  index === currentQuestion.num ? "currentQuestion" : "aaa"
+                }
                 key={index}
                 onClick={() => setCurrentQuestion({ num: index })}
               >

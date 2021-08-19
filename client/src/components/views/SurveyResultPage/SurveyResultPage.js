@@ -6,13 +6,13 @@ import {
   ResultContainer,
   ResultPageContainer,
   ShareForm,
-} from "./ResultPage.styles";
+} from "./SurveyResultPage.styles";
 import useSurvey from "hooks/useSurvey";
 import { ReactComponent as CopyImg } from "assets/copy.svg";
 import { PALLETE } from "constants/pallete";
 import CommentSection from "components/Common/CommentSection/CommentSection";
 
-function ResultPage({ location }) {
+function SurveyResultPage({ location }) {
   const userObj = useSelector((state) => state.user.userData);
   const history = useHistory();
   const testURL = useRef();
@@ -43,6 +43,7 @@ function ResultPage({ location }) {
               initialLikes={survey.likes}
               userObj={userObj}
               testId={testId}
+              testType={"survey"}
             />
             <br />
             <Link to="/survey">다른 테스트하러 가기</Link>
@@ -52,7 +53,7 @@ function ResultPage({ location }) {
                 <input
                   ref={testURL}
                   focu
-                  value={`https://teto-test-together.herokuapp.com/${testId}`}
+                  value={`https://teto-test-together.herokuapp.com/survey/${testId}`}
                 />
                 <CopyImg
                   width={28}
@@ -77,4 +78,4 @@ function ResultPage({ location }) {
   );
 }
 
-export default ResultPage;
+export default SurveyResultPage;

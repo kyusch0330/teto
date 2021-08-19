@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BingoCover,
   BingoForm,
@@ -13,9 +13,19 @@ import usePreventCreatePageLeave from "hooks/usePreventCreatePageLeave";
 import CreateLevels from "./Sections/CreateLevels/CreateLevels";
 import CreateBingoQuestions from "./Sections/CreateBingoQuestions/CreateBingoQuestions";
 import { initLevel } from "utils/initObjs";
+import bingoAPI from "api/bingos";
 
-function CreateBingo({ userObj }) {
+function CreateBingo({ userObj, location }) {
+  const { edit, dataToEdit } = location.state
+    ? location.state
+    : { edit: false, dataToEdit: null };
+
   const [bingoSize, setBingoSize] = useState(0);
+  useEffect(() => {
+    if (edit) {
+      setBingoSize(dataToEdit.bingoSize);
+    }
+  }, []);
 
   const { blocked, enablePrevent, disablePrevent } = usePreventCreatePageLeave([
     "block",
@@ -47,17 +57,20 @@ function CreateBingo({ userObj }) {
       ) : (
         <Formik
           initialValues={{
-            userId: userObj._id,
-            userName: userObj.name,
+            userId: edit ? dataToEdit.userId : userObj._id,
+            userName: edit ? dataToEdit.userName : userObj.name,
             createdAt: 0,
-            title: "",
-            description: "",
-            levels: [initLevel(-1)],
-            questions: Array(bingoSize * bingoSize)
-              .fill(0)
-              .map((q) => ({
-                text: "",
-              })),
+            title: edit ? dataToEdit.title : "",
+            description: edit ? dataToEdit.description : "",
+            levels: edit ? dataToEdit.levels : [initLevel(-1)],
+            bingoSize,
+            questions: edit
+              ? dataToEdit.questions
+              : Array(bingoSize * bingoSize)
+                  .fill(0)
+                  .map((q) => ({
+                    text: "",
+                  })),
           }}
           validationSchema={Yup.object({
             title: Yup.string().max(20, "too long title").required(),
@@ -85,18 +98,28 @@ function CreateBingo({ userObj }) {
           onSubmit={(values) => {
             console.log(values);
             // values.types = types;
-            // values.createdAt = Date.now();
-            // // upload 성공 시 메뉴로 나갈 수 있게
-            // disablePrevent();
+            values.createdAt = edit ? dataToEdit.createdAt : Date.now();
+            // upload 성공 시 메뉴로 나갈 수 있게
+            disablePrevent();
             // console.log(values);
-            // const response = axios
-            //   .post("/api/surveys/upload", values)
-            //   .then((response) => console.log(response.data))
-            //   .then(() => history.push("/survey"))
-            //   .catch((err) => {
-            //     console.log(err);
-            //     enablePrevent();
-            //   });
+
+            if (edit) {
+              bingoAPI
+                .updateBingo(dataToEdit._id, values)
+                .then(() => history.push(`/bingo/${dataToEdit._id}`))
+                .catch((err) => {
+                  console.log(err);
+                  enablePrevent();
+                });
+            } else {
+              bingoAPI
+                .uploadBingo(values)
+                .then(() => history.push("/bingo"))
+                .catch((err) => {
+                  console.log(err);
+                  enablePrevent();
+                });
+            }
           }}
           render={({ values, errors, touched }) => (
             <CreateBingoPaper>

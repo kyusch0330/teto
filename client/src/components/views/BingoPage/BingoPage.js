@@ -1,59 +1,59 @@
 import React, { useEffect, useState } from "react";
 import {
-  BingoPageContainer,
-  CreateBingoButton,
-  OrderByButtonContainer,
-  BingoTestBoard,
-  BingoList,
-  BingoLinkItem,
+  BingoSizeInfo,
+  Container,
+  CreateButton,
   LoadMoreButton,
+  OrderByButtonContainer,
+  TestBoard,
+  TestLinkItem,
+  TestList,
 } from "./BingoPage.styles";
 import { ReactComponent as BingoImg } from "assets/bingo.svg";
 import { PALLETE } from "constants/pallete";
-import axios from "axios";
 import getTime from "utils/getTime";
 import LikeInfo from "components/Common/LikeInfo";
+import bingoAPI from "api/bingos";
 
 function BingoPage() {
-  const [surveyList, setSurveyList] = useState([]);
+  const [bingoList, setBingoList] = useState([]);
   const [orderBy, setOrderBy] = useState(0);
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
-    // axios
-    //   .get("/api/bingos/latest", { params: { loadCount: loadCount } })
-    //   .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
+    bingoAPI
+      .getLatestBingos(loadCount)
+      .then((bingos) => setBingoList(bingoList.concat(bingos)));
   }, []);
 
   useEffect(() => {
-    // if (orderBy === 0) {
-    //   axios
-    //     .get("/api/bingos/latest", { params: { loadCount: loadCount } })
-    //     .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
-    // } else if (orderBy === 1) {
-    //   axios
-    //     .get("/api/bingos/popular", { params: { loadCount: loadCount } })
-    //     .then((res) => setSurveyList(surveyList.concat(res.data.surveys)));
-    // }
+    if (orderBy === 0) {
+      bingoAPI
+        .getLatestBingos(loadCount)
+        .then((bingos) => setBingoList(bingoList.concat(bingos)));
+    } else if (orderBy === 1) {
+      bingoAPI
+        .getPopularBingos(loadCount)
+        .then((bingos) => setBingoList(bingoList.concat(bingos)));
+    }
   }, [orderBy, loadCount]);
 
   const handleOrderByChange = (e) => {
     const nextOrderBy = Number(e.target.value);
     if (nextOrderBy === orderBy) return;
-    setSurveyList([]);
+    setBingoList([]);
     setLoadCount(1);
     setOrderBy(nextOrderBy);
   };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
   return (
-    <BingoPageContainer>
-      <CreateBingoButton to="/bingo/create">
+    <Container>
+      <CreateButton to="/bingo/create">
         <BingoImg width={24} height={24} fill={PALLETE.WHITE} />
         <span>Create Bingo</span>
-      </CreateBingoButton>
-      <BingoTestBoard>
+      </CreateButton>
+      <TestBoard>
         <OrderByButtonContainer>
           <button
             onClick={handleOrderByChange}
@@ -70,33 +70,38 @@ function BingoPage() {
             popular
           </button>
         </OrderByButtonContainer>
-        <BingoList>
-          {surveyList.map((survey) => {
-            const d = new Date(Number(survey.createdAt));
+        <TestList>
+          {bingoList.map((bingo) => {
+            const d = new Date(Number(bingo.createdAt));
+            console.log(bingo);
             return (
-              <BingoLinkItem key={survey._id} to={`/bingo/${survey._id}`}>
-                <div className="bingo_title">{survey.title}</div>
+              <TestLinkItem key={bingo._id} to={`/bingo/${bingo._id}`}>
+                <BingoSizeInfo bingoSize={bingo.bingoSize}>
+                  {bingo.bingoSize} x {bingo.bingoSize}
+                </BingoSizeInfo>
+                <div className="bingo_title">{bingo.title}</div>
                 <div className="bingo_createdAt">
-                  {getTime(survey.createdAt)}
+                  {getTime(bingo.createdAt, true)}
                 </div>
+                <div className="bingo_userName">{bingo.userName}</div>
                 <p className="bingo_description">
-                  {survey.description && survey.description.length > 50
-                    ? survey.description.slice(0, 50) + "..."
-                    : survey.description}
+                  {bingo.description && bingo.description.length > 50
+                    ? bingo.description.slice(0, 50) + "..."
+                    : bingo.description}
                 </p>
-                <LikeInfo likes={survey.likes} />
-              </BingoLinkItem>
+                <LikeInfo likes={bingo.likes} />
+              </TestLinkItem>
             );
           })}
-        </BingoList>
+        </TestList>
 
-        {surveyList.length > 0 && (
+        {bingoList.length > 0 && bingoList.length % 8 === 0 && (
           <LoadMoreButton onClick={() => setLoadCount(loadCount + 1)}>
             load more...
           </LoadMoreButton>
         )}
-      </BingoTestBoard>
-    </BingoPageContainer>
+      </TestBoard>
+    </Container>
   );
 }
 

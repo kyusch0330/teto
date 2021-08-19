@@ -54,7 +54,7 @@ function CreateLevels({ levels, bingoSize }) {
                 )}
                 <Field
                   type="text"
-                  readOnly={index === 0 ? true : false}
+                  readOnly={true}
                   name={`levels[${index}].minLines`}
                 />
                 {index > 0 && (

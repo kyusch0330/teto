@@ -18,6 +18,7 @@ app.use(cookieParser());
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/surveys", require("./routes/surveys"));
+app.use("/api/bingos", require("./routes/bingos"));
 app.use("/api/likes", require("./routes/likes"));
 app.use("/api/comments", require("./routes/comments"));
 

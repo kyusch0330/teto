@@ -1,34 +1,52 @@
 import { WIDTH } from "constants/mediaWidth";
 import { PALLETE } from "constants/pallete";
+import { Form } from "formik";
 import styled from "styled-components";
 
-export const CreateBingoQuestionsContainer = styled.div`
+export const BingoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  border: 1px solid ${PALLETE.BORDER_BLUE};
   width: 100%;
-  background: ${PALLETE.WHITE};
-  padding: 100px 0;
-  overflow: scroll;
-  border-top: 1px solid ${PALLETE.BORDER_BLUE};
-  border-bottom: 1px solid ${PALLETE.BORDER_BLUE};
+  min-height: 100vh;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 50px;
 `;
-
-export const ModalInnerContainer = styled.div`
+export const BingoPaper = styled.div`
+  width: 90%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  justify-content: flex-start;
+  padding: 50px;
+  border: 1px solid ${PALLETE.BORDER_BLUE};
+`;
+export const AuthorMenu = styled.div`
+  align-self: flex-end;
+  display: flex;
   gap: 10px;
-
-  input {
-    width: 100%;
-    height: 30px;
+  .editLink {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1, 1.1);
+    }
+  }
+  .deleteBtn {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1, 1.1);
+    }
   }
 `;
-
+export const StyledForm = styled(Form)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
 export const BingoBoard = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
@@ -39,21 +57,18 @@ export const BingoBoard = styled.div`
   padding: 5px;
 `;
 
-export const BingoItem = styled.div`
+export const BingoQuestion = styled.div`
   display: flex;
   border: 2px solid ${PALLETE.PRIMARY_BLUE};
   border-bottom: none;
   border-right: none;
   border-radius: 7px;
-  background: ${PALLETE.WHITE};
+  background: ${(props) =>
+    props.checked ? PALLETE.GREEN_LIGHT : PALLETE.WHITE};
   transition: background 400ms;
   width: 100px;
   height: 100px;
   padding: 5px;
-
-  &.currentQuestion {
-    border: 4px solid ${PALLETE.RED};
-  }
 
   &:hover {
     cursor: pointer;
@@ -70,16 +85,4 @@ export const BingoItem = styled.div`
     font-size: 0.4em;
     padding: 2px;
   }
-`;
-
-export const BingoTextBox = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  font-size: 0.9em;
-  word-break: break-all;
-  overflow: hidden;
-
-  width: 90%;
-  height: 90%;
 `;

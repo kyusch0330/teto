@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ReactComponent as LikeImg } from "assets/like.svg";
 import surveyAPI from "api/surveys";
+import bingoAPI from "api/bingos";
 import likeAPI from "api/likes";
 import styled from "styled-components";
 import { PALLETE } from "constants/pallete";
@@ -21,7 +22,7 @@ const LikeBtn = styled.button`
     }
   }
 `;
-const LikeButton = ({ initialLikes, userObj, testId }) => {
+const LikeButton = ({ initialLikes, userObj, testId, testType }) => {
   const [likedBefore, setLikedBefore] = useState(null);
   const [likes, setLikes] = useState(initialLikes);
   useEffect(() => {
@@ -61,7 +62,11 @@ const LikeButton = ({ initialLikes, userObj, testId }) => {
           setLikedBefore(true);
         });
       // 해당 게시글에 좋아요 수 업데이트
-      surveyAPI.updateLikes(testId).catch((err) => console.log(err));
+      if (testType === "survey") {
+        surveyAPI.updateLikes(testId).catch((err) => console.log(err));
+      } else if (testType === "bingo") {
+        bingoAPI.updateLikes(testId).catch((err) => console.log(err));
+      }
     }
   };
   return (

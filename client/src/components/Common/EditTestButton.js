@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import { ReactComponent as EditImg } from "assets/edit.svg";
 import { PALLETE } from "constants/pallete";
 
-const EditSurveyButton = ({ survey, creatorId, userObj }) => {
+const EditTestButton = ({ testData, creatorId, userObj, testType }) => {
   return (
     <>
       {userObj && (creatorId === userObj._id || userObj.isAdmin) && (
         <Link
           to={{
-            pathname: "/survey/create",
+            pathname: `/${testType}/create`,
             state: {
               edit: true,
-              surveyToEdit: survey,
+              dataToEdit: testData,
             },
           }}
         >
@@ -28,4 +28,4 @@ const EditSurveyButton = ({ survey, creatorId, userObj }) => {
   );
 };
 
-export default EditSurveyButton;
+export default EditTestButton;

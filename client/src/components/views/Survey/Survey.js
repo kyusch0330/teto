@@ -1,13 +1,12 @@
-import { ErrorMessage, FieldArray, Form, Formik } from "formik";
 import React from "react";
-import { useRef } from "react";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { ErrorMessage, FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useHistory } from "react-router-dom";
 import useSlider from "../../../hooks/useSlider";
 import useSurvey from "../../../hooks/useSurvey";
 import getTime from "../../../utils/getTime";
-import DeleteSurveyButton from "../../Common/DeleteSurveyButton";
+import DeleteTestButton from "../../Common/DeleteTestButton";
+import EditTestButton from "components/Common/EditTestButton";
 import LikeButton from "../../Common/LikeButton";
 import { getResult } from "./getResult";
 import Question from "./Sections/Question";
@@ -23,11 +22,7 @@ import {
   SurveyPaper,
 } from "./Survey.styles";
 import SliderController from "components/Common/SliderController";
-import { SurveyQuestionsForm } from "../CreateSurvey/Sections/CreateQuestions/CreateQuestions.styles";
-import { boolean } from "yup/lib/locale";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import EditSurveyButton from "components/Common/EditSurveyButton";
 import ProgressBar from "./Sections/ProgressBar";
 
 function Survey({ match, userObj }) {
@@ -51,21 +46,24 @@ function Survey({ match, userObj }) {
       {!survey ? null : (
         <SurveyPaper>
           <AuthorMenu>
-            <EditSurveyButton
-              survey={survey}
+            <EditTestButton
+              testData={survey}
               creatorId={survey.userId}
               userObj={userObj}
+              testType={"survey"}
             />
-            <DeleteSurveyButton
+            <DeleteTestButton
               testId={survey._id}
               creatorId={survey.userId}
               userObj={userObj}
+              testType={"survey"}
             />
           </AuthorMenu>
           <LikeButton
             initialLikes={survey.likes}
             userObj={userObj}
             testId={params.id}
+            testType={"survey"}
           />
           <h3>{survey.title}</h3>
           <span className="authorName">{survey.userName}</span>
@@ -83,7 +81,7 @@ function Survey({ match, userObj }) {
             })}
             onSubmit={(values) => {
               const result = getResult(survey.types, values.checks);
-              history.push("/result", {
+              history.push("/survey-result", {
                 result,
                 testId: params.id,
               });

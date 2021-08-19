@@ -14,10 +14,10 @@ import {
 import { ErorrSpan } from "./Sections/CreateQuestions/CreateQuestions.styles";
 
 const CreateSurvey = ({ userObj, location }) => {
-  const { edit, surveyToEdit } = location.state
+  const { edit, dataToEdit } = location.state
     ? location.state
-    : { edit: false, surveyToEdit: null };
-  const [types, setTypes] = useState(edit ? surveyToEdit.types : []);
+    : { edit: false, dataToEdit: null };
+  const [types, setTypes] = useState(edit ? dataToEdit.types : []);
 
   const { blocked, enablePrevent, disablePrevent } = usePreventCreatePageLeave([
     "block",
@@ -32,13 +32,13 @@ const CreateSurvey = ({ userObj, location }) => {
       />
       <Formik
         initialValues={{
-          userId: edit ? surveyToEdit.userId : userObj._id,
-          userName: edit ? surveyToEdit.userName : userObj.name,
+          userId: edit ? dataToEdit.userId : userObj._id,
+          userName: edit ? dataToEdit.userName : userObj.name,
           createdAt: 0,
-          types: edit ? surveyToEdit.types : [],
-          title: edit ? surveyToEdit.title : "",
-          description: edit ? surveyToEdit.description : "",
-          questions: edit ? surveyToEdit.questions : [], //initQuestion(types)
+          types: edit ? dataToEdit.types : [],
+          title: edit ? dataToEdit.title : "",
+          description: edit ? dataToEdit.description : "",
+          questions: edit ? dataToEdit.questions : [], //initQuestion(types)
         }}
         validationSchema={Yup.object({
           title: Yup.string().max(30, "too long title").required(),
@@ -64,13 +64,13 @@ const CreateSurvey = ({ userObj, location }) => {
         })}
         onSubmit={(values) => {
           values.types = types;
-          values.createdAt = edit ? surveyToEdit.createdAt : Date.now();
+          values.createdAt = edit ? dataToEdit.createdAt : Date.now();
           // upload 성공 시 메뉴로 나갈 수 있게
           disablePrevent();
           if (edit) {
             surveyAPI
-              .updateSurvey(surveyToEdit._id, values)
-              .then(() => history.push(`/survey/${surveyToEdit._id}`))
+              .updateSurvey(dataToEdit._id, values)
+              .then(() => history.push(`/survey/${dataToEdit._id}`))
               .catch((err) => {
                 console.log(err);
                 enablePrevent();
@@ -98,7 +98,7 @@ const CreateSurvey = ({ userObj, location }) => {
             </SurveyCoverForm>
             <CreateTypes
               onFixTypes={setTypes}
-              initialTypes={edit && surveyToEdit.types}
+              initialTypes={edit && dataToEdit.types}
             />
 
             {types.length > 0 && (

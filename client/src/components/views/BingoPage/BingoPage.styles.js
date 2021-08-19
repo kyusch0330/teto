@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { WIDTH } from "constants/mediaWidth";
 import { PALLETE } from "constants/pallete";
 
-export const BingoPageContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -17,7 +17,7 @@ export const BingoPageContainer = styled.div`
   font-size: 1rem;
 `;
 
-export const CreateBingoButton = styled(Link)`
+export const CreateButton = styled(Link)`
   top: 20px;
   text-decoration: none;
   color: ${PALLETE.WHITE};
@@ -37,7 +37,7 @@ export const CreateBingoButton = styled(Link)`
   }
 `;
 
-export const BingoTestBoard = styled.div`
+export const TestBoard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -80,7 +80,7 @@ export const OrderByButtonContainer = styled.div`
   }
 `;
 
-export const BingoList = styled.div`
+export const TestList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
@@ -94,14 +94,14 @@ export const BingoList = styled.div`
   }
 `;
 
-export const BingoLinkItem = styled(Link)`
+export const TestLinkItem = styled(Link)`
   list-style: none;
   border: 1px solid ${PALLETE.BORDER_BLUE};
   border-radius: 5px;
   margin: 5px;
   font-size: 0.9em;
   background:${PALLETE.WHITE};
-
+  
   height: 200px;
 
   display: block;
@@ -117,6 +117,12 @@ export const BingoLinkItem = styled(Link)`
     font-weight: 700;
     font-size: 1.1em;
     margin: 5px 0;
+  }
+  & div.bingo_userName {
+    width:100%;
+    text-align: end;
+    font-weight:500;
+    color:${PALLETE.BLACK_LIGHT};
   }
   & div.bingo_createdAt {
     font-weight: 500;
@@ -145,6 +151,16 @@ export const BingoLinkItem = styled(Link)`
   @media (max-width: ${WIDTH.MOBILE}px) {
     height: 190px;
   }
+`;
+
+export const BingoSizeInfo = styled.span`
+  background: ${(props) =>
+    ["orange", "green", "blue", "red"][props.bingoSize - 4]};
+  color: ${PALLETE.WHITE};
+  padding: 2px 5px;
+  font-size: 0.5em;
+  font-weight: bold;
+  border-radius: 3px;
 `;
 
 export const LoadMoreButton = styled.button`
