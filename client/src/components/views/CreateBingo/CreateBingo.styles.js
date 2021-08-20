@@ -17,6 +17,34 @@ export const CreateBingoContainer = styled.div`
   font-size: 1rem;
 `;
 
+export const BingoSizeContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
+export const BingoSizeButton = styled.button`
+  border: 2px solid ${PALLETE.PRIMARY_BLUE_DARK};
+  background: ${PALLETE.WHITE};
+  color: ${PALLETE.PRIMARY_BLUE_DARK};
+  border-radius: 5px;
+  width: 150px;
+  height: 150px;
+  margin: 20px;
+  transition: all 200ms;
+  font-size: 2em;
+  &:hover {
+    cursor: pointer;
+    background: ${PALLETE.GRAY_LIGHT};
+    position: relative;
+    top: -8px;
+  }
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 100px;
+    height: 100px;
+    margin: 20px;
+  }
+`;
+
 export const CreateBingoPaper = styled.div`
   display: flex;
   flex-direction: column;

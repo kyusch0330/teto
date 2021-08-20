@@ -60,7 +60,7 @@ export const CreateButton = styled(Link)`
 function Introduction() {
   return (
     <IntroductionContainer>
-      <p>나만의 테스트를 만들어 보세요</p>
+      <p>나만의 테스트를 만들어 보세요.</p>
       <CreatButtonContainer>
         <CreateButton to="/survey/create">
           <WriteImg width={24} height={24} fill={PALLETE.WHITE} />

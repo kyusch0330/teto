@@ -22,7 +22,6 @@ export const ModalInnerContainer = styled.div`
   align-items: center;
   width: 100%;
   gap: 10px;
-
   input {
     width: 100%;
     height: 30px;

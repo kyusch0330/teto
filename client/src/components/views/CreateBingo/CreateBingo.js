@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import {
   BingoCover,
   BingoForm,
+  BingoSizeButton,
+  BingoSizeContainer,
   CreateBingoContainer,
   CreateBingoPaper,
   ErorrSpan,
@@ -40,20 +42,23 @@ function CreateBingo({ userObj, location }) {
       />
 
       {bingoSize === 0 ? (
-        <div>
-          <button type="button" onClick={() => setBingoSize(4)}>
-            4 x 4
-          </button>
-          <button type="button" onClick={() => setBingoSize(5)}>
-            5 x 5
-          </button>
-          <button type="button" onClick={() => setBingoSize(6)}>
-            6 x 6
-          </button>
-          <button type="button" onClick={() => setBingoSize(7)}>
-            7 x 7
-          </button>
-        </div>
+        <>
+          <h4>빙고 사이즈를 선택해주세요.</h4>
+          <BingoSizeContainer>
+            <BingoSizeButton type="button" onClick={() => setBingoSize(4)}>
+              4 x 4
+            </BingoSizeButton>
+            <BingoSizeButton type="button" onClick={() => setBingoSize(5)}>
+              5 x 5
+            </BingoSizeButton>
+            <BingoSizeButton type="button" onClick={() => setBingoSize(6)}>
+              6 x 6
+            </BingoSizeButton>
+            <BingoSizeButton type="button" onClick={() => setBingoSize(7)}>
+              7 x 7
+            </BingoSizeButton>
+          </BingoSizeContainer>
+        </>
       ) : (
         <Formik
           initialValues={{
