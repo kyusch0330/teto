@@ -23,14 +23,14 @@ const api = (() => {
   const getSurvey = (testId) =>
     axios.post("/api/surveys/specific", { id: testId });
 
-  const getLatestSurveys = (loadCount) =>
+  const getLatestSurveys = (loadCount, limit) =>
     axios
-      .get("/api/surveys/latest", { params: { loadCount: loadCount } })
+      .get("/api/surveys/latest", { params: { loadCount, limit } })
       .then((res) => res.data.surveys);
 
-  const getPopularSurveys = (loadCount) =>
+  const getPopularSurveys = (loadCount, limit) =>
     axios
-      .get("/api/surveys/popular", { params: { loadCount: loadCount } })
+      .get("/api/surveys/popular", { params: { loadCount, limit } })
       .then((res) => res.data.surveys);
 
   const updateLikes = (testId) =>

@@ -17,8 +17,13 @@ function NavBar({ isAuth, loading }) {
   const handleCloseMenu = () => {
     setTimeout(() => setMenuBarDisplay(false), 250);
   };
+  console.log(menuBarDisplay);
   return (
-    <NavContainer onBlur={handleCloseMenu}>
+    <NavContainer
+      onBlur={() => {
+        if (menuBarDisplay) handleCloseMenu();
+      }}
+    >
       <MainBar>
         <Link className="logo" to="/">
           <LogoImg width={130} height={50} fill={PALLETE.WHITE} />

@@ -13,7 +13,7 @@ export const Container = styled.div`
   font-size: 1rem;
   background: ${PALLETE.BACKGROUND_BLUE};
   color: ${PALLETE.BLACK};
-  padding: 15px;
+  padding: 5px;
   font-size: 1rem;
 `;
 
@@ -107,7 +107,7 @@ export const TestLinkItem = styled(Link)`
   display: block;
   text-decoration: none;
   color: ${PALLETE.BLACK};
-  padding: 20px;
+  padding: 15px;
 
   position: relative;
 
@@ -132,7 +132,7 @@ export const TestLinkItem = styled(Link)`
   & p.bingo_description {
     font-weight: 400;
     color: ${PALLETE.BLACK_LIGHT}
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
   &:hover{
     background:${PALLETE.GRAY_LIGHT};
@@ -153,14 +153,17 @@ export const TestLinkItem = styled(Link)`
   }
 `;
 
-export const BingoSizeInfo = styled.span`
+export const BingoSizeInfo = styled.div`
   background: ${(props) =>
-    ["orange", "green", "blue", "red"][props.bingoSize - 4]};
+    ["orange", "green", "blue", "brown"][props.bingoSize - 4]};
   color: ${PALLETE.WHITE};
-  padding: 2px 5px;
-  font-size: 0.5em;
+  padding: 3px 6px;
+  font-size: 0.8em;
   font-weight: bold;
   border-radius: 3px;
+  width: 40px;
+  text-align: center;
+  margin-bottom: 8px;
 `;
 
 export const LoadMoreButton = styled.button`

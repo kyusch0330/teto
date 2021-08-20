@@ -1,47 +1,46 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { PALLETE } from "constants/pallete";
+import { WIDTH } from "constants/mediaWidth";
 export const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  font-size: 1rem;
+  background: ${PALLETE.BACKGROUND_BLUE};
+  color: ${PALLETE.BLACK};
+  @media (max-width: ${WIDTH.TABLET}px) {
+    flex-direction: column-reverse;
+  }
+`;
+
+export const PopularTestContainer = styled.div`
+  flex-basis: 25%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  font-size: 1rem;
-  padding: 50px 0;
-  background: ${PALLETE.BACKGROUND_BLUE};
-  color: ${PALLETE.BLACK};
+  background: ${PALLETE.WHITE};
+  @media (max-width: ${WIDTH.TABLET}px) {
+    background: ${PALLETE.BACKGROUND_BLUE};
+    padding: 0 10px;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
 `;
 
-export const PopularSurveyList = styled.div`
+export const MainContainer = styled.div`
+  flex-basis: 75%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  algin-items: center;
-  width: 80%;
-  max-width: 400px;
-  background: ${PALLETE.WHITE};
-  border: 1px solid ${PALLETE.GRAY_LIGHT};
-  padding: 30px;
-  border-radius: 15px;
-  margin-top: 10px;
-`;
-
-export const TestLinkItem = styled(Link)`
-  list-style: none;
-  border: 1px solid ${PALLETE.GRAY_LIGHT};
-  border-radius: 5px;
-  margin-bottom: 10px;
-  font-size: 0.8em;
-  font-weight: 600;
-
-  display: block;
-  text-decoration: none;
-  color: ${PALLETE.BLACK};
-  padding: 10px;
-  & span.survey_createdAt {
-    font-weight: 500;
-    color: ${PALLETE.GRAY};
-  }
+  align-items: center;
+  width: 100%;
+  height: 600px;
+  padding: 20px;
 `;

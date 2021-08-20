@@ -23,14 +23,14 @@ const api = (() => {
   const getBingo = (testId) =>
     axios.post("/api/bingos/specific", { id: testId });
 
-  const getLatestBingos = (loadCount) =>
+  const getLatestBingos = (loadCount, limit) =>
     axios
-      .get("/api/bingos/latest", { params: { loadCount: loadCount } })
+      .get("/api/bingos/latest", { params: { loadCount, limit } })
       .then((res) => res.data.bingos);
 
-  const getPopularBingos = (loadCount) =>
+  const getPopularBingos = (loadCount, limit) =>
     axios
-      .get("/api/bingos/popular", { params: { loadCount: loadCount } })
+      .get("/api/bingos/popular", { params: { loadCount, limit } })
       .then((res) => res.data.bingos);
 
   const updateLikes = (testId) =>

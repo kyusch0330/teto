@@ -20,18 +20,18 @@ function SurveyPage() {
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
     surveyAPI
-      .getLatestSurveys(loadCount)
+      .getLatestSurveys(loadCount, 8)
       .then((surveys) => setSurveyList(surveyList.concat(surveys)));
   }, []);
 
   useEffect(() => {
     if (orderBy === 0) {
       surveyAPI
-        .getLatestSurveys(loadCount)
+        .getLatestSurveys(loadCount, 8)
         .then((surveys) => setSurveyList(surveyList.concat(surveys)));
     } else if (orderBy === 1) {
       surveyAPI
-        .getPopularSurveys(loadCount)
+        .getPopularSurveys(loadCount, 8)
         .then((surveys) => setSurveyList(surveyList.concat(surveys)));
     }
   }, [orderBy, loadCount]);

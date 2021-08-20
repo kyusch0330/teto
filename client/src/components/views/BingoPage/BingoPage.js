@@ -21,18 +21,18 @@ function BingoPage() {
   const [loadCount, setLoadCount] = useState(1);
   useEffect(() => {
     bingoAPI
-      .getLatestBingos(loadCount)
+      .getLatestBingos(loadCount, 8)
       .then((bingos) => setBingoList(bingoList.concat(bingos)));
   }, []);
 
   useEffect(() => {
     if (orderBy === 0) {
       bingoAPI
-        .getLatestBingos(loadCount)
+        .getLatestBingos(loadCount, 8)
         .then((bingos) => setBingoList(bingoList.concat(bingos)));
     } else if (orderBy === 1) {
       bingoAPI
-        .getPopularBingos(loadCount)
+        .getPopularBingos(loadCount, 8)
         .then((bingos) => setBingoList(bingoList.concat(bingos)));
     }
   }, [orderBy, loadCount]);
@@ -85,8 +85,8 @@ function BingoPage() {
                 </div>
                 <div className="bingo_userName">{bingo.userName}</div>
                 <p className="bingo_description">
-                  {bingo.description && bingo.description.length > 50
-                    ? bingo.description.slice(0, 50) + "..."
+                  {bingo.description && bingo.description.length > 30
+                    ? bingo.description.slice(0, 30) + "..."
                     : bingo.description}
                 </p>
                 <LikeInfo likes={bingo.likes} />

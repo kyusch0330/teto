@@ -27,7 +27,7 @@ router.get("/latest", (req, res) => {
     });
   })
     .sort({ createdAt: -1 })
-    .limit(10)
+    .limit(req.query.limit - 0)
     .skip((req.query.loadCount - 1) * 10);
 });
 

@@ -15,9 +15,9 @@ const api = (() => {
       })
       .catch((err) => console.log(err));
 
-  const getLatestComments = (testId, loadCount) =>
+  const getLatestComments = (testId, loadCount, limit) =>
     axios.get("/api/comments/latest", {
-      params: { testId: testId, loadCount },
+      params: { testId, loadCount, limit },
     });
 
   return {

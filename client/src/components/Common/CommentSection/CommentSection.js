@@ -25,7 +25,7 @@ const CommentSection = ({ userObj, testId }) => {
 
   const loadComments = (refresh = false) => {
     commentAPI
-      .getLatestComments(testId, refresh ? 1 : loadCount)
+      .getLatestComments(testId, refresh ? 1 : loadCount, 10)
       .then((res) => {
         if (refresh) {
           setLoadCount(2);
