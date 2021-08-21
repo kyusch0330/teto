@@ -7,13 +7,13 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import getTime from "utils/getTime";
 import { getResult } from "../Bingo/getResult";
-import { StyledForm } from "../Survey/Survey.styles";
 import {
   BingoContainer,
   BingoPaper,
   BingoBoard,
   BingoQuestion,
   AuthorMenu,
+  ResultButton,
 } from "./Bingo.styles";
 
 function Bingo({ match, userObj }) {
@@ -71,9 +71,9 @@ function Bingo({ match, userObj }) {
               </BingoQuestion>
             ))}
           </BingoBoard>
-          <button type="button" onClick={handleSubmit}>
+          <ResultButton type="button" onClick={handleSubmit}>
             Result
-          </button>
+          </ResultButton>
         </BingoPaper>
       )}
     </BingoContainer>

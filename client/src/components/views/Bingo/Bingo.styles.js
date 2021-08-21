@@ -11,7 +11,7 @@ export const BingoContainer = styled.div`
   min-height: 100vh;
   align-items: center;
   justify-content: flex-start;
-  padding: 50px;
+  padding: 50px 0;
 `;
 export const BingoPaper = styled.div`
   width: 90%;
@@ -20,8 +20,6 @@ export const BingoPaper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 50px;
-  border: 1px solid ${PALLETE.BORDER_BLUE};
 `;
 export const AuthorMenu = styled.div`
   align-self: flex-end;
@@ -50,11 +48,20 @@ export const StyledForm = styled(Form)`
 export const BingoBoard = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
-    Array(props.bingoSize).fill("1fr").join(" ")};
+    Array(props.bingoSize).fill(`calc(40vw/${props.bingoSize})`).join(" ")};
+  grid-template-rows: ${(props) =>
+    Array(props.bingoSize).fill(`calc(40vw/${props.bingoSize})`).join(" ")};
   background: ${PALLETE.PRIMARY_BLUE};
   border: 2px solid ${PALLETE.PRIMARY_BLUE};
   border-radius: 10px;
   padding: 5px;
+  font-size: 0.9em;
+  @media (max-width: ${WIDTH.TABLET}px) {
+    grid-template-columns: ${(props) =>
+      Array(props.bingoSize).fill(`calc(90vw/${props.bingoSize})`).join(" ")};
+    grid-template-rows: ${(props) =>
+      Array(props.bingoSize).fill(`calc(90vw/${props.bingoSize})`).join(" ")};
+  }
 `;
 
 export const BingoQuestion = styled.div`
@@ -66,9 +73,8 @@ export const BingoQuestion = styled.div`
   background: ${(props) =>
     props.checked ? PALLETE.GREEN_LIGHT : PALLETE.WHITE};
   transition: background 400ms;
-  width: 100px;
-  height: 100px;
   padding: 5px;
+  overflow: scroll;
 
   &:hover {
     cursor: pointer;
@@ -76,13 +82,26 @@ export const BingoQuestion = styled.div`
   }
 
   @media (max-width: ${WIDTH.TABLET}px) {
-    width: 80px;
-    height: 80px;
+    &:hover {
+      background: ${PALLETE.GREEN_LIGHT};
+    }
   }
   @media (max-width: ${WIDTH.MOBILE}px) {
-    width: 45px;
-    height: 45px;
     font-size: 0.4em;
     padding: 2px;
+  }
+`;
+
+export const ResultButton = styled.button`
+  margin-top: 50px;
+  border: none;
+  border-radius: 5px;
+  background: ${PALLETE.PRIMARY_BLUE_DARK};
+  color: ${PALLETE.WHITE};
+  padding: 20px 30px;
+  transition: background 300ms;
+  &:hover {
+    cursor: pointer;
+    background: ${PALLETE.PRIMARY_BLUE};
   }
 `;

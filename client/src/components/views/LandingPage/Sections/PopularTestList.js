@@ -18,7 +18,7 @@ function PopularTestList({ testArray, testType }) {
       <MoreLink to={`/${testType}`}>더보기</MoreLink>
       {testArray.length > 0 &&
         testArray.map((test) => (
-          <TestLinkItem key={test._id} to={`/survey/${test._id}`}>
+          <TestLinkItem key={test._id} to={`/${testType}/${test._id}`}>
             <div className="test_title">{test.title}</div>
             <LikeInfo likes={test.likes} />
           </TestLinkItem>
