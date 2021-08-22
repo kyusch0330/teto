@@ -52,7 +52,6 @@ function SurveyPage() {
         <WriteImg width={24} height={24} fill={PALLETE.WHITE} />
         <span>Create Test</span>
       </CreateButton>
-      {/* {surveyList.length > 0 && ( */}
       <TestBoard>
         <OrderByButtonContainer>
           <button
@@ -92,7 +91,7 @@ function SurveyPage() {
           })}
         </TestList>
 
-        {surveyList.length > 0 && (
+        {surveyList.length > 0 && surveyList.length % 8 === 0 && (
           <LoadMoreButton onClick={() => setLoadCount(loadCount + 1)}>
             load more...
           </LoadMoreButton>

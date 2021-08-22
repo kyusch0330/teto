@@ -8,7 +8,7 @@ export const PopularTestListContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  algin-items: center;
+  align-items: flex-start;
   width: 100%;
   background: ${PALLETE.WHITE};
   border: 1px solid ${PALLETE.GRAY_LIGHT};
@@ -29,7 +29,7 @@ export const TestLinkItem = styled(Link)`
   margin-bottom: 5px;
   font-size: 0.8em;
   font-weight: 600;
-
+  width: 100%;
   display: block;
   text-decoration: none;
   color: ${PALLETE.BLACK};
