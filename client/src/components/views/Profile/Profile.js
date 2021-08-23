@@ -29,6 +29,10 @@ function Profile({ userObj, history }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (name.length < 1 || name.length > 20) {
+      alert("이름은 1자 이상 20자 이하만 가능합니다.");
+      return;
+    }
     userAPI
       .updateProfile({ name })
       .then((response) => {
