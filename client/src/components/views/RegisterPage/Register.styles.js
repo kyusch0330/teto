@@ -10,8 +10,6 @@ export const RegisterContainer = styled.div`
   width: 100%;
   min-height: 100vh;
   background: ${PALLETE.BACKGROUND_BLUE};
-  border: 2px solid ${PALLETE.BORDER_BLUE};
-  border-radius: 5px;
 `;
 export const RegisterForm = styled.form`
   width: 80%;

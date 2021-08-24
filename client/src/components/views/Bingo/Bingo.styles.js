@@ -78,16 +78,15 @@ export const BingoQuestion = styled.div`
 
   &:hover {
     cursor: pointer;
-    background: ${PALLETE.GRAY_LIGHT};
   }
-
-  @media (max-width: ${WIDTH.TABLET}px) {
+  @media (min-width: ${WIDTH.TABLET}px) {
     &:hover {
-      background: ${PALLETE.GREEN_LIGHT};
+      background: ${PALLETE.GRAY_LIGHT};
     }
   }
+
   @media (max-width: ${WIDTH.MOBILE}px) {
-    font-size: 0.4em;
+    font-size: 0.7em;
     padding: 2px;
   }
 `;
