@@ -5,6 +5,8 @@ import { PALLETE } from "constants/pallete";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { WIDTH } from "constants/mediaWidth";
+import survey_intro from "assets/survey_intro.png";
+import bingo_intro from "assets/bingo_intro.png";
 
 export const IntroductionContainer = styled.div`
   display: flex;
@@ -89,14 +91,14 @@ function Introduction() {
       <p>나만의 테스트를 만들어 보세요.</p>
       <CreatButtonContainer>
         <TestIntroContainer>
-          <img src="survey_intro.png" alt="survey introduction" />
+          <img src={survey_intro} alt="survey introduction" />
           <CreateButton to="/survey/create">
             <WriteImg width={24} height={24} fill={PALLETE.WHITE} />
             <span>Create Test</span>
           </CreateButton>
         </TestIntroContainer>
         <TestIntroContainer>
-          <img src="bingo_intro.png" alt="bingo introduction" />
+          <img src={bingo_intro} alt="bingo introduction" />
           <CreateButton to="/bingo/create">
             <BingoImg width={24} height={24} fill={PALLETE.WHITE} />
             <span>Create Bingo</span>
