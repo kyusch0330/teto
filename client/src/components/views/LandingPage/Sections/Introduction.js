@@ -12,13 +12,14 @@ export const IntroductionContainer = styled.div`
   flex-direction: column;
   padding: 20px;
   align-items: flex-start;
-  border-bottom: 1px solid ${PALLETE.GRAY_LIGHT};
   p {
     font-size: 1.2em;
     font-weight: bold;
   }
   @media (max-width: ${WIDTH.TABLET}px) {
     align-items: center;
+    padding: 20px 5px;
+    border-bottom: 1px solid ${PALLETE.GRAY_LIGHT};
     p {
       font-size: 1em;
     }
@@ -27,15 +28,30 @@ export const IntroductionContainer = styled.div`
 
 export const CreatButtonContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   gap: 15px;
 
-  @media (max-width: ${WIDTH.MOBILE}px) {
-    flex-direction: column;
+  @media (max-width: ${WIDTH.TABLET}px) {
+    align-items: center;
   }
 `;
+export const TestIntroContainer = styled.div`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
+  img {
+    width: 100%;
+  }
+
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 100%;
+  }
+`;
 export const CreateButton = styled(Link)`
   text-decoration: none;
   color: ${PALLETE.WHITE};
@@ -50,11 +66,21 @@ export const CreateButton = styled(Link)`
   background: ${PALLETE.BLACK};
   transition: all 300ms ease-in-out;
   transition-delay: 100ms;
+
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
   &:hover {
     background: ${PALLETE.PRIMARY_BLUE};
     transform: scale(1.05, 1.05);
   }
   margin-bottom: 10px;
+  @media (max-width: ${WIDTH.MOBILE}px) {
+    width: 150px;
+    font-size: 0.9em;
+    bottom: 5px;
+    right: 10px;
+  }
 `;
 
 function Introduction() {
@@ -62,14 +88,20 @@ function Introduction() {
     <IntroductionContainer>
       <p>나만의 테스트를 만들어 보세요.</p>
       <CreatButtonContainer>
-        <CreateButton to="/survey/create">
-          <WriteImg width={24} height={24} fill={PALLETE.WHITE} />
-          <span>Create Test</span>
-        </CreateButton>
-        <CreateButton to="/bingo/create">
-          <BingoImg width={24} height={24} fill={PALLETE.WHITE} />
-          <span>Create Bingo</span>
-        </CreateButton>
+        <TestIntroContainer>
+          <img src="survey_intro.png" alt="survey introduction" />
+          <CreateButton to="/survey/create">
+            <WriteImg width={24} height={24} fill={PALLETE.WHITE} />
+            <span>Create Test</span>
+          </CreateButton>
+        </TestIntroContainer>
+        <TestIntroContainer>
+          <img src="bingo_intro.png" alt="bingo introduction" />
+          <CreateButton to="/bingo/create">
+            <BingoImg width={24} height={24} fill={PALLETE.WHITE} />
+            <span>Create Bingo</span>
+          </CreateButton>
+        </TestIntroContainer>
       </CreatButtonContainer>
     </IntroductionContainer>
   );

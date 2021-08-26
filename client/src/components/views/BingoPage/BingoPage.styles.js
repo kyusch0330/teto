@@ -13,7 +13,7 @@ export const Container = styled.div`
   font-size: 1rem;
   background: ${PALLETE.BACKGROUND_BLUE};
   color: ${PALLETE.BLACK};
-  padding: 5px;
+  padding: 20px 5px;
   font-size: 1rem;
 `;
 

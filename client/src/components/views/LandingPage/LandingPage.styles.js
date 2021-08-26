@@ -14,6 +14,7 @@ export const Container = styled.div`
   color: ${PALLETE.BLACK};
   @media (max-width: ${WIDTH.TABLET}px) {
     flex-direction: column-reverse;
+    gap: 20px;
   }
 `;
 
@@ -35,12 +36,11 @@ export const PopularTestContainer = styled.div`
 `;
 
 export const MainContainer = styled.div`
-  flex-basis: 75%;
+  flex-basis: 65%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 600px;
-  padding: 20px;
 `;
