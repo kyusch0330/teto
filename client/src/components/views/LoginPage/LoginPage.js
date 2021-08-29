@@ -106,9 +106,7 @@ function LoginPage(props) {
         <h5>{loginError}</h5>
         <LoginButton>Login</LoginButton>
       </LoginForm>
-      <RegisterLinkButton>
-        <Link to="/register">Sign up</Link>
-      </RegisterLinkButton>
+      <RegisterLinkButton to="/register">Sign up</RegisterLinkButton>
       <GoogleLogin
         clientId={GOOGLE_API_KEY}
         buttonText="Login with Google"

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { WIDTH } from "constants/mediaWidth";
 import { PALLETE } from "constants/pallete";
+import { Link } from "react-router-dom";
 
 export const LoginContainer = styled.div`
   display: flex;
@@ -55,16 +56,15 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const RegisterLinkButton = styled.button`
+export const RegisterLinkButton = styled(Link)`
   background: ${PALLETE.BLACK};
   width: 180px;
   padding: 10px 30px;
   margin-bottom: 20px;
   box-shadow: ${PALLETE.BLACK_LIGHT} 1px 3px 4px 0px;
-  a {
-    text-decoration: none;
-    color: ${PALLETE.WHITE};
-  }
+  text-decoration: none;
+  color: ${PALLETE.WHITE};
+  text-align: center;
   &:hover {
     cursor: pointer;
   }
