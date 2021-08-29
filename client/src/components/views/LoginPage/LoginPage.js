@@ -53,10 +53,11 @@ function LoginPage(props) {
 
   const handleGoogleSuccess = (res) => {
     console.log(res);
+
     const socialId = "G" + res.googleId;
     let body = {
-      name: res.Ts.Me,
-      email: res.Ts.Et,
+      name: res.profileObj.givenName,
+      email: res.profileObj.email,
       password: socialId,
       socialId: socialId,
     };
