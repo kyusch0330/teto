@@ -7,6 +7,7 @@ import {
   BingoItem,
   ModalInnerContainer,
   BingoTextBox,
+  CloseModalBtn,
 } from "./CreateBIngoQuestions.styles";
 
 function CreateBingoQuestions({ questions, bingoSize }) {
@@ -26,6 +27,9 @@ function CreateBingoQuestions({ questions, bingoSize }) {
               type="text"
               name={`questions[${currentQuestion.num}].text`}
             />
+            <CloseModalBtn onClick={() => setDisplayQuestionModal(false)}>
+              확인
+            </CloseModalBtn>
           </ModalInnerContainer>
         </Modal>
       )}

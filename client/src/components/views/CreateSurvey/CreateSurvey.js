@@ -28,7 +28,7 @@ const CreateSurvey = ({ userObj, location }) => {
     <Container>
       <Prompt
         when={blocked}
-        message="You have unsaved changes, are you sure you want to leave?"
+        message="나가시겠습니까? 작성 중인 테스트는 저장되지 않습니다."
       />
       <Formik
         initialValues={{

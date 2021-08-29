@@ -22,9 +22,24 @@ export const ModalInnerContainer = styled.div`
   align-items: center;
   width: 100%;
   gap: 10px;
+  position: relative;
   input {
     width: 100%;
     height: 30px;
+  }
+`;
+
+export const CloseModalBtn = styled.button`
+  border: none;
+  border-radius: 10px;
+  background: ${PALLETE.GREEN};
+  color: ${PALLETE.WHITE};
+  font-size: 1.1em;
+  padding: 10px;
+  width: 100px;
+  margin: 20px 0;
+  &:hover {
+    cursor: pointer;
   }
 `;
 
